@@ -19,6 +19,13 @@
 
         <!--스케쥴-->
         <activity android:name=".Schedule.Schedule"/>
+
+        <!-- 공연팀-->
+        <activity android:name=".StreetGroup.StreetGroupAcitivty"/>
+
+        <!-- 공연팀 상세 페이지-->
+        <activity android:name=".StreetGroup.StreetGroupDetailActivity"/>
+
     </application>
 
 </manifest>
