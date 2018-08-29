@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--스케쥴-->
+        <activity android:name=".Schedule.Schedule"/>
     </application>
 
 </manifest>
