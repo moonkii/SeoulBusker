@@ -21,6 +21,7 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_streetgroup_detail);
 
         frag_adapter = new FragmentAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.group_detail_viewpager);

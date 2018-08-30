@@ -1,15 +1,18 @@
 package com.teamnoname.streetartzone.StreetGroup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.teamnoname.streetartzone.R;
 
 import java.util.ArrayList;
 
-public class StreetGroupAcitivty extends AppCompatActivity {
+public class StreetGroupAcitivty extends AppCompatActivity implements StreetGroupRecyclerViewAdapter.RecyclerViewItemClickListener {
 
     RecyclerView recyclerView_group;
     StreetGroupRecyclerViewAdapter recyclerViewAdapter;
@@ -27,20 +30,33 @@ public class StreetGroupAcitivty extends AppCompatActivity {
 
     public void setGroupData(){
         arrayList_groupInfo = new ArrayList<>();
+        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
+        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
+        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
+        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
+        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
+        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
+        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
 
     }
 
     public void setGroupRecyclerView(){
 
-
-
         recyclerView_group = (RecyclerView) findViewById(R.id.group_recyclerView);
-        recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(arrayList_groupInfo);
+        recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(arrayList_groupInfo,StreetGroupAcitivty.this);
+        recyclerView_group.setLayoutManager(new LinearLayoutManager(StreetGroupAcitivty.this));
         recyclerView_group.setAdapter(recyclerViewAdapter);
+
 
 
     }
 
 
+    @Override
+    public void setOnItemClick(int selectedPosition) {
+        Log.v("리사이클러뷰 클릭","position L "+selectedPosition);
+        startActivity(new Intent(StreetGroupAcitivty.this,StreetGroupDetailActivity.class));
 
+
+    }
 }

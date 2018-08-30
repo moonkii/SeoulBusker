@@ -14,19 +14,23 @@ import java.util.ArrayList;
 
 public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetGroupRecyclerViewAdapter.RecyclerViewHolder> {
 
+    private static String TAG="StreetGroupRecyclerViewAdapter";
     private ArrayList<StreetGroupItem> arrayList_item;
+    private RecyclerViewItemClickListener recyclerViewItemClickListener;
 
-    public StreetGroupRecyclerViewAdapter(ArrayList<StreetGroupItem> arrayList_item) {
+    public StreetGroupRecyclerViewAdapter(ArrayList<StreetGroupItem> arrayList_item,RecyclerViewItemClickListener recyclerViewItemClickListener) {
         this.arrayList_item = arrayList_item;
+        this.recyclerViewItemClickListener=recyclerViewItemClickListener;
     }
+
 
     @NonNull
     @Override
-    public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StreetGroupRecyclerViewAdapter.RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //아이템 뷰 생성
         View itemView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.streetgroup_item,parent,false);
+                .inflate(R.layout.streetgroup_item, parent, false);
 
 
         return new RecyclerViewHolder(itemView);
@@ -39,6 +43,15 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
         holder.tv_groupName.setText(arrayList_item.get(position).getGroup_name());
 //        holder.imgV_titleImg.setImageResource(arrayList_item.get(position).getGroup_img());
 
+        final int itemPosition = position;
+
+        holder.getItemView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerViewItemClickListener.setOnItemClick(itemPosition);
+            }
+        });
+
     }
 
     @Override
@@ -46,34 +59,39 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
         return (null == arrayList_item) ? 0 : arrayList_item.size();
     }
 
+    public interface RecyclerViewItemClickListener{
+        void setOnItemClick(int selectedPosition);
+    }
+
+
     //공연팀 리사이클러뷰 뷰홀더
-    public static class RecyclerViewHolder extends RecyclerView.ViewHolder{
+    public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
 
-    View itemView;
-    ImageView imgV_titleImg;
-    TextView tv_groupName;
-    TextView tv_groupCategory;
+        View itemView;
+        ImageView imgV_titleImg;
+        TextView tv_groupName;
+        TextView tv_groupCategory;
 
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
-
-    imgV_titleImg = (ImageView) itemView.findViewById(R.id.group_item_img);
-    tv_groupCategory = (TextView) itemView.findViewById(R.id.group_item_category);
-    tv_groupName = (TextView) itemView.findViewById(R.id.group_item_name);
+            this.itemView = itemView;
+            imgV_titleImg = (ImageView) itemView.findViewById(R.id.group_item_img);
+            tv_groupCategory = (TextView) itemView.findViewById(R.id.group_item_category);
+            tv_groupName = (TextView) itemView.findViewById(R.id.group_item_name);
 
 
         }
+
+        public View getItemView(){return this.itemView;}
     }
 
 }
 
 
-
-
 //공연팀 리사이클러뷰 아이템 클래스
-class StreetGroupItem{
+class StreetGroupItem {
 
     private String group_img;
     private String group_name;
