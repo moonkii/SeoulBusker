@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
+import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_btn_stage :
                 //공연 장소 버튼
+                startActivity(new Intent(MainActivity.this, StreetStageAcitivity.class));
 
 
                 break;
