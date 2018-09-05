@@ -1,6 +1,8 @@
 package com.teamnoname.streetartzone.StreetStage;
 
-public class StageInfo {
+import java.io.Serializable;
+
+public class StageInfo implements Serializable {
 
     private int seq;
     private String district;

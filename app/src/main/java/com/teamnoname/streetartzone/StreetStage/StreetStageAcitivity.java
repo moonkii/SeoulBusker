@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ import com.teamnoname.streetartzone.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class StreetStageAcitivity extends Activity {
+public class StreetStageAcitivity extends AppCompatActivity {
 
     private ExpandableListView exListV_stageInfo;
     private EditText etv_searchStage;
@@ -105,12 +106,12 @@ public class StreetStageAcitivity extends Activity {
 
 class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
 
-    private Context context;
+    private AppCompatActivity context;
     private String[] array_districts;
     private HashMap<String, ArrayList<StageInfo>> map_stageInfo;
     private LayoutInflater inflater;
 
-    public DistrictAndStageListAdapter(Context context, String[] array_districts, HashMap<String, ArrayList<StageInfo>> map_stageInfo) {
+    public DistrictAndStageListAdapter(AppCompatActivity context, String[] array_districts, HashMap<String, ArrayList<StageInfo>> map_stageInfo) {
         this.context = context;
         this.array_districts = array_districts;
         this.map_stageInfo = map_stageInfo;
@@ -175,9 +176,9 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
-        ArrayList<StageInfo> array_stageInfos = map_stageInfo.get(array_districts[groupPosition]);
+        final ArrayList<StageInfo> array_stageInfos = map_stageInfo.get(array_districts[groupPosition]);
         ChildViewHolder childViewHolder;
 
         if (convertView == null) {
@@ -194,6 +195,13 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
 
         childViewHolder.tv_address.setText(array_stageInfos.get(childPosition).getAddress());
         childViewHolder.tv_placeName.setText(array_stageInfos.get(childPosition).getPlaceName());
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StageMapDialog dialog_stageMap = StageMapDialog.newInstance(array_stageInfos.get(childPosition));
+                dialog_stageMap.show(context.getSupportFragmentManager(),"DIALOG");
+            }
+        });
         return convertView;
     }
 
