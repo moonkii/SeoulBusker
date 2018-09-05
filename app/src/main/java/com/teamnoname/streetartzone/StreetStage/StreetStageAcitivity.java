@@ -1,5 +1,6 @@
 package com.teamnoname.streetartzone.StreetStage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,152 +30,186 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.teamnoname.streetartzone.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class StreetStageAcitivity extends FragmentActivity implements OnMapReadyCallback {
+public class StreetStageAcitivity extends Activity {
 
-    private GoogleMap map_stageInfo;
-    private Spinner sp_district;
-    private ArrayList<StageInfo> array_stageInfo;
+    private ExpandableListView exListV_stageInfo;
+    private EditText etv_searchStage;
+    private ImageView img_soeulMap;
 
-    private LinearLayout bottomSheet;
-    private BottomSheetBehavior sheetBehavior;
-    private RecyclerView recycler_stageInfo;
-    private StageListAdapter adapter_stageInfoList;
+    private String[] array_district;
+    private HashMap<String, ArrayList<StageInfo>> map_allStageInfo;
+
+    private DistrictAndStageListAdapter adapter_stageInfoList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streetstage);
-        array_stageInfo = initData();
+        map_allStageInfo = new HashMap<>();
+        array_district = this.getResources().getStringArray(R.array.district);
+        initData();
         initView();
     }
 
-    private void initView(){
-        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.streetstage_map_stageinfo);
-        mapFragment.getMapAsync(this);
-
-        bottomSheet = (LinearLayout)findViewById(R.id.streetstage_bottom_sheet);
-        sp_district = (Spinner)findViewById(R.id.streetstage_spinner_district);
-
-        recycler_stageInfo = (RecyclerView)findViewById(R.id.bottomsheet_recycler_stageinfo);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler_stageInfo.setLayoutManager(linearLayoutManager);
-        adapter_stageInfoList = new StageListAdapter(this,array_stageInfo);
-        recycler_stageInfo.setAdapter(adapter_stageInfoList);
-
-        sp_district.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                map_stageInfo.clear();
-                String spSelectedValue = (String) sp_district.getSelectedItem();
-                for(int i =0; i<array_stageInfo.size(); i++){
-                    StageInfo data = array_stageInfo.get(i);
-                    if(spSelectedValue.equals("전체")){
-                        makeMarker(data);
-                    }else if(spSelectedValue.equals(data.getDistrict())){
-                        makeMarker(data);
-                    }
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
+    private void initView() {
+        etv_searchStage = (EditText) findViewById(R.id.streetstage_activity_etv_search_district);
+        img_soeulMap = (ImageView) findViewById(R.id.streetstage_activity_img_soeulmap);
+        exListV_stageInfo = (ExpandableListView) findViewById(R.id.streetstage_activity_list_districtinfo);
+        adapter_stageInfoList = new DistrictAndStageListAdapter(this, array_district, map_allStageInfo);
+        exListV_stageInfo.setAdapter(adapter_stageInfoList);
     }
 
-    private ArrayList<StageInfo> initData(){
-        ArrayList<StageInfo> array_stageInfo = new ArrayList<>();
-        array_stageInfo.add(new StageInfo("성북구",
+    private void initData() {
+        for (String district : array_district) {
+            map_allStageInfo.put(district, getDataInRealm(district));
+        }
+    }
+
+    private ArrayList<StageInfo> getDataInRealm(String district) {
+        ArrayList<StageInfo> array_allStageInfo = new ArrayList<>();
+        array_allStageInfo.add(new StageInfo("성북구",
                 "보문역",
                 "서울 성북구 보문로 116",
                 37.585811,
                 127.019532));
-        array_stageInfo.add(new StageInfo("종로구",
+        array_allStageInfo.add(new StageInfo("종로구",
                 "낙산공원 중앙광장",
                 "서울특별시 종로구 동숭동 50-125",
                 37.580666,
                 127.006982));
-        array_stageInfo.add(new StageInfo("성북구",
+        array_allStageInfo.add(new StageInfo("성북구",
                 "돈암시장",
                 "서울특별시 성북구 동소문동5가59-1",
                 37.591876,
                 127.015670));
-        array_stageInfo.add(new StageInfo("종로구",
+        array_allStageInfo.add(new StageInfo("종로구",
                 "세종대로 차 없는 거리",
                 "서울특별시 종로구 세종로 80-9",
                 37.572784,
                 126.976604));
 
-        return array_stageInfo;
+        ArrayList<StageInfo> array_stageInfoOfDistrict = new ArrayList<>();
+
+        for (StageInfo info : array_allStageInfo) {
+            if (district.equals(info.getDistrict()))
+                array_stageInfoOfDistrict.add(info);
+        }
+
+        return array_stageInfoOfDistrict;
     }
-
-    private void makeMarker(StageInfo data){
-        MarkerOptions options = new MarkerOptions();
-        options
-                .position(new LatLng(data.getLat(),data.getLot()))
-                .title(data.getPlaceName());
-        map_stageInfo.addMarker(options);
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map_stageInfo = googleMap;
-        LatLng seoul = new LatLng(37.566677, 126.978416);
-        map_stageInfo.moveCamera(CameraUpdateFactory.newLatLngZoom(seoul,12.3f));
-
-    }
-
 
 }
 
-class StageListAdapter extends RecyclerView.Adapter<StageListAdapter.ItemViewHolder>{
+
+class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private ArrayList<StageInfo> items;
+    private String[] array_districts;
+    private HashMap<String, ArrayList<StageInfo>> map_stageInfo;
+    private LayoutInflater inflater;
 
-
-    public StageListAdapter(Context context, ArrayList<StageInfo> items) {
+    public DistrictAndStageListAdapter(Context context, String[] array_districts, HashMap<String, ArrayList<StageInfo>> map_stageInfo) {
         this.context = context;
-        this.items = items;
-    }
-
-    @NonNull
-    @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ItemViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.bottomsheet_stageinfo_item,parent,false)) ;
+        this.array_districts = array_districts;
+        this.map_stageInfo = map_stageInfo;
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        StageInfo item = items.get(position);
-        holder.address.setText(item.getAddress());
-        holder.placeName.setText(item.getPlaceName());
-        holder.district.setText(item.getDistrict());
-
+    public int getGroupCount() {
+        return array_districts.length;
     }
 
     @Override
-    public int getItemCount() {
-        return items.size();
+    public int getChildrenCount(int groupPosition) {
+        String district = array_districts[groupPosition];
+        return map_stageInfo.get(district).size();
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder{
-        private TextView district;
-        private TextView placeName;
-        private TextView address;
+    @Override
+    public Object getGroup(int groupPosition) {
+        return array_districts[groupPosition];
+    }
 
-        public ItemViewHolder(View itemView) {
-            super(itemView);
-            district = (TextView)itemView.findViewById(R.id.stageinfo_item_tv_district);
-            placeName = (TextView)itemView.findViewById(R.id.stageinfo_item_tv_placename);
-            address = (TextView)itemView.findViewById(R.id.stageinfo_item_tv_address);
+    @Override
+    public Object getChild(int groupPosition, int childPosition) {
+        String district = array_districts[groupPosition];
+        return map_stageInfo.get(district).get(childPosition);
+    }
+
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return false;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        GroupViewHolder groupViewHolder;
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.streetstage_district_item, parent, false);
+            groupViewHolder = new GroupViewHolder();
+
+            groupViewHolder.tv_district = (TextView) convertView.findViewById(R.id.district_item_tv_district);
+            groupViewHolder.tv_numberOfStage = (TextView) convertView.findViewById(R.id.district_item_tv_numberofstage);
+
+            convertView.setTag(groupViewHolder);
+        } else {
+            groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
+
+        groupViewHolder.tv_district.setText(array_districts[groupPosition]);
+        groupViewHolder.tv_numberOfStage.setText(map_stageInfo.get(array_districts[groupPosition]).size() + "개의 공연장");
+        return convertView;
+    }
+
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+
+        ArrayList<StageInfo> array_stageInfos = map_stageInfo.get(array_districts[groupPosition]);
+        ChildViewHolder childViewHolder;
+
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.streetstage_stageinfo_item, parent, false);
+            childViewHolder = new ChildViewHolder();
+
+            childViewHolder.tv_address = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_address);
+            childViewHolder.tv_placeName = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_placename);
+
+            convertView.setTag(childViewHolder);
+        } else {
+            childViewHolder = (ChildViewHolder) convertView.getTag();
+        }
+
+        childViewHolder.tv_address.setText(array_stageInfos.get(childPosition).getAddress());
+        childViewHolder.tv_placeName.setText(array_stageInfos.get(childPosition).getPlaceName());
+        return convertView;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return false;
+    }
+
+    class GroupViewHolder {
+        public TextView tv_district;
+        public TextView tv_numberOfStage;
+    }
+
+    class ChildViewHolder {
+        public TextView tv_placeName;
+        public TextView tv_address;
     }
 }
 
