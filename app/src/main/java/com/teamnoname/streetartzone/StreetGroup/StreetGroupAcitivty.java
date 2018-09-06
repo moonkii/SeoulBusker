@@ -30,13 +30,26 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
 
     public void setGroupData(){
         arrayList_groupInfo = new ArrayList<>();
-        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
-        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
-        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
-        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
-        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
-        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
-        arrayList_groupInfo.add(new StreetGroupItem("이미지","팀명","장르"));
+
+        for (int i=0; i<5 ; i++){
+            arrayList_groupInfo.add(new StreetGroupItem(
+                    "이미지",
+                    "팀명",
+                    "장르",
+                    "공연팀에 대한 설명입니다공연팀에 대한 설명입니다공연팀에 대한 설명입니다공연팀에 대한 설명입니다",
+                    "1",
+                    "1",
+                    "1",
+                    "1",
+                    "1",
+                    "5.0",
+                    4
+            ));
+        }
+
+
+
+
 
     }
 

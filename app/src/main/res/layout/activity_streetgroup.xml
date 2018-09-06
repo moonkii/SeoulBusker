@@ -10,21 +10,121 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:weightSum="5">
 
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_back_white"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
 
+        <TextView
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:text="거리공연단"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/group_search"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="1"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:layout_weight="0.9"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:weightSum="5">
 
         <TextView
-            android:text="카테고리"
-            android:layout_width="match_parent"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:text="전체"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent" />
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:text="기악"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:text="퍼포먼스"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:text="전통"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:text="음악"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:weightSum="5"
+        android:layout_weight="0.1">
+
+        <TextView
+            android:background="@color/actionBar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:background="@android:color/transparent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:background="@android:color/transparent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:background="@android:color/transparent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:background="@android:color/transparent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -34,6 +134,7 @@
         android:layout_weight="8">
 
         <android.support.v7.widget.RecyclerView
+            android:background="@color/background"
             android:id="@+id/group_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

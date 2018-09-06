@@ -71,13 +71,13 @@ class FragmentAdapter extends FragmentPagerAdapter {
 
         switch (position){ //프래그먼트 제목 지정 switch 시작
             case 0 :
-                return "공연팀 소개";
+                return "소개";
 
             case 1 :
                 return "공연 일정";
 
             case 2 :
-                return "리뷰";
+                return "공연 후기";
 
         }
 
