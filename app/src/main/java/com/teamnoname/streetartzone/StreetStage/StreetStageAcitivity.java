@@ -2,6 +2,7 @@ package com.teamnoname.streetartzone.StreetStage;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -39,6 +41,7 @@ public class StreetStageAcitivity extends AppCompatActivity {
     private EditText etv_searchStage;
     private ImageView img_soeulMap;
 
+
     private String[] array_district;
     private HashMap<String, ArrayList<StageInfo>> map_allStageInfo;
 
@@ -55,6 +58,7 @@ public class StreetStageAcitivity extends AppCompatActivity {
     }
 
     private void initView() {
+
         etv_searchStage = (EditText) findViewById(R.id.streetstage_activity_etv_search_district);
         img_soeulMap = (ImageView) findViewById(R.id.streetstage_activity_img_soeulmap);
         exListV_stageInfo = (ExpandableListView) findViewById(R.id.streetstage_activity_list_districtinfo);
@@ -157,14 +161,14 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        GroupViewHolder groupViewHolder;
+        final GroupViewHolder groupViewHolder;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.streetstage_district_item, parent, false);
             groupViewHolder = new GroupViewHolder();
 
             groupViewHolder.tv_district = (TextView) convertView.findViewById(R.id.district_item_tv_district);
             groupViewHolder.tv_numberOfStage = (TextView) convertView.findViewById(R.id.district_item_tv_numberofstage);
-
+            groupViewHolder.view_selectdBar = (View) convertView.findViewById(R.id.district_item_view_bar);
             convertView.setTag(groupViewHolder);
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
@@ -172,6 +176,12 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
 
         groupViewHolder.tv_district.setText(array_districts[groupPosition]);
         groupViewHolder.tv_numberOfStage.setText(map_stageInfo.get(array_districts[groupPosition]).size() + "개의 공연장");
+
+        if (isExpanded) {
+            groupViewHolder.view_selectdBar.setBackgroundColor(Color.parseColor("#A789F5"));
+        } else {
+            groupViewHolder.view_selectdBar.setBackgroundColor(Color.parseColor("#DCCEFF"));
+        }
         return convertView;
     }
 
@@ -187,7 +197,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
 
             childViewHolder.tv_address = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_address);
             childViewHolder.tv_placeName = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_placename);
-
+            childViewHolder.relative_background = (RelativeLayout)convertView.findViewById(R.id.stageinfo_item_rel_background);
             convertView.setTag(childViewHolder);
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
@@ -195,11 +205,17 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
 
         childViewHolder.tv_address.setText(array_stageInfos.get(childPosition).getAddress());
         childViewHolder.tv_placeName.setText(array_stageInfos.get(childPosition).getPlaceName());
+        if (isLastChild){
+            childViewHolder.relative_background.setBackground(context.getDrawable(R.drawable.stage_last_item_background));
+            convertView.setPadding(convertView.getPaddingLeft(),convertView.getPaddingTop(),
+                    convertView.getPaddingRight(),20);
+        }
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 StageMapDialog dialog_stageMap = StageMapDialog.newInstance(array_stageInfos.get(childPosition));
-                dialog_stageMap.show(context.getSupportFragmentManager(),"DIALOG");
+                dialog_stageMap.show(context.getSupportFragmentManager(), "DIALOG");
             }
         });
         return convertView;
@@ -213,11 +229,13 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
     class GroupViewHolder {
         public TextView tv_district;
         public TextView tv_numberOfStage;
+        private View view_selectdBar;
     }
 
     class ChildViewHolder {
         public TextView tv_placeName;
         public TextView tv_address;
+        public RelativeLayout relative_background;
     }
 }
 
