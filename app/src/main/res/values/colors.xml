@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="actionBar">#3E2992</color>
+    <color name="scheduleSeleted">#A789F5</color>
+    <color name="scheduleNonSeleted"> #DCCEFF</color>
+
+
 </resources>

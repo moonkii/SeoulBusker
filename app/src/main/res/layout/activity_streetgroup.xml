@@ -6,6 +6,7 @@
     android:weightSum="10">
 
     <LinearLayout
+        android:background="@color/actionBar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
