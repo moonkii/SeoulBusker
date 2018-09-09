@@ -34,7 +34,7 @@
             android:background="@android:color/transparent"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:src="@drawable/icon_back_white"
+            android:src="@drawable/group_alarm"
             android:layout_height="match_parent" />
 
     </LinearLayout>

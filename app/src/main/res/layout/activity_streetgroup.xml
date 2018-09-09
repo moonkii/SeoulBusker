@@ -46,6 +46,8 @@
         android:weightSum="5">
 
         <TextView
+            android:onClick="setCategoryClick"
+            android:id="@+id/group_btn_all"
             android:textColor="@android:color/black"
             android:gravity="center"
             android:text="전체"
@@ -54,6 +56,8 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:onClick="setCategoryClick"
+            android:id="@+id/group_btn_instrument"
             android:textColor="@android:color/black"
             android:gravity="center"
             android:text="기악"
@@ -62,6 +66,8 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:onClick="setCategoryClick"
+            android:id="@+id/group_btn_performance"
             android:textColor="@android:color/black"
             android:gravity="center"
             android:text="퍼포먼스"
@@ -70,6 +76,8 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:onClick="setCategoryClick"
+            android:id="@+id/group_btn_tradition"
             android:textColor="@android:color/black"
             android:gravity="center"
             android:text="전통"
@@ -78,6 +86,8 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:onClick="setCategoryClick"
+            android:id="@+id/group_btn_music"
             android:textColor="@android:color/black"
             android:gravity="center"
             android:text="음악"
@@ -95,31 +105,36 @@
         android:layout_weight="0.1">
 
         <TextView
+            android:id="@+id/group_bar_all"
             android:background="@color/actionBar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
         <TextView
-            android:background="@android:color/transparent"
+            android:id="@+id/group_bar_instrument"
+            android:background="@color/actionBar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
         <TextView
-            android:background="@android:color/transparent"
+            android:id="@+id/group_bar_performance"
+            android:background="@color/actionBar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
         <TextView
-            android:background="@android:color/transparent"
+            android:id="@+id/group_bar_tradition"
+            android:background="@color/actionBar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
         <TextView
-            android:background="@android:color/transparent"
+            android:id="@+id/group_bar_music"
+            android:background="@color/actionBar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
