@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,17 +36,19 @@ import com.teamnoname.streetartzone.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class StreetStageAcitivity extends AppCompatActivity {
+public class StreetStageAcitivity extends AppCompatActivity implements DistrictAndStageListAdapter.ChangeMapImageListener {
 
+    private String TAG = "## StreetStageAcitivity  ";
     private ExpandableListView exListV_stageInfo;
     private EditText etv_searchStage;
     private ImageView img_soeulMap;
-
-
+    private ImageView img_districtMap;
     private String[] array_district;
+    private String[] array_districtEng;
     private HashMap<String, ArrayList<StageInfo>> map_allStageInfo;
 
     private DistrictAndStageListAdapter adapter_stageInfoList;
+    private int lastExpandedGroupPosition;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class StreetStageAcitivity extends AppCompatActivity {
         setContentView(R.layout.activity_streetstage);
         map_allStageInfo = new HashMap<>();
         array_district = this.getResources().getStringArray(R.array.district);
+        array_districtEng = this.getResources().getStringArray(R.array.districtEng);
         initData();
         initView();
     }
@@ -61,9 +65,20 @@ public class StreetStageAcitivity extends AppCompatActivity {
 
         etv_searchStage = (EditText) findViewById(R.id.streetstage_activity_etv_search_district);
         img_soeulMap = (ImageView) findViewById(R.id.streetstage_activity_img_soeulmap);
+        img_districtMap = (ImageView)findViewById(R.id.streetstage_activity_img_district);
         exListV_stageInfo = (ExpandableListView) findViewById(R.id.streetstage_activity_list_districtinfo);
-        adapter_stageInfoList = new DistrictAndStageListAdapter(this, array_district, map_allStageInfo);
+        adapter_stageInfoList = new DistrictAndStageListAdapter(this, array_district, map_allStageInfo,this);
         exListV_stageInfo.setAdapter(adapter_stageInfoList);
+
+        exListV_stageInfo.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if(groupPosition != lastExpandedGroupPosition){
+                    exListV_stageInfo.collapseGroup(lastExpandedGroupPosition);
+                }
+                lastExpandedGroupPosition = groupPosition;
+            }
+        });
     }
 
     private void initData() {
@@ -105,6 +120,20 @@ public class StreetStageAcitivity extends AppCompatActivity {
         return array_stageInfoOfDistrict;
     }
 
+
+    @Override
+    public void onChaneMapImage(int imageIndex) {
+        img_districtMap.setImageResource(0);
+        int imageId = getResources()
+                .getIdentifier(
+                        array_districtEng[imageIndex],
+                        "drawable",
+                        getPackageName()
+                        );
+
+        Log.e(TAG,array_districtEng[imageIndex]);
+        img_districtMap.setImageDrawable(getDrawable(imageId));
+    }
 }
 
 
@@ -114,12 +143,18 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
     private String[] array_districts;
     private HashMap<String, ArrayList<StageInfo>> map_stageInfo;
     private LayoutInflater inflater;
+    private ChangeMapImageListener changeMapImageListener;
 
-    public DistrictAndStageListAdapter(AppCompatActivity context, String[] array_districts, HashMap<String, ArrayList<StageInfo>> map_stageInfo) {
+
+
+    public DistrictAndStageListAdapter(AppCompatActivity context, String[] array_districts, HashMap<String, ArrayList<StageInfo>> map_stageInfo,
+                                       ChangeMapImageListener changeMapImageListener) {
         this.context = context;
         this.array_districts = array_districts;
         this.map_stageInfo = map_stageInfo;
+        this.changeMapImageListener = changeMapImageListener;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     @Override
@@ -177,8 +212,10 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
         groupViewHolder.tv_district.setText(array_districts[groupPosition]);
         groupViewHolder.tv_numberOfStage.setText(map_stageInfo.get(array_districts[groupPosition]).size() + "개의 공연장");
 
+
         if (isExpanded) {
             groupViewHolder.view_selectdBar.setBackgroundColor(Color.parseColor("#A789F5"));
+            changeMapImageListener.onChaneMapImage(groupPosition);
         } else {
             groupViewHolder.view_selectdBar.setBackgroundColor(Color.parseColor("#DCCEFF"));
         }
@@ -197,7 +234,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
 
             childViewHolder.tv_address = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_address);
             childViewHolder.tv_placeName = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_placename);
-            childViewHolder.relative_background = (RelativeLayout)convertView.findViewById(R.id.stageinfo_item_rel_background);
+            childViewHolder.relative_background = (RelativeLayout) convertView.findViewById(R.id.stageinfo_item_rel_background);
             convertView.setTag(childViewHolder);
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
@@ -205,10 +242,14 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
 
         childViewHolder.tv_address.setText(array_stageInfos.get(childPosition).getAddress());
         childViewHolder.tv_placeName.setText(array_stageInfos.get(childPosition).getPlaceName());
-        if (isLastChild){
+        if (isLastChild) {
             childViewHolder.relative_background.setBackground(context.getDrawable(R.drawable.stage_last_item_background));
-            convertView.setPadding(convertView.getPaddingLeft(),convertView.getPaddingTop(),
-                    convertView.getPaddingRight(),20);
+            convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(),
+                    convertView.getPaddingRight(), 20);
+        }else{
+            childViewHolder.relative_background.setBackground(context.getDrawable(R.drawable.stage_item_background));
+            convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(),
+                    convertView.getPaddingRight(), 0);
         }
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -224,6 +265,10 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    interface ChangeMapImageListener{
+        void onChaneMapImage(int imageIndex);
     }
 
     class GroupViewHolder {
