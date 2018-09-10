@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.teamnoname.streetartzone.R;
 
@@ -17,6 +19,7 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
     FragmentAdapter frag_adapter;
     ViewPager viewPager;
     TabLayout tabLayout;
+    ImageButton btn_back;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +31,14 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
         viewPager.setAdapter(frag_adapter);
         tabLayout = (TabLayout) findViewById(R.id.group_detail_tab);
         tabLayout.setupWithViewPager(viewPager);
+
+        btn_back = (ImageButton) findViewById(R.id.group_detail_btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StreetGroupDetailActivity.this.finish();
+            }
+        });
     }
 }
 
@@ -71,13 +82,13 @@ class FragmentAdapter extends FragmentPagerAdapter {
 
         switch (position){ //프래그먼트 제목 지정 switch 시작
             case 0 :
-                return "공연팀 소개";
+                return "소개";
 
             case 1 :
                 return "공연 일정";
 
             case 2 :
-                return "리뷰";
+                return "공연 후기";
 
         }
 

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#9B87FF</color>
+    <color name="colorPrimaryDark">#9B87FF</color>
+    <color name="colorAccent">#9B87FF</color>
 
-    <color name="actionBar">#3E2992</color>
+    <color name="actionBar">#9B87FF</color>
     <color name="scheduleSeleted">#A789F5</color>
     <color name="scheduleNonSeleted"> #DCCEFF</color>
+    <color name="background">#F6F6F6</color>
 
 
 </resources>

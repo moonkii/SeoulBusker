@@ -1,19 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:background="@color/actionBar"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:weightSum="5">
+
+        <ImageButton
+            android:id="@+id/group_detail_btn_back"
+            android:background="@android:color/transparent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_back_white"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="공연팀이름"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/group_alarm"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 
     <android.support.design.widget.TabLayout
+        app:tabSelectedTextColor="@color/actionBar"
+        app:tabIndicatorColor="@color/actionBar"
         android:id="@+id/group_detail_tab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="0.8">
     </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="8.2"
         android:id="@+id/group_detail_viewpager"
         >
     </android.support.v4.view.ViewPager>
