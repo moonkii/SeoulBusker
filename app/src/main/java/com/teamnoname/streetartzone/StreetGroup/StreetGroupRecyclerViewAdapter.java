@@ -39,7 +39,7 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, int position) {
 
         holder.tv_groupName.setText(arrayList_item.get(position).getGroup_name());
 //        holder.imgV_titleImg.setImageResource(arrayList_item.get(position).getGroup_img());
@@ -48,7 +48,7 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
         holder.tv_groupScore.setText(arrayList_item.get(position).getGroup_score());
         holder.tv_groupReviewNumber.setText("공연후기 "+arrayList_item.get(position).getGroup_reviewNumber());
 
-        final int itemPosition = position;
+        final int itemPosition = holder.getAdapterPosition();
 
         holder.getItemView().setOnClickListener(new View.OnClickListener() {
             @Override

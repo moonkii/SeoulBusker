@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.teamnoname.streetartzone.R;
@@ -27,6 +28,9 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
     TextView bar_category_tradition;
     TextView bar_category_music;
 
+    ImageButton btn_back;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,15 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
         bar_category_performance = (TextView) findViewById(R.id.group_bar_performance);
         bar_category_tradition = (TextView) findViewById(R.id.group_bar_tradition);
         bar_category_music = (TextView) findViewById(R.id.group_bar_music);
+
+        btn_back = (ImageButton) findViewById(R.id.group_main_btn_back);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StreetGroupAcitivty.this.finish();
+            }
+        });
 
 
         arrayList_bar = new ArrayList<>();
