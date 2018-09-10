@@ -80,6 +80,7 @@ public class ReviewFragment extends Fragment {
 
     }
 
+
     public void setReviewRecyclerView(){
 
         reviewRecyclerViewAdapter = new ReviewRecyclerViewAdapter(arrayList_review);
