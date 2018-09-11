@@ -26,7 +26,7 @@
 
                 <View
                     android:id="@+id/district_item_view_bar"
-                    android:background="@color/unselectedBar"
+                    android:background="@color/scheduleNonSeleted"
                     android:layout_weight="0.04"
                     android:layout_width="0dp"
                     android:layout_height="match_parent">
