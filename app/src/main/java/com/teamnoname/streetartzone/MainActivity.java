@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.teamnoname.streetartzone.Schedule.Schedule;
 import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_btn_schedule :
                 //공연일정 버튼
-
+                startActivity(new Intent(MainActivity.this, Schedule.class));
                 break;
 
 

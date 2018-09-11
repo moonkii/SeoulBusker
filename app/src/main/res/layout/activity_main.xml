@@ -22,10 +22,10 @@
 
         <Button
             android:id="@+id/main_btn_schedule"
-            android:onClick="setMainBtn"
-            android:text="공연일정"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="setMainBtn"
+            android:text="공연일정" />
 
     </LinearLayout>
 
