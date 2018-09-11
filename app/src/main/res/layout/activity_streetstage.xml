@@ -10,14 +10,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.085"
         android:background="@color/actionBar">
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.9">
+        android:layout_weight="0.95">
 
         <FrameLayout
             android:id="@+id/streetstage_activity_box_map"

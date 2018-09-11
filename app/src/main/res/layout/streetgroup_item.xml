@@ -34,6 +34,7 @@
                     android:id="@+id/group_item_category"
                     android:gravity="start"
                     android:text="장르"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -47,6 +48,8 @@
                     android:id="@+id/group_item_name"
                     android:textColor="@android:color/black"
                     android:text="가수이름"
+
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -60,6 +63,7 @@
                         android:id="@+id/group_item_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosanskr_regular_hestia"
                         android:text="설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설더보기"
                         android:maxLines="3"
                         android:ellipsize="end"/>

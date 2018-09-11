@@ -47,6 +47,7 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.7.1'
 
+
     //banner
     api ('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
