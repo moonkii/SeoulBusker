@@ -5,24 +5,29 @@
     android:layout_height="match_parent"
     android:weightSum="1"
     android:orientation="vertical"
+    android:background="#FFF"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.085"
+        android:layout_weight="0.08"
         android:background="@color/actionBar">
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.95">
+        android:layout_weight="0.95"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp">
 
         <FrameLayout
             android:id="@+id/streetstage_activity_box_map"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
             <ImageView
                 android:id="@+id/streetstage_activity_img_soeulmap"
                 android:layout_width="match_parent"

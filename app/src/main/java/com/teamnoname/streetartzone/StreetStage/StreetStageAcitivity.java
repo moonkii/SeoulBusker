@@ -235,6 +235,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
             childViewHolder.tv_address = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_address);
             childViewHolder.tv_placeName = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_placename);
             childViewHolder.relative_background = (RelativeLayout) convertView.findViewById(R.id.stageinfo_item_rel_background);
+            childViewHolder.view_line = (View)convertView.findViewById(R.id.stageinfo_item_line);
             convertView.setTag(childViewHolder);
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
@@ -246,10 +247,12 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
             childViewHolder.relative_background.setBackground(context.getDrawable(R.drawable.stage_last_item_background));
             convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(),
                     convertView.getPaddingRight(), 20);
+            childViewHolder.view_line.setVisibility(View.INVISIBLE);
         }else{
             childViewHolder.relative_background.setBackground(context.getDrawable(R.drawable.stage_item_background));
             convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(),
                     convertView.getPaddingRight(), 0);
+            childViewHolder.view_line.setVisibility(View.VISIBLE);
         }
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -281,6 +284,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
         public TextView tv_placeName;
         public TextView tv_address;
         public RelativeLayout relative_background;
+        public View view_line;
     }
 }
 
