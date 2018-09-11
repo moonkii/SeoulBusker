@@ -48,6 +48,7 @@
                     android:layout_centerHorizontal="true"
                     android:padding="8dp"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:text="서울특별시 마포구 성산동 증산로 87"/>
             </RelativeLayout>
 

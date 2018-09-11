@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/stageinfo_item_view_dot"
             android:text="롯데몰 김포공항점"
+            android:fontFamily="@font/notosanskr_regular_hestia"
             android:textSize="17dp" />
 
         <TextView
@@ -38,7 +39,8 @@
             android:layout_below="@id/stageinfo_item_tv_placename"
             android:layout_marginBottom="6dp"
             android:layout_toRightOf="@id/stageinfo_item_view_dot"
-            android:text="서울특별시 강서구 하늘로77" />
+            android:text="서울특별시 강서구 하늘로77"
+            android:fontFamily="@font/notosanskr_regular_hestia"/>
 
         <View
             android:layout_width="match_parent"
