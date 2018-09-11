@@ -5,6 +5,6 @@
     <corners android:radius="10dp"/>
     <solid android:color="#FFF"/>
     <stroke android:width="0.8dp"
-        android:color="@color/unselectedBar"/>
+        android:color="@color/scheduleNonSeleted"/>
 
 </shape>

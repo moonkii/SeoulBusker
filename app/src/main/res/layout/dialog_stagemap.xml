@@ -27,7 +27,7 @@
                     android:id="@+id/dialog_stagemap_view_topbar"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@color/appBar" />
+                    android:background="@color/actionBar" />
 
                 <!-- android:name="com.google.android.gms.maps.SupportMapFragment"-->
                 <FrameLayout
