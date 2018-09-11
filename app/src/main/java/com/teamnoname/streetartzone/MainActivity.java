@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
+import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
 
 import java.util.ArrayList;
 
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_btn_stage :
                 //공연 장소 버튼
+                startActivity(new Intent(MainActivity.this, StreetStageAcitivity.class));
 
 
                 break;

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:background="@color/appBar">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9">
+
+        <FrameLayout
+            android:id="@+id/streetstage_activity_box_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/streetstage_activity_img_soeulmap"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/mapmap" />
+
+            <ImageView
+                android:id="@+id/streetstage_activity_img_district"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/dongjak_gu"/>
+        </FrameLayout>
+
+
+        <EditText
+            android:id="@+id/streetstage_activity_etv_search_district"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/streetstage_activity_box_map"
+            android:layout_alignParentRight="true"
+            android:padding="8dp"
+            android:hint="장소를 입력해 주세요."
+            android:textSize="13dp"
+            android:background="@drawable/purple_round_box"/>
+
+        <ExpandableListView
+            android:id="@+id/streetstage_activity_list_districtinfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/streetstage_activity_etv_search_district"
+            android:layout_marginTop="8dp"
+            android:divider ="@null"
+            android:childDivider="@null"
+            android:groupIndicator="@null">
+
+        </ExpandableListView>
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<Spinner-->
+        <!--android:id="@+id/streetstage_spinner_district"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/district">-->
+        <!--</Spinner>-->
+
+        <!--<fragment-->
+        <!--android:id="@+id/streetstage_map_stageinfo"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@+id/streetstage_spinner_district"-->
+        <!--android:name="com.google.android.gms.maps.SupportMapFragment"/>-->
+        <!--</RelativeLayout>-->
+        <!--<include layout="@layout/bottomsheet_stageinfo"/>-->
+
+
+    </RelativeLayout>
+</LinearLayout>
