@@ -4,9 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="공연팀 공연 일정"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/group_schedule_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

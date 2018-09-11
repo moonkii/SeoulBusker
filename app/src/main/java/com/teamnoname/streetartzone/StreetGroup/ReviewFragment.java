@@ -21,6 +21,7 @@ public class ReviewFragment extends Fragment {
     ArrayList<ReviewItem> arrayList_review;
     RecyclerView recyclerView_review;
     ReviewRecyclerViewAdapter reviewRecyclerViewAdapter;
+    TextView tv_reviewCount;
 
 
     public static ReviewFragment newInstance(){
@@ -42,6 +43,7 @@ public class ReviewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_group_review,container,false);
 
         recyclerView_review = (RecyclerView) view.findViewById(R.id.fragment_group_review_recyclerView);
+        tv_reviewCount = (TextView) view.findViewById(R.id.group_detail_review_count);
 
         return view;
     }
@@ -59,15 +61,25 @@ public class ReviewFragment extends Fragment {
 
     public void setReviewData(){
         arrayList_review = new ArrayList<>();
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
+
+        String reviewCount = Integer.toString(arrayList_review.size());
+        tv_reviewCount.setText(reviewCount);
+
     }
+
 
     public void setReviewRecyclerView(){
 
