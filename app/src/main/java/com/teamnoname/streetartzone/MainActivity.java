@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.teamnoname.streetartzone.Schedule.Schedule;
 import com.bumptech.glide.Glide;
 import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
 import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_btn_schedule :
                 //공연일정 버튼
-
+                startActivity(new Intent(MainActivity.this, Schedule.class));
                 break;
 
 
