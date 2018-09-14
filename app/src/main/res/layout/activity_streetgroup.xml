@@ -10,7 +10,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.85"
+        android:layout_weight="0.8"
         android:weightSum="5">
 
         <ImageButton
@@ -147,7 +147,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8.65">
+        android:layout_weight="8.7">
 
         <android.support.v7.widget.RecyclerView
             android:background="@color/background"
