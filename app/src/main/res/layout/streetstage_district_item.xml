@@ -60,9 +60,10 @@
                 <ImageView
                     android:id="@+id/district_item_img_arrow"
                     android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/gray_color_oval"/>
+                    android:background="@drawable/down_arrow"/>
             </LinearLayout>
         </FrameLayout>
     </android.support.v7.widget.CardView>

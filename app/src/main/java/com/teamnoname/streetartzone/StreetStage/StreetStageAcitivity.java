@@ -36,6 +36,10 @@ import com.teamnoname.streetartzone.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmResults;
+
 public class StreetStageAcitivity extends AppCompatActivity implements DistrictAndStageListAdapter.ChangeMapImageListener {
 
     private String TAG = "## StreetStageAcitivity  ";
@@ -43,12 +47,15 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
     private EditText etv_searchStage;
     private ImageView img_soeulMap;
     private ImageView img_districtMap;
+    private ImageView img_xBtn;
+
     private String[] array_district;
     private String[] array_districtEng;
     private HashMap<String, ArrayList<StageInfo>> map_allStageInfo;
 
     private DistrictAndStageListAdapter adapter_stageInfoList;
     private int lastExpandedGroupPosition;
+    private Realm realm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +64,8 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
         map_allStageInfo = new HashMap<>();
         array_district = this.getResources().getStringArray(R.array.district);
         array_districtEng = this.getResources().getStringArray(R.array.districtEng);
+        realm.init(this);
+        realm = Realm.getDefaultInstance();
         initData();
         initView();
     }
@@ -67,6 +76,7 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
         img_soeulMap = (ImageView) findViewById(R.id.streetstage_activity_img_soeulmap);
         img_districtMap = (ImageView)findViewById(R.id.streetstage_activity_img_district);
         exListV_stageInfo = (ExpandableListView) findViewById(R.id.streetstage_activity_list_districtinfo);
+        img_xBtn = (ImageView)findViewById(R.id.streetstage_activity_img_xbtn);
         adapter_stageInfoList = new DistrictAndStageListAdapter(this, array_district, map_allStageInfo,this);
         exListV_stageInfo.setAdapter(adapter_stageInfoList);
 
@@ -79,6 +89,13 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
                 lastExpandedGroupPosition = groupPosition;
             }
         });
+
+        img_xBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initData() {
@@ -88,28 +105,8 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
     }
 
     private ArrayList<StageInfo> getDataInRealm(String district) {
-        ArrayList<StageInfo> array_allStageInfo = new ArrayList<>();
-        array_allStageInfo.add(new StageInfo("성북구",
-                "보문역",
-                "서울 성북구 보문로 116",
-                37.585811,
-                127.019532));
-        array_allStageInfo.add(new StageInfo("종로구",
-                "낙산공원 중앙광장",
-                "서울특별시 종로구 동숭동 50-125",
-                37.580666,
-                127.006982));
-        array_allStageInfo.add(new StageInfo("성북구",
-                "돈암시장",
-                "서울특별시 성북구 동소문동5가59-1",
-                37.591876,
-                127.015670));
-        array_allStageInfo.add(new StageInfo("종로구",
-                "세종대로 차 없는 거리",
-                "서울특별시 종로구 세종로 80-9",
-                37.572784,
-                126.976604));
 
+        RealmResults<StageInfo> array_allStageInfo = realm.where(StageInfo.class).findAll();
         ArrayList<StageInfo> array_stageInfoOfDistrict = new ArrayList<>();
 
         for (StageInfo info : array_allStageInfo) {

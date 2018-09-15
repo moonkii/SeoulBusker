@@ -2,22 +2,17 @@ package com.teamnoname.streetartzone.StreetStage;
 
 import java.io.Serializable;
 
-public class StageInfo implements Serializable {
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
 
+public class StageInfo extends RealmObject implements Serializable {
+
+    @PrimaryKey
     private int seq;
     private String district;
     private String placeName;
     private String address;
-    private double lat;
-    private double lot;
-
-    public StageInfo(String district, String placeName, String address, double lat, double lot) {
-        this.district = district;
-        this.placeName = placeName;
-        this.address = address;
-        this.lat = lat;
-        this.lot = lot;
-    }
 
     public int getSeq() {
         return seq;
@@ -35,11 +30,19 @@ public class StageInfo implements Serializable {
         return address;
     }
 
-    public double getLat() {
-        return lat;
+    public void setSeq(int seq) {
+        this.seq = seq;
     }
 
-    public double getLot() {
-        return lot;
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

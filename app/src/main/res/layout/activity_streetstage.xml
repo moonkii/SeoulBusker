@@ -13,12 +13,32 @@
         android:layout_height="0dp"
         android:layout_weight="0.08"
         android:background="@color/actionBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공연장위치"
+            android:textColor="#FFF"
+            android:textSize="22dp"
+            android:fontFamily="@font/notosanskr_regular_hestia"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageView
+            android:id="@+id/streetstage_activity_img_xbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/x_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"/>
+
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.95"
+        android:layout_weight="0.92"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp">
 
@@ -38,7 +58,7 @@
                 android:id="@+id/streetstage_activity_img_district"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/dongjak_gu"/>
+                />
         </FrameLayout>
 
 
