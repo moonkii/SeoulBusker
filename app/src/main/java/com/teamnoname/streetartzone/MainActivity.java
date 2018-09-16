@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
 import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
 
 import java.util.ArrayList;
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_btn_group :
                 //공연팀 버튼
-                startActivity(new Intent(MainActivity.this, StreetGroupAcitivty.class));
+                startActivity(new Intent(MainActivity.this, Testing.class));
 
                 break;
 
