@@ -16,6 +16,7 @@ public class GroupData extends RealmObject {
         this.group_titleImg = group_titleImg;
     }
 
+
     public String getGroup_name() {
         return group_name;
     }
