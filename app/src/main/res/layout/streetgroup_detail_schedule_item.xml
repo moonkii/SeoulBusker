@@ -8,6 +8,7 @@
 
 
     <LinearLayout
+        android:background="@android:color/white"
         android:visibility="gone"
         android:orientation="vertical"
         android:id="@+id/group_schedule_category"
@@ -31,6 +32,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:textSize="20dp"
                 android:id="@+id/group_schedule_category_month"
                 android:gravity="center_vertical"
                 android:textColor="@android:color/black"
@@ -42,16 +44,18 @@
 
 
         <View
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
+            android:background="@color/viewBar"
             />
 
 
     </LinearLayout>
 
     <android.support.v7.widget.CardView
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
@@ -85,6 +89,7 @@
 
 
                 <TextView
+                    android:textSize="20dp"
                     android:id="@+id/group_schedule_date"
                     android:gravity="center"
                     android:layout_weight="0.6"
@@ -94,6 +99,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:textSize="15dp"
                     android:id="@+id/group_schedule_place"
                     android:textColor="@android:color/black"
                     android:gravity="start"
@@ -110,6 +116,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:textSize="12dp"
                     android:id="@+id/group_schedule_start"
                     android:gravity="center"
                     android:text="14:00"
@@ -118,6 +125,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:textSize="12dp"
                     android:gravity="center"
                     android:text="~"
                     android:layout_width="0dp"
@@ -125,6 +133,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:textSize="12dp"
                     android:id="@+id/group_schedule_end"
                     android:gravity="center"
                     android:text="16:00"

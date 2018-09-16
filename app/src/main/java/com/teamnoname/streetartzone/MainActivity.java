@@ -2,8 +2,6 @@ package com.teamnoname.streetartzone;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -121,9 +119,9 @@ public class MainActivity extends AppCompatActivity {
         arrayList_banner.add(R.drawable.home_banner3);
     }
 
-    public void setBannerViewPager() {
+    public void setBannerViewPager(){
         autoScrollViewPager = (AutoScrollViewPager) findViewById(R.id.main_bannerViewPager);
-        mainBannerAdapter = new MainBannerAdapter(arrayList_banner, MainActivity.this);
+        mainBannerAdapter = new MainBannerAdapter(arrayList_banner,MainActivity.this);
         autoScrollViewPager.setAdapter(mainBannerAdapter);
         autoScrollViewPager.setInterval(3000);
         autoScrollViewPager.startAutoScroll();
@@ -132,28 +130,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void setMainBtn(View view) {
 
-        switch (view.getId()) {
+        switch (view.getId()){
 
-            case R.id.main_btn_group:
+            case R.id.main_btn_group :
                 //공연팀 버튼
                 startActivity(new Intent(MainActivity.this, StreetGroupAcitivty.class));
 
                 break;
 
-            case R.id.main_btn_schedule:
+            case R.id.main_btn_schedule :
                 //공연일정 버튼
-                startActivity(new Intent(MainActivity.this, Schedule.class));
+
                 break;
 
 
-            case R.id.main_btn_stage:
+            case R.id.main_btn_stage :
                 //공연 장소 버튼
                 startActivity(new Intent(MainActivity.this, StreetStageAcitivity.class));
 
 
                 break;
 
-            case R.id.main_btn_ticket:
+            case R.id.main_btn_ticket :
                 //내티켓 버튼
 
 
@@ -182,7 +180,7 @@ class MainBannerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.main_banner_item, null);
+        View view = layoutInflater.inflate(R.layout.main_banner_item,null);
         ImageView imgV_banner = (ImageView) view.findViewById(R.id.main_banner_img);
         Glide.with(context).load(arrayList_banner.get(position)).into(imgV_banner);
         container.addView(view);
@@ -192,7 +190,7 @@ class MainBannerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
+        container.removeView((View)object);
     }
 
     @Override
@@ -202,7 +200,7 @@ class MainBannerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
+        return view==object;
     }
 }
 
