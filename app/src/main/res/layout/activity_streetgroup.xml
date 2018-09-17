@@ -30,6 +30,7 @@
             android:layout_height="match_parent" />
 
         <ImageButton
+            android:id="@+id/group_main_btn_search"
             android:background="@android:color/transparent"
             android:src="@drawable/group_search"
             android:layout_width="0dp"

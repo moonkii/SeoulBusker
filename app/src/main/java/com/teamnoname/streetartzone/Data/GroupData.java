@@ -4,16 +4,21 @@ import io.realm.RealmObject;
 
 public class GroupData extends RealmObject {
 
+    int group_seq;
     String group_name;
     String group_genre;
     String group_info;
     String group_titleImg;
 
-    public GroupData(String group_name, String group_genre, String group_info, String group_titleImg) {
-        this.group_name = group_name;
-        this.group_genre = group_genre;
-        this.group_info = group_info;
-        this.group_titleImg = group_titleImg;
+    public GroupData() {
+    }
+
+    public int getGroup_seq() {
+        return group_seq;
+    }
+
+    public void setGroup_seq(int group_seq) {
+        this.group_seq = group_seq;
     }
 
     public String getGroup_name() {

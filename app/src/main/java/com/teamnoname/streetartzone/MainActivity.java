@@ -12,11 +12,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
 import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
 
 import java.util.ArrayList;
 
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Realm.init(MainActivity.this);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
+        Realm.setDefaultConfiguration(realmConfiguration);
 
         setBannerData();
         setBannerViewPager();
@@ -57,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_btn_group :
                 //공연팀 버튼
-                startActivity(new Intent(MainActivity.this, Testing.class));
+                startActivity(new Intent(MainActivity.this, StreetGroupAcitivty.class));
 
                 break;
 

@@ -11,6 +11,7 @@ import com.teamnoname.streetartzone.R;
 
 public class InfoFragment extends Fragment {
 
+    int selectedSeq;
 
     public static InfoFragment newInstance(){
         Bundle args = new Bundle();
@@ -23,6 +24,7 @@ public class InfoFragment extends Fragment {
 
     public InfoFragment() {
         // Required empty public constructor
+        selectedSeq = StreetGroupDetailActivity.selectedSeq;
     }
 
 
@@ -36,5 +38,8 @@ public class InfoFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
+
     }
 }

@@ -28,9 +28,6 @@
             </intent-filter>
         </activity>
 
-        <!-- 테스트-->
-        <activity android:name=".Testing"/>
-
         <!-- 스케쥴 -->
         <activity android:name=".Schedule.Schedule" />
 

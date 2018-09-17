@@ -1,5 +1,6 @@
 package com.teamnoname.streetartzone.StreetGroup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -21,10 +22,15 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ImageButton btn_back;
 
+    public static int selectedSeq;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streetgroup_detail);
+
+        Intent intent = getIntent();
+        selectedSeq = intent.getExtras().getInt("seq");
 
         frag_adapter = new FragmentAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.group_detail_viewpager);
