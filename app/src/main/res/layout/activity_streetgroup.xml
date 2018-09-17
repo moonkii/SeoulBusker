@@ -10,7 +10,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.8"
         android:weightSum="5">
 
         <ImageButton
@@ -41,7 +41,7 @@
     <LinearLayout
         android:background="@android:color/white"
         android:orientation="horizontal"
-        android:layout_weight="0.9"
+        android:layout_weight="0.5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:weightSum="5">
@@ -103,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:weightSum="5"
-        android:layout_weight="0.1">
+        android:layout_weight="0.05">
 
         <TextView
             android:id="@+id/group_bar_all"
@@ -147,7 +147,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8">
+        android:layout_weight="8.7">
 
         <android.support.v7.widget.RecyclerView
             android:background="@color/background"

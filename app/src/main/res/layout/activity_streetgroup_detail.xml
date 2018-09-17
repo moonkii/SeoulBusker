@@ -9,7 +9,7 @@
     <LinearLayout
         android:background="@color/actionBar"
         android:orientation="horizontal"
-        android:layout_weight="1"
+        android:layout_weight="0.8"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:weightSum="5">
@@ -46,13 +46,13 @@
         android:id="@+id/group_detail_tab"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.8">
+        android:layout_weight="0.6">
     </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8.2"
+        android:layout_weight="8.6"
         android:id="@+id/group_detail_viewpager"
         >
     </android.support.v4.view.ViewPager>

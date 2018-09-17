@@ -18,6 +18,7 @@
     </cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager>
 
     <LinearLayout
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -25,6 +26,8 @@
         android:layout_weight="2.2">
 
         <ImageButton
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@android:color/transparent"
             android:src="@drawable/home_artist"
             android:id="@+id/main_btn_group"
@@ -33,6 +36,8 @@
             android:layout_height="wrap_content" />
 
         <ImageButton
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@android:color/transparent"
             android:src="@drawable/home_place"
             android:id="@+id/main_btn_stage"
@@ -50,6 +55,8 @@
         android:layout_weight="2.2">
 
         <ImageButton
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@android:color/transparent"
             android:src="@drawable/home_place"
             android:id="@+id/main_btn_schedule"
@@ -59,6 +66,8 @@
             android:layout_height="wrap_content" />
 
         <ImageButton
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@android:color/transparent"
             android:src="@drawable/home_ticket"
             android:id="@+id/main_btn_ticket"

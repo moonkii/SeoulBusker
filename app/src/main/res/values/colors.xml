@@ -8,4 +8,6 @@
     <color name="scheduleSeleted">#A789F5</color>
     <color name="scheduleNonSeleted"> #DCCEFF</color>
     <color name="background">#F6F6F6</color>
+
+    <color name="viewBar">#d9d8d8</color>
 </resources>
