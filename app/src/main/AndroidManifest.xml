@@ -40,6 +40,9 @@
         <!--공연장소-->
         <activity android:name=".StreetStage.StreetStageAcitivity" />
 
+        <!--알림-->
+        <activity android:name=".Schedule.Notice"/>
+
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

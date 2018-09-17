@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ public class Schedule extends Activity implements ClickListener{
     RecyclerView schedule_rv;
     RecyclerView date_rv;
     TextView showMonth ;
-    Button nextMonthBtn,prevMonthBtn;
+    ImageView nextMonthBtn,prevMonthBtn;
 
 
     //어댑터
@@ -88,8 +89,8 @@ private void viewInit(){
     //textView
     showMonth = (TextView)findViewById(R.id.schedule_activity_btn_nowmonth);
     //button
-    nextMonthBtn = (Button)findViewById(R.id.schedule_activity_btn_nextmonth);
-    prevMonthBtn = (Button)findViewById(R.id.schedule_activity_btn_prevmonth);
+    nextMonthBtn = (ImageView)findViewById(R.id.schedule_activity_btn_nextmonth);
+    prevMonthBtn = (ImageView)findViewById(R.id.schedule_activity_btn_prevmonth);
 
 
     //이전 월 버튼 클릭
@@ -110,8 +111,17 @@ private void viewInit(){
             showMonth.setText(selYear+"년 "+selMonth+"월");
             changedMonth();
 
+            //현재월인지 확인하기
+            //현재월이면 오늘 날짜로 표시해주고 아니면 1일로 포커싱
             //해당 날짜로 리사이클러뷰 포커싱 하기.
-            focusItemByDate(0);
+            Log.i("Schedule","selMonth : "+selMonth);
+            Log.i("Schedule","nowMonth : "+nowMonth);
+            if(nowMonth==selMonth){
+            selDate = nowDate;
+            }else{
+            selDate = 1;
+            }
+            focusItemByDate(selDate);
 
 //            if(selMonth==nowMonth){
 //                //리스트뷰를 해당 월에 맞춰 변경해 줘야함.
@@ -148,15 +158,24 @@ private void viewInit(){
             else{
                 selMonth+=1;
             }
-
+            Log.i("Schedule","selMonth : "+selMonth);
+            Log.i("Schedule","nowMonth : "+nowMonth);
 //            //변경된 월수에 맞춰 상단 날짜 변경.
             showMonth.setText(selYear+"년 "+selMonth+"월");
 
             //월에 맞게 변경.
             changedMonth();
 
+            //현재월인지 확인하기
+            //현재월이면 오늘 날짜로 표시해주고 아니면 1일로 포커싱
             //해당 날짜로 리사이클러뷰 포커싱 하기.
-            focusItemByDate(0);
+            if(nowMonth==selMonth){
+                selDate = nowDate;
+            }else{
+                selDate = 1;
+            }
+
+            focusItemByDate(selDate);
 //            //리스트뷰를 해당 월에 맞춰 변경해 줘야함.
 //            date_adapter.setSelected_month(selDate);
 //            date_adapter.notifyDataSetChanged();
@@ -192,8 +211,23 @@ public void changedMonth(){
     }
 }
 
+//현재 arraylist에 있는 date를 찾아서 몇번째 포지션에 있는지 확인하기
 public void focusItemByDate(int date){
+    Log.i("Schedule","처음date : "+date);
+for(int i=0;i<contests.size();i++){
+    String fullDate = contests.get(i).getDate();
+    String[] devidedDate = fullDate.split("-");
 
+    int thisdate = Integer.parseInt(devidedDate[2]);
+
+    //현재 날짜와 동일한 애를 포커싱 해줌.
+    if(thisdate==date){
+        schedule_rv.scrollToPosition(i);
+        break;
+    }
+    Log.i("Schedule","date : "+date+"thisdate : "+thisdate);
+
+}
 }
 
     public void setScheduleRecyclerView(){
@@ -209,13 +243,27 @@ public void focusItemByDate(int date){
         lm.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         date_rv.setLayoutManager(lm);
-        date_rv.setAdapter(date_adapter);
 
+        date_rv.setAdapter(date_adapter);
+//        date_rv.scrollToPosition(nowDate+1);
+        date_rv.smoothScrollToPosition(nowDate+1);
+        Log.i("Schedule","setScheduleRecyclerView DATE : "+nowDate);
 
     }
     public void setDataSet(){
         contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
         contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
         contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
         contests.add(new Contestitem(1,1,"안녕",4,"1993-10-10","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
         contests.add(new Contestitem(1,1,"안녕",5,"1993-10-11","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
@@ -224,7 +272,7 @@ public void focusItemByDate(int date){
         contests.add(new Contestitem(1,1,"안녕",5,"1993-10-14","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
         contests.add(new Contestitem(1,1,"안녕",5,"1993-10-15","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
         contests.add(new Contestitem(1,1,"안녕",5,"1993-10-11","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-18","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-16","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
         contests.add(new Contestitem(1,1,"안녕",5,"1993-10-20","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
         contests.add(new Contestitem(1,1,"안녕",5,"1993-10-20","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
         contests.add(new Contestitem(1,1,"안녕",5,"1993-10-20","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
@@ -235,7 +283,7 @@ public void focusItemByDate(int date){
     public void setOnItemClickForDate(int selectedDate) {
             Log.i("Schedule","날짜 : "+selectedDate);
             //날짜 구해서 해당 날짜로 아이템 포커싱
-            focusItemByDate(0);
+            focusItemByDate(selectedDate);
     }
 
     @Override

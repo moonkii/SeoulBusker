@@ -90,12 +90,9 @@ public class DateRecyclerViewAdapter extends RecyclerView.Adapter<DateRecyclerVi
         holder.date.setText(position+1+"");
         if(position+1==selected_date) {
             //현재 날짜는 그린색으로 표시
-            holder.date.setTextColor(Color.WHITE);
-            holder.date.setBackgroundColor(Color.GREEN);
+            holder.date.setTextColor(Color.BLACK);
         }else{
-            //아닌 애들은 그냥 초기값으로.
-            holder.date.setTextColor(Color.GRAY);
-            holder.date.setBackgroundColor(Color.WHITE);
+            holder.date.setTextColor(Color.WHITE);
         }
         holder.getItemView().setOnClickListener(new View.OnClickListener() {
             @Override

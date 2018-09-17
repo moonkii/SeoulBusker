@@ -27,13 +27,13 @@
                 android:id="@+id/streetstage_activity_img_soeulmap"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/mapmap" />
+                />
 
             <ImageView
                 android:id="@+id/streetstage_activity_img_district"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/dongjak_gu"/>
+              />
         </FrameLayout>
 
 
