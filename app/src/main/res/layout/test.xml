@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -14,14 +12,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2.6"
+            android:layout_weight="3.2"
             android:background="@mipmap/rectangle"
             android:orientation="vertical"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2.9"
+            android:layout_weight="2.5"
             android:orientation="vertical">
 
         </LinearLayout>
@@ -49,7 +47,6 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
     <LinearLayout
 
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -63,14 +60,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="2.5"
             android:orientation="vertical"
             android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.9"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
@@ -80,13 +77,12 @@
                     android:layout_weight="2.5"
                     android:orientation="horizontal"></LinearLayout>
 
-                <ImageView
+                <Button
                     android:id="@+id/schedule_activity_btn_prevmonth"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="10dp"
-                    android:src="@drawable/leftarrow"
+
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -101,14 +97,12 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <ImageView
+                <Button
                     android:id="@+id/schedule_activity_btn_nextmonth"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
 
-                    android:padding="10dp"
-                    android:src="@drawable/rightarrow"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -116,7 +110,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.1"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
@@ -124,7 +118,7 @@
 
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.7"
+                    android:layout_weight="1"
 
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -136,8 +130,7 @@
                     android:orientation="horizontal"
                     android:text="이달의\n공연"
                     android:textColor="@android:color/white"
-                    android:textSize="25sp"
-                    android:textStyle="bold"></TextView>
+                    android:textSize="26sp"></TextView>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -159,8 +152,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="2.3"
-                        android:background="#00000000" />
+                        android:layout_weight="2.3" />
 
                 </LinearLayout>
 
@@ -172,7 +164,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7.5"
+            android:layout_weight="7.2"
             android:orientation="horizontal"
             android:weightSum="10">
 
@@ -188,65 +180,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:gravity="right|center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/red" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="기악" />
-
-            <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/blue" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="퍼포먼스" />
-
-            <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/yellow" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="전통" />
-
-            <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/green" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:text="음악" />
-
-        </LinearLayout>
+            android:orientation="horizontal"></LinearLayout>
     </LinearLayout>
 </FrameLayout>

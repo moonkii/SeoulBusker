@@ -96,19 +96,27 @@
                 android:orientation="vertical"
                 android:weightSum="2">
 
-                <TextView
-                    android:id="@+id/textView4"
+                <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1.1"
-                    android:gravity="center_vertical" />
+                    android:layout_weight="1.4"
+                    android:gravity="bottom|right">
+
+                    <ImageView
+                        android:id="@+id/notice_delete_txt"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:adjustViewBounds="true"
+                        app:srcCompat="@drawable/x" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/schedule_activity_txtv_time"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="0.9"
-                    android:gravity="center"
+                    android:layout_weight="0.6"
+                    android:gravity="top|center_horizontal"
                     android:text="TextView"
                     android:textSize="12sp" />
             </LinearLayout>

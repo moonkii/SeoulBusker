@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,15 +29,16 @@ import java.util.Calendar;
  * Created by iyeonghan on 2018. 8. 29..
  */
 
-public class Schedule extends Activity{
+public class Schedule extends Activity implements ClickListener{
     Calendar calendar;         //현재 날짜를 가져올 수 있는 클래스.
     int nowDate,nowMonth,nowYear;                        //현재 날짜.
     int selDate,selMonth,selYear;                        //사용자에 의해 선택된 날짜.
     ArrayList<Contestitem> contests = new ArrayList<>();                            //공연시간 데이터를 담을 컨테이너.
 
-    RecyclerView rv;
+    RecyclerView schedule_rv;
+    RecyclerView date_rv;
     TextView showMonth ;
-    Button nextMonthBtn,prevMonthBtn;
+    ImageView nextMonthBtn,prevMonthBtn;
 
 
     //어댑터
@@ -43,7 +47,7 @@ public class Schedule extends Activity{
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_schedule);
         //데이터 초기화 (데모)
         setDataSet();
         //뷰 초기화.
@@ -85,42 +89,8 @@ private void viewInit(){
     //textView
     showMonth = (TextView)findViewById(R.id.schedule_activity_btn_nowmonth);
     //button
-    nextMonthBtn = (Button)findViewById(R.id.schedule_activity_btn_nextmonth);
-    prevMonthBtn = (Button)findViewById(R.id.schedule_activity_btn_prevmonth);
-
-
-//    rv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-//
-//            //아이템 클릭시,
-//        new MenuDialog(Schedule.this,
-//                //왼쪽 리스너
-//                new View.OnClickListener(){
-//                    @Override
-//                    public void onClick(View v) {
-//                        //공연단 소개 페이지로 넘기기.
-//                     Intent intent = new Intent();
-//
-//                     //팀 소개를 보여줄 것이므로 팀넘버를 넘겨준다.
-//                     intent.putExtra("teamnum",contests.get(position).getTeamName());
-//                     startActivity(intent);
-//                    }
-//                },
-//                //오른쪽 리스너
-//                new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                //맵으로 넘기기
-//                Intent intent = new Intent();
-//
-//                //공연 위치를 보여줘야 하므로 공연 넘버를 넘겨줌
-//                intent.putExtra("contestnum",contests.get(position).getContestName());
-//                startActivity(intent);
-//            }
-//        }).show();
-//        }
-//    });
+    nextMonthBtn = (ImageView)findViewById(R.id.schedule_activity_btn_nextmonth);
+    prevMonthBtn = (ImageView)findViewById(R.id.schedule_activity_btn_prevmonth);
 
 
     //이전 월 버튼 클릭
@@ -139,15 +109,37 @@ private void viewInit(){
             }
             //변경된 월수에 맞춰 상단 날짜 변경.
             showMonth.setText(selYear+"년 "+selMonth+"월");
-            //리스트뷰를 해당 월에 맞춰 변경해 줘야함.
-            date_adapter.setMonth(selDate);
-            date_adapter.notifyDataSetChanged();
-            //ArrayList안에 있는 데이터도 모두 현재월의 데이터로 변경해줘야함.
+            changedMonth();
 
-            //그 이후 노티
-            schedule_adapter.notifyDataSetChanged();
+            //현재월인지 확인하기
+            //현재월이면 오늘 날짜로 표시해주고 아니면 1일로 포커싱
+            //해당 날짜로 리사이클러뷰 포커싱 하기.
+            Log.i("Schedule","selMonth : "+selMonth);
+            Log.i("Schedule","nowMonth : "+nowMonth);
+            if(nowMonth==selMonth){
+            selDate = nowDate;
+            }else{
+            selDate = 1;
+            }
+            focusItemByDate(selDate);
 
-            //nowMonth==selMonth 라면 ListView의 포커싱을 현재 nowDate로 .
+//            if(selMonth==nowMonth){
+//                //리스트뷰를 해당 월에 맞춰 변경해 줘야함.
+//                date_adapter.setCurrentMonth(nowMonth,nowDate);
+//                Log.i("Schedule","날짜변경 : "+date_adapter.getSelected_month());
+//                //ArrayList안에 있는 데이터도 모두 현재월의 데이터로 변경해줘야함.
+//                //그 이후 스케쥴 노티
+//                schedule_adapter.notifyDataSetChanged();
+//            }else{
+//                //리스트뷰를 해당 월에 맞춰 변경해 줘야함.
+//                date_adapter.setSelected_month(selMonth);
+//                //ArrayList안에 있는 데이터도 모두 해당월의 데이터로 변경해줘야함.
+//                //그 이후 스케쥴 노티
+//                schedule_adapter.notifyDataSetChanged();
+//
+//            }
+
+
 
         }
     });
@@ -166,283 +158,171 @@ private void viewInit(){
             else{
                 selMonth+=1;
             }
-            //변경된 월수에 맞춰 상단 날짜 변경.
+            Log.i("Schedule","selMonth : "+selMonth);
+            Log.i("Schedule","nowMonth : "+nowMonth);
+//            //변경된 월수에 맞춰 상단 날짜 변경.
             showMonth.setText(selYear+"년 "+selMonth+"월");
-            //리스트뷰를 해당 월에 맞춰 변경해 줘야함.
-            date_adapter.setMonth(selDate);
-            date_adapter.notifyDataSetChanged();
-            //ArrayList안에 있는 데이터도 모두 현재월의 데이터로 변경해줘야함
 
-            //그 이후 노티
-            schedule_adapter.notifyDataSetChanged();
+            //월에 맞게 변경.
+            changedMonth();
 
+            //현재월인지 확인하기
+            //현재월이면 오늘 날짜로 표시해주고 아니면 1일로 포커싱
+            //해당 날짜로 리사이클러뷰 포커싱 하기.
+            if(nowMonth==selMonth){
+                selDate = nowDate;
+            }else{
+                selDate = 1;
+            }
 
-            //nowMonth==selMonth 라면 ListView의 포커싱을 현재 nowDate로 .
+            focusItemByDate(selDate);
+//            //리스트뷰를 해당 월에 맞춰 변경해 줘야함.
+//            date_adapter.setSelected_month(selDate);
+//            date_adapter.notifyDataSetChanged();
+//            //ArrayList안에 있는 데이터도 모두 현재월의 데이터로 변경해줘야함
+//
+//            //그 이후 노티
+//            schedule_adapter.notifyDataSetChanged();
+//
+//
+//            //nowMonth==selMonth 라면 ListView의 포커싱을 현재 nowDate로 .
 
         }
     });
 
 
 }
-    public void setScheduleRecyclerView(){
 
-        schedule_adapter= new ScheduleRecyclerViewAdapter(contests);
-        rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        rv.setAdapter(schedule_adapter);
+public void changedMonth(){
+    if(selMonth==nowMonth&&selYear==nowYear){
+        //리스트뷰를 해당 월에 맞춰 변경해 줘야함.
+        date_adapter.setCurrentMonth(nowMonth,nowDate);
+        Log.i("Schedule","날짜변경 : "+date_adapter.getSelected_month());
+        //ArrayList안에 있는 데이터도 모두 현재월의 데이터로 변경해줘야함.
+        //그 이후 스케쥴 노티
+        schedule_adapter.notifyDataSetChanged();
+    }else{
+        //리스트뷰를 해당 월에 맞춰 변경해 줘야함.
+        date_adapter.setSelected_month(selMonth);
+        //ArrayList안에 있는 데이터도 모두 해당월의 데이터로 변경해줘야함.
+        //그 이후 스케쥴 노티
+        schedule_adapter.notifyDataSetChanged();
 
     }
-    public void setDateRecyclerView(){
+}
 
-         date_adapter= new DateRecyclerViewAdapter(selMonth);
+//현재 arraylist에 있는 date를 찾아서 몇번째 포지션에 있는지 확인하기
+public void focusItemByDate(int date){
+    Log.i("Schedule","처음date : "+date);
+for(int i=0;i<contests.size();i++){
+    String fullDate = contests.get(i).getDate();
+    String[] devidedDate = fullDate.split("-");
+
+    int thisdate = Integer.parseInt(devidedDate[2]);
+
+    //현재 날짜와 동일한 애를 포커싱 해줌.
+    if(thisdate==date){
+        schedule_rv.scrollToPosition(i);
+        LinearLayoutManager lm;
+        break;
+    }
+    Log.i("Schedule","date : "+date+"thisdate : "+thisdate);
+
+}
+}
+
+    public void setScheduleRecyclerView(){
+        schedule_rv = (RecyclerView)findViewById(R.id.schedule_rv_contests);
+        schedule_adapter= new ScheduleRecyclerViewAdapter(contests,Schedule.this);
+        schedule_rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        schedule_rv.setAdapter(schedule_adapter);
+    }
+    public void setDateRecyclerView(){
+        date_rv = (RecyclerView)findViewById(R.id.schedule_rv_date);
+        date_adapter= new DateRecyclerViewAdapter(selMonth,selDate,Schedule.this);
         LinearLayoutManager lm = new LinearLayoutManager(getApplicationContext());
         lm.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rv.setLayoutManager(lm);
-        rv.setAdapter(date_adapter);
+
+        date_rv.setLayoutManager(lm);
+
+        date_rv.setAdapter(date_adapter);
+//        date_rv.scrollToPosition(nowDate+1);
+        date_rv.smoothScrollToPosition(nowDate+1);
+        Log.i("Schedule","setScheduleRecyclerView DATE : "+nowDate);
 
     }
     public void setDataSet(){
-        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-23","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-23","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-23","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",4,"1993-10-23","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-23","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",4,"1993-10-10","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-11","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-12","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-13","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-14","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-15","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-11","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-16","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-20","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-20","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
+        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-20","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
     }
 
-}
 
-
-//날짜 어댑터.
-class DateRecyclerViewAdapter extends RecyclerView.Adapter<DateRecyclerViewAdapter.DateViewHolder>{
-    int month ;
-
-    public DateRecyclerViewAdapter(int month) {
-        this.month = month;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-
-
-    //해당 월의 마지막 날짜를 찾아주는 함수.
-    int LastDate(int month){
-        if(month==2){
-            return 28;
-        }else if(month==4||month==6||month==9||month==11){
-            return 30;
-        }else{
-            return 31;
-        }
-    }
-
-    @NonNull
     @Override
-    public DateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.schedule_date_item,parent,false);
-        return new DateViewHolder(itemView);
+    public void setOnItemClickForDate(int selectedDate) {
+            Log.i("Schedule","날짜 : "+selectedDate);
+            //날짜 구해서 해당 날짜로 아이템 포커싱
+            focusItemByDate(selectedDate);
+            date_rv.scrollToPosition(selectedDate);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DateViewHolder holder, int position) {
-        //Text에 값 초기화
-        holder.date.setText(position);
-    }
+    public void setOnItemClickForSchedule(final int selectedPosition) {
+        Log.i("Schedule","선택된 포지션 : "+selectedPosition);
+        //아이템 클릭시,
+        MenuDialog dialog = new MenuDialog(Schedule.this,
+                //왼쪽 리스너
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        //공연단 소개 페이지로 넘기기.
+                        Intent intent = new Intent();
 
-    @Override
-    public int getItemCount() {
+                        //팀 소개를 보여줄 것이므로 팀넘버를 넘겨준다.
+                        intent.putExtra("teamnum",contests.get(selectedPosition).getTeamName());
+                        startActivity(intent);
+                    }
+                },
+                //오른쪽 리스너
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        //맵으로 넘기기
+                        Intent intent = new Intent();
 
-        //해당 월에 숫자만큼 찍어내기
-        return LastDate(month);
-    }
-
-    public static class DateViewHolder extends RecyclerView.ViewHolder {
-
-
-        TextView date ;
-
-
-        public DateViewHolder(View itemView) {
-            super(itemView);
-            date = (TextView)itemView.findViewById(R.id.schedule_date_txt);
-
-        }
+                        //공연 위치를 보여줘야 하므로 공연 넘버를 넘겨줌
+                        intent.putExtra("contestnum",contests.get(selectedPosition).getContestnum());
+                        startActivity(intent);
+                    }
+                });
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.show();
     }
 }
 
 
 
-//공연 어댑터
-class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerViewAdapter.ScheduleViewHolder> {
-
-    ArrayList<Contestitem> arrayList_review;
 
 
-    public ScheduleRecyclerViewAdapter(ArrayList<Contestitem> arrayList) {
-        this.arrayList_review = arrayList_review;
-    }
-
-    @NonNull
-    @Override
-    public ScheduleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.schedule_item_layout, parent, false);
-
-
-        return new ScheduleViewHolder(itemView);
-    }
-
-
-    @Override
-    public void onBindViewHolder(@NonNull ScheduleViewHolder holder, int position) {
-    holder.teamname.setText(arrayList_review.get(position).getTeamName());
-    holder.place.setText(arrayList_review.get(position).getPlace());
-    holder.time.setText(arrayList_review.get(position).getTime());
-
-
-    //색깔 변동주기
-
-    if(arrayList_review.get(position).getContestType()==1){//기악
-//        holder.type_light.setBackgroundColor();
-    }else if(arrayList_review.get(position).getContestType()==2){//퍼포먼스
-
-    }else if(arrayList_review.get(position).getContestType()==3){//전통음악
-
-    }
-
-
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return (null == arrayList_review) ? 0 : arrayList_review.size();
-    }
-
-
-    public static class ScheduleViewHolder extends RecyclerView.ViewHolder {
-
-
-        TextView teamname ;
-        TextView place;
-        TextView time;
-        LinearLayout type_light ;
-
-        public ScheduleViewHolder(View itemView) {
-            super(itemView);
-         teamname = (TextView)itemView.findViewById(R.id.schedule_activity_txtv_teamname);
-         place = (TextView)itemView.findViewById(R.id.schedule_activity_txtv_place);
-         time = (TextView)itemView.findViewById(R.id.schedule_activity_txtv_time);
-         type_light =(LinearLayout) itemView.findViewById(R.id.schedule_activity_layout_light);
-
-
-        }
-    }
-}
-
-
-//그냥 서버로 부터 데이터를 가져올 때 한번에 다 가져와서 저장한다.
-class Contestitem{
-    int contestnum,teamnum;
-    String teamName;
-
-
-    int contestType; //1.기악 2.퍼포먼스 3. 전통음악
-    String date;
-    String time;
-    String place;
-    double x;
-    double y;
-
-    public Contestitem(int contestnum, int teamnum, String teamName, int contestType, String date, String time, String place, double x, double y) {
-        this.contestnum = contestnum;
-        this.teamnum = teamnum;
-        this.teamName = teamName;
-        this.contestType = contestType;
-        this.date = date;
-        this.time = time;
-        this.place = place;
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getContestnum() {
-        return contestnum;
-    }
-
-    public void setContestnum(int contestnum) {
-        this.contestnum = contestnum;
-    }
-
-    public int getTeamnum() {
-        return teamnum;
-    }
-
-    public void setTeamnum(int teamnum) {
-        this.teamnum = teamnum;
-    }
-
-    public String getTeamName() {
-        return teamName;
-    }
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-
-    public int getContestType() {
-        return contestType;
-    }
-
-    public void setContestType(int contestType) {
-        this.contestType = contestType;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-}
