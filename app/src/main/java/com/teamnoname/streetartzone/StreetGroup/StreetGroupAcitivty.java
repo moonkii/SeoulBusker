@@ -1,5 +1,6 @@
 package com.teamnoname.streetartzone.StreetGroup;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.teamnoname.streetartzone.R;
+
 
 import java.util.ArrayList;
 

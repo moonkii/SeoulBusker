@@ -2,40 +2,114 @@ package com.teamnoname.streetartzone;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
+import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
 
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
 
     AutoScrollViewPager autoScrollViewPager;
     MainBannerAdapter mainBannerAdapter;
     ArrayList<Integer> arrayList_banner;
+    private Realm realm;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor preferenceEditor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        realm = Realm.getDefaultInstance();
+        sharedPreferences = getSharedPreferences("GET_STAGE", MODE_PRIVATE);
+        preferenceEditor = sharedPreferences.edit();
+
         setBannerData();
         setBannerViewPager();
 
 
+        if (!sharedPreferences.getBoolean("isStageData", false)) {
+            getStageInfoData();
+        }
+
+
     }
 
-    public void setBannerData(){
+    private void getStageInfoData() {
+        GetStageInfoAsync getStageInfoAsync = new GetStageInfoAsync(realm);
+        try {
+            final Elements[] trs = getStageInfoAsync.execute().get();
+
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+
+                    for (int i = 0; i < trs.length; i++) {
+                        Elements tr = trs[i];
+                        Elements tds = tr.select("td");
+
+                        int index = 5, j = 0;
+                        while (index < tds.size()) {
+                            if (j > 4 && index < tds.size()) {
+                                int seq = Integer.valueOf(tds.get(index).text());
+                                String district = tds.get(index + 1).text();
+                                String placeName = tds.get(index + 2).text();
+                                String address = tds.get(index + 3).text();
+
+                                Log.e("Main", tds.get(index).text()+"/" + district+"/" + placeName+"/" + address + "다음--");
+
+                                StageInfo info = new StageInfo();
+                                info.setSeq(seq);
+                                info.setAddress(address);
+                                info.setDistrict(district);
+                                info.setPlaceName(placeName);
+                                realm.copyToRealm(info);
+
+                                index += 4;
+                            }
+                            j++;
+                        }
+                    }
+                }
+            });
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        preferenceEditor.putBoolean("isStageData",true);
+        preferenceEditor.commit();
+
+
+    }
+
+    public void setBannerData() {
         arrayList_banner = new ArrayList<>();
         arrayList_banner.add(R.drawable.home_banner1);
         arrayList_banner.add(R.drawable.home_banner2);
@@ -57,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_btn_group :
                 //공연팀 버튼
-                startActivity(new Intent(MainActivity.this, Testing.class));
+                startActivity(new Intent(MainActivity.this, StreetGroupAcitivty.class));
 
                 break;
 
@@ -124,5 +198,36 @@ class MainBannerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view==object;
+    }
+}
+
+class GetStageInfoAsync extends AsyncTask <Void, Void, Elements[]> {
+    private Realm realm;
+
+    public GetStageInfoAsync(Realm realm) {
+        this.realm = realm;
+    }
+
+    @Override
+    protected Elements[] doInBackground(Void... voids) {
+        org.jsoup.nodes.Document stageInfo1 = null;
+        org.jsoup.nodes.Document stageInfo2 = null;
+        try {
+            stageInfo1 = Jsoup
+                    .connect("https://seoulbusking.com/bbs/board.php?bo_table=art_location&page=2&page=1")
+                    .get();
+
+            stageInfo2 = Jsoup
+                    .connect("https://seoulbusking.com/bbs/board.php?bo_table=art_location&page=2&page=2")
+                    .get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Elements[] trs = new Elements[2];
+        trs[0] = stageInfo1.getElementsByTag("tr");
+        trs[1] = stageInfo2.getElementsByTag("tr");
+
+        return trs;
     }
 }

@@ -1,40 +1,29 @@
 package com.teamnoname.streetartzone.StreetStage;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class StreetStageAcitivity extends AppCompatActivity implements DistrictAndStageListAdapter.ChangeMapImageListener {
 
@@ -43,12 +32,15 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
     private EditText etv_searchStage;
     private ImageView img_soeulMap;
     private ImageView img_districtMap;
+    private ImageView img_xBtn;
+
     private String[] array_district;
     private String[] array_districtEng;
     private HashMap<String, ArrayList<StageInfo>> map_allStageInfo;
 
     private DistrictAndStageListAdapter adapter_stageInfoList;
     private int lastExpandedGroupPosition;
+    private Realm realm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +49,8 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
         map_allStageInfo = new HashMap<>();
         array_district = this.getResources().getStringArray(R.array.district);
         array_districtEng = this.getResources().getStringArray(R.array.districtEng);
+        realm.init(this);
+        realm = Realm.getDefaultInstance();
         initData();
         initView();
     }
@@ -67,6 +61,7 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
         img_soeulMap = (ImageView) findViewById(R.id.streetstage_activity_img_soeulmap);
         img_districtMap = (ImageView)findViewById(R.id.streetstage_activity_img_district);
         exListV_stageInfo = (ExpandableListView) findViewById(R.id.streetstage_activity_list_districtinfo);
+        img_xBtn = (ImageView)findViewById(R.id.streetstage_activity_img_xbtn);
         adapter_stageInfoList = new DistrictAndStageListAdapter(this, array_district, map_allStageInfo,this);
         exListV_stageInfo.setAdapter(adapter_stageInfoList);
 
@@ -79,6 +74,13 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
                 lastExpandedGroupPosition = groupPosition;
             }
         });
+
+        img_xBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initData() {
@@ -88,28 +90,8 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
     }
 
     private ArrayList<StageInfo> getDataInRealm(String district) {
-        ArrayList<StageInfo> array_allStageInfo = new ArrayList<>();
-        array_allStageInfo.add(new StageInfo("성북구",
-                "보문역",
-                "서울 성북구 보문로 116",
-                37.585811,
-                127.019532));
-        array_allStageInfo.add(new StageInfo("종로구",
-                "낙산공원 중앙광장",
-                "서울특별시 종로구 동숭동 50-125",
-                37.580666,
-                127.006982));
-        array_allStageInfo.add(new StageInfo("성북구",
-                "돈암시장",
-                "서울특별시 성북구 동소문동5가59-1",
-                37.591876,
-                127.015670));
-        array_allStageInfo.add(new StageInfo("종로구",
-                "세종대로 차 없는 거리",
-                "서울특별시 종로구 세종로 80-9",
-                37.572784,
-                126.976604));
 
+        RealmResults<StageInfo> array_allStageInfo = realm.where(StageInfo.class).findAll();
         ArrayList<StageInfo> array_stageInfoOfDistrict = new ArrayList<>();
 
         for (StageInfo info : array_allStageInfo) {
@@ -235,6 +217,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
             childViewHolder.tv_address = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_address);
             childViewHolder.tv_placeName = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_placename);
             childViewHolder.relative_background = (RelativeLayout) convertView.findViewById(R.id.stageinfo_item_rel_background);
+            childViewHolder.view_line = (View)convertView.findViewById(R.id.stageinfo_item_line);
             convertView.setTag(childViewHolder);
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
@@ -246,10 +229,12 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
             childViewHolder.relative_background.setBackground(context.getDrawable(R.drawable.stage_last_item_background));
             convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(),
                     convertView.getPaddingRight(), 20);
+            childViewHolder.view_line.setVisibility(View.INVISIBLE);
         }else{
             childViewHolder.relative_background.setBackground(context.getDrawable(R.drawable.stage_item_background));
             convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(),
                     convertView.getPaddingRight(), 0);
+            childViewHolder.view_line.setVisibility(View.VISIBLE);
         }
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -281,6 +266,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
         public TextView tv_placeName;
         public TextView tv_address;
         public RelativeLayout relative_background;
+        public View view_line;
     }
 }
 
