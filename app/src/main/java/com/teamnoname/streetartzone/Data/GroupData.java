@@ -9,6 +9,7 @@ public class GroupData extends RealmObject {
     String group_genre;
     String group_info;
     String group_titleImg;
+    String group_youtube;
 
     public GroupData() {
     }
@@ -51,5 +52,13 @@ public class GroupData extends RealmObject {
 
     public void setGroup_titleImg(String group_titleImg) {
         this.group_titleImg = group_titleImg;
+    }
+
+    public String getGroup_youtube() {
+        return group_youtube;
+    }
+
+    public void setGroup_youtube(String group_youtube) {
+        this.group_youtube = group_youtube;
     }
 }

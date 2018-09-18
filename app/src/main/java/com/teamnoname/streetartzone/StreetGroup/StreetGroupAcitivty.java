@@ -231,6 +231,7 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
                                 groupData.setGroup_genre(arrayList_groupData.get(i).getGenre());
                                 groupData.setGroup_info(arrayList_groupData.get(i).getIntro());
                                 groupData.setGroup_titleImg(arrayList_groupData.get(i).getImage());
+                                groupData.setGroup_youtube(arrayList_groupData.get(i).getYoutube());
 
                             }
 
@@ -246,7 +247,7 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
 
                                 GroupReviewData groupReviewData = realm.createObject(GroupReviewData.class);
                                 groupReviewData.setSocre(arrayList_groupReviewData.get(i).getScore());
-                                groupReviewData.setWriter(arrayList_groupReviewData.get(i).getName());
+                                groupReviewData.setWriter(arrayList_groupReviewData.get(i).getWriter());
                                 groupReviewData.setDate(arrayList_groupReviewData.get(i).getDate());
                                 groupReviewData.setContents(arrayList_groupReviewData.get(i).getContents());
                                 groupReviewData.setSeq(arrayList_groupReviewData.get(i).getSeq());
@@ -483,15 +484,17 @@ class GroupFirebaseData{
     String genre;
     String intro;
     String image;
+    String youtube;
 
     public GroupFirebaseData() {
     }
 
-    public GroupFirebaseData(String name, String genre, String intro, String image) {
+    public GroupFirebaseData(String name, String genre, String intro, String image, String youtube) {
         this.name = name;
         this.genre = genre;
         this.intro = intro;
         this.image = image;
+        this.youtube = youtube;
     }
 
     public String getName() {
@@ -525,13 +528,21 @@ class GroupFirebaseData{
     public void setImage(String image) {
         this.image = image;
     }
+
+    public String getYoutube() {
+        return youtube;
+    }
+
+    public void setYoutube(String youtube) {
+        this.youtube = youtube;
+    }
 }
 
 
 class GroupReviewFirebaseData{
 
     int score;
-    String name;
+    String writer;
     String date;
     String contents;
     int seq;
@@ -540,13 +551,12 @@ class GroupReviewFirebaseData{
     }
 
 
-
-    public String getName() {
-        return name;
+    public String getWriter() {
+        return writer;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
 
     public String getDate() {

@@ -5,15 +5,18 @@
     android:orientation="vertical">
 
     <ScrollView
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -41,16 +44,21 @@
             </LinearLayout>
 
             <ImageView
+                android:layout_marginBottom="10dp"
+                android:id="@+id/fragment_group_info_mainImg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
+                android:id="@+id/fragment_group_info_contents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="공연팀 설명" />
 
             <View
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@android:color/darker_gray"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -59,6 +67,7 @@
             </View>
 
             <TextView
+                android:layout_marginBottom="10dp"
                 android:text="사진"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -70,41 +79,19 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@mipmap/ic_launcher"
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/fragment_group_info_img1"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <ImageView
-                    android:src="@mipmap/ic_launcher"
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/fragment_group_info_img2"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <ImageView
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <ImageView
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <ImageView
-                    android:src="@mipmap/ic_launcher"
+                    android:id="@+id/fragment_group_info_img3"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" />
@@ -112,6 +99,8 @@
             </LinearLayout>
 
             <View
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@android:color/darker_gray"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -119,17 +108,28 @@
             </View>
 
             <TextView
+                android:layout_marginBottom="10dp"
                 android:text="동영상"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <ImageView
-                android:src="@mipmap/ic_launcher"
+            <fragment
+                android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+                android:id="@+id/fragment_group_info_youtube"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/fragment_group_info_tv_youtube"
+                android:gravity="center"
+                android:text="동영상이 없습니다."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-
             <View
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@android:color/darker_gray"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -137,6 +137,15 @@
             </View>
 
             <ImageButton
+                android:layout_gravity="center"
+                android:background="@color/actionBar"
+                android:src="@drawable/btn_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:visibility="invisible"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
                 android:background="@color/actionBar"
                 android:src="@drawable/btn_ticket"
