@@ -258,7 +258,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
 
 
 
-    
+
     class GroupViewHolder {
         public TextView tv_district;
         public TextView tv_numberOfStage;
