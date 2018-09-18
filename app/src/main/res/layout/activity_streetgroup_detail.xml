@@ -23,6 +23,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/group_detail_title"
             android:gravity="center"
             android:textColor="@android:color/white"
             android:text="공연팀이름"

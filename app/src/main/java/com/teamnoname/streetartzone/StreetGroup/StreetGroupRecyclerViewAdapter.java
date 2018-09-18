@@ -1,5 +1,6 @@
 package com.teamnoname.streetartzone.StreetGroup;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.teamnoname.streetartzone.R;
 
 import java.util.ArrayList;
@@ -19,8 +21,11 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
     private static String TAG="StreetGroupRecyclerViewAdapter";
     private ArrayList<StreetGroupItem> arrayList_item;
     private RecyclerViewItemClickListener recyclerViewItemClickListener;
+    Context context;
 
-    public StreetGroupRecyclerViewAdapter(ArrayList<StreetGroupItem> arrayList_item,RecyclerViewItemClickListener recyclerViewItemClickListener) {
+
+    public StreetGroupRecyclerViewAdapter(Context context, ArrayList<StreetGroupItem> arrayList_item, RecyclerViewItemClickListener recyclerViewItemClickListener) {
+        this.context=context;
         this.arrayList_item = arrayList_item;
         this.recyclerViewItemClickListener=recyclerViewItemClickListener;
     }
@@ -39,21 +44,75 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, final int position) {
+
+
+        Glide.with(context)
+                .load(arrayList_item.get(position).getGroup_img())
+                .into(holder.imgV_titleImg);
+
 
         holder.tv_groupName.setText(arrayList_item.get(position).getGroup_name());
-//        holder.imgV_titleImg.setImageResource(arrayList_item.get(position).getGroup_img());
         holder.tv_groupCategory.setText(arrayList_item.get(position).getGroup_category());
         holder.tv_groupDetail.setText(arrayList_item.get(position).getGroup_detail());
-        holder.tv_groupScore.setText(arrayList_item.get(position).getGroup_score());
-        holder.tv_groupReviewNumber.setText("공연후기 "+arrayList_item.get(position).getGroup_reviewNumber());
+        holder.tv_groupScore.setText(Integer.toString(arrayList_item.get(position).getGroup_score()));
+        holder.tv_groupReviewNumber.setText("공연후기 "+Integer.toString(arrayList_item.get(position).getGroup_reviewNumber()));
 
-        final int itemPosition = holder.getAdapterPosition();
+        double rating=0;
+        if(arrayList_item.get(position).getGroup_reviewNumber()>0){
+            rating = arrayList_item.get(position).getGroup_score()/arrayList_item.get(position).getGroup_reviewNumber();
+        }
+
+
+        if(rating==0){
+            holder.imgV_star1.setImageResource(R.drawable.group_star_non);
+        }else if(rating==0.5){
+            holder.imgV_star1.setImageResource(R.drawable.group_star_half);
+        }else{
+            holder.imgV_star1.setImageResource(R.drawable.group_star_full);
+        }
+
+
+        if(rating <= 1){
+            holder.imgV_star2.setImageResource(R.drawable.group_star_non);
+        }else if(rating == 1.5){
+            holder.imgV_star2.setImageResource(R.drawable.group_star_half);
+        }else{
+            holder.imgV_star2.setImageResource(R.drawable.group_star_full);
+        }
+
+        if(rating <= 2){
+            holder.imgV_star3.setImageResource(R.drawable.group_star_non);
+        }else if(rating == 2.5){
+            holder.imgV_star3.setImageResource(R.drawable.group_star_half);
+        }else{
+            holder.imgV_star3.setImageResource(R.drawable.group_star_full);
+        }
+
+        if(rating <= 3){
+            holder.imgV_star4.setImageResource(R.drawable.group_star_non);
+        }else if(rating == 3.5){
+            holder.imgV_star4.setImageResource(R.drawable.group_star_half);
+        }else{
+            holder.imgV_star4.setImageResource(R.drawable.group_star_full);
+        }
+
+
+        if(rating <= 4){
+            holder.imgV_star5.setImageResource(R.drawable.group_star_non);
+        }else if(rating == 4.5){
+            holder.imgV_star5.setImageResource(R.drawable.group_star_half);
+        }else{
+            holder.imgV_star5.setImageResource(R.drawable.group_star_full);
+        }
+
+
+
 
         holder.getItemView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recyclerViewItemClickListener.setOnItemClick(itemPosition);
+                recyclerViewItemClickListener.setOnItemClick(arrayList_item.get(holder.getAdapterPosition()).getGroup_seq());
             }
         });
 
@@ -118,31 +177,31 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
 //공연팀 리사이클러뷰 아이템 클래스
 class StreetGroupItem {
 
+    private int group_seq;
     private String group_img;
     private String group_name;
     private String group_category;
     private String group_detail;
-    private String group_star1;
-    private String group_star2;
-    private String group_star3;
-    private String group_star4;
-    private String group_star5;
-    private String group_score;
+    private int group_score;
     private int group_reviewNumber;
 
 
-    public StreetGroupItem(String group_img, String group_name, String group_category, String group_detail, String group_star1, String group_star2, String group_star3, String group_star4, String group_star5, String group_score, int group_reviewNumber) {
+    public StreetGroupItem(int group_seq, String group_img, String group_name, String group_category, String group_detail, int group_score, int group_reviewNumber) {
+        this.group_seq = group_seq;
         this.group_img = group_img;
         this.group_name = group_name;
         this.group_category = group_category;
         this.group_detail = group_detail;
-        this.group_star1 = group_star1;
-        this.group_star2 = group_star2;
-        this.group_star3 = group_star3;
-        this.group_star4 = group_star4;
-        this.group_star5 = group_star5;
         this.group_score = group_score;
         this.group_reviewNumber = group_reviewNumber;
+    }
+
+    public int getGroup_seq() {
+        return group_seq;
+    }
+
+    public void setGroup_seq(int group_seq) {
+        this.group_seq = group_seq;
     }
 
     public String getGroup_img() {
@@ -177,51 +236,11 @@ class StreetGroupItem {
         this.group_detail = group_detail;
     }
 
-    public String getGroup_star1() {
-        return group_star1;
-    }
-
-    public void setGroup_star1(String group_star1) {
-        this.group_star1 = group_star1;
-    }
-
-    public String getGroup_star2() {
-        return group_star2;
-    }
-
-    public void setGroup_star2(String group_star2) {
-        this.group_star2 = group_star2;
-    }
-
-    public String getGroup_star3() {
-        return group_star3;
-    }
-
-    public void setGroup_star3(String group_star3) {
-        this.group_star3 = group_star3;
-    }
-
-    public String getGroup_star4() {
-        return group_star4;
-    }
-
-    public void setGroup_star4(String group_star4) {
-        this.group_star4 = group_star4;
-    }
-
-    public String getGroup_star5() {
-        return group_star5;
-    }
-
-    public void setGroup_star5(String group_star5) {
-        this.group_star5 = group_star5;
-    }
-
-    public String getGroup_score() {
+    public int getGroup_score() {
         return group_score;
     }
 
-    public void setGroup_score(String group_score) {
+    public void setGroup_score(int group_score) {
         this.group_score = group_score;
     }
 

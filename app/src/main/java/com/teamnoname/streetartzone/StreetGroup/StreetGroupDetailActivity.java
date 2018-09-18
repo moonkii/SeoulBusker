@@ -1,5 +1,6 @@
 package com.teamnoname.streetartzone.StreetGroup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -10,8 +11,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.teamnoname.streetartzone.Data.GroupData;
 import com.teamnoname.streetartzone.R;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class StreetGroupDetailActivity extends AppCompatActivity {
 
@@ -20,23 +26,45 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
     ViewPager viewPager;
     TabLayout tabLayout;
     ImageButton btn_back;
+    TextView tv_title;
+
+    //DB
+    Realm realm;
+    RealmResults<GroupData> groupData;
+
+    public static int selectedSeq;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streetgroup_detail);
 
+        Intent intent = getIntent();
+        selectedSeq = intent.getExtras().getInt("seq");
+
         frag_adapter = new FragmentAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.group_detail_viewpager);
         viewPager.setAdapter(frag_adapter);
         tabLayout = (TabLayout) findViewById(R.id.group_detail_tab);
         tabLayout.setupWithViewPager(viewPager);
+        tv_title = (TextView) findViewById(R.id.group_detail_title);
 
         btn_back = (ImageButton) findViewById(R.id.group_detail_btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 StreetGroupDetailActivity.this.finish();
+            }
+        });
+
+
+        realm = Realm.getDefaultInstance();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                groupData = realm.where(GroupData.class).equalTo("group_seq",selectedSeq).findAll();
+                tv_title.setText(groupData.get(0).getGroup_name());
+
             }
         });
     }

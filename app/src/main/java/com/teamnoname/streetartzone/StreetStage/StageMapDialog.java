@@ -1,11 +1,10 @@
 package com.teamnoname.streetartzone.StreetStage;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,13 +18,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.R;
+
+import java.io.IOException;
 
 public class StageMapDialog extends android.support.v4.app.DialogFragment implements OnMapReadyCallback {
 
     private GoogleMap map_stageInfo;
     private StageInfo stageInfo;
     private TextView tv_address;
+    private TextView tv_district;
+    private TextView tv_placeName;
 
     private SupportMapFragment mapFragment;
 
@@ -59,6 +63,11 @@ public class StageMapDialog extends android.support.v4.app.DialogFragment implem
         View view = inflater.inflate(R.layout.dialog_stagemap, container, false);
 
         tv_address = (TextView)view.findViewById(R.id.dialog_stagemap_tv_address);
+        tv_district = (TextView)view.findViewById(R.id.dialog_stagemap_tv_district);
+        tv_placeName = (TextView)view.findViewById(R.id.dialog_stagemap_tv_placeName);
+
+        tv_district.setText(stageInfo.getDistrict()+" |");
+        tv_placeName.setText(stageInfo.getPlaceName());
         tv_address.setText(stageInfo.getAddress());
 
         Dialog dialog = this.getDialog();
@@ -80,7 +89,7 @@ public class StageMapDialog extends android.support.v4.app.DialogFragment implem
         map_stageInfo = googleMap;
 
         if (stageInfo != null) {
-            LatLng stageLocation = new LatLng(stageInfo.getLat(), stageInfo.getLot());
+            LatLng stageLocation = getLatLotFromAddress(stageInfo.getAddress());
             MarkerOptions options = new MarkerOptions();
             options
                     .position(stageLocation)
@@ -89,5 +98,20 @@ public class StageMapDialog extends android.support.v4.app.DialogFragment implem
             map_stageInfo.moveCamera(CameraUpdateFactory.newLatLngZoom(stageLocation, 16f));
         }
 
+    }
+
+    private LatLng getLatLotFromAddress(String address){
+        Geocoder geocoder = new Geocoder(getContext());
+        LatLng getLatLng = null;
+        try {
+            Address location =  geocoder.getFromLocationName(address,1).get(0);
+            if(location!=null){
+                getLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return  getLatLng;
     }
 }

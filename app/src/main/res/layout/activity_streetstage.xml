@@ -5,35 +5,60 @@
     android:layout_height="match_parent"
     android:weightSum="1"
     android:orientation="vertical"
+    android:background="#FFF"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.08"
         android:background="@color/actionBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공연장위치"
+            android:textColor="#FFF"
+            android:textSize="22dp"
+            android:fontFamily="@font/notosanskr_regular_hestia"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageView
+            android:id="@+id/streetstage_activity_img_xbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/x_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"/>
+
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.9">
+        android:layout_weight="0.92"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp">
 
         <FrameLayout
             android:id="@+id/streetstage_activity_box_map"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
             <ImageView
                 android:id="@+id/streetstage_activity_img_soeulmap"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                />
+                android:src="@drawable/mapmap" />
 
             <ImageView
                 android:id="@+id/streetstage_activity_img_district"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-              />
+                />
         </FrameLayout>
 
 
@@ -46,6 +71,7 @@
             android:padding="8dp"
             android:hint="장소를 입력해 주세요."
             android:textSize="13dp"
+            android:fontFamily="@font/notosanskr_regular_hestia"
             android:background="@drawable/purple_round_box"/>
 
         <ExpandableListView

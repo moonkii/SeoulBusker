@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.teamnoname.streetartzone.Data.GroupReviewData;
 import com.teamnoname.streetartzone.R;
 
 import java.util.ArrayList;
@@ -22,6 +25,12 @@ public class ReviewFragment extends Fragment {
     RecyclerView recyclerView_review;
     ReviewRecyclerViewAdapter reviewRecyclerViewAdapter;
     TextView tv_reviewCount;
+
+    //DataBases
+    DatabaseReference dbReference;
+    FirebaseDatabase db;
+    GroupReviewData groupReviewData;
+    String db_path="groupdata";
 
 
     public static ReviewFragment newInstance(){
@@ -86,6 +95,8 @@ public class ReviewFragment extends Fragment {
         reviewRecyclerViewAdapter = new ReviewRecyclerViewAdapter(arrayList_review);
         recyclerView_review.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView_review.setAdapter(reviewRecyclerViewAdapter);
+
+
 
     }
 
