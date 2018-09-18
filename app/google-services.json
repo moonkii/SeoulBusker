@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "540665852830-grtqvesdsjirr7q3u195l91g9vpmkvlq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamnoname.streetartzone",
+            "certificate_hash": "8f6fb31dd2049b31a7c081d8d9ead4d56edbeea2"
+          }
+        },
+        {
           "client_id": "540665852830-g4ggq1pihkr3k62btia7foqrnq8sjudk.apps.googleusercontent.com",
           "client_type": 3
         }
