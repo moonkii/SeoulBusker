@@ -22,6 +22,9 @@ import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
 
 
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -137,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_btn_schedule :
                 //공연일정 버튼
-
+                startActivity(new Intent(MainActivity.this,Schedule.class));
                 break;
 
 
