@@ -256,6 +256,9 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
         void onChaneMapImage(int imageIndex);
     }
 
+
+
+    
     class GroupViewHolder {
         public TextView tv_district;
         public TextView tv_numberOfStage;
