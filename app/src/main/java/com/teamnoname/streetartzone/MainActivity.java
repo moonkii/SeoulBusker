@@ -19,8 +19,6 @@ import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
 import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
 
-import org.jsoup.Jsoup;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
