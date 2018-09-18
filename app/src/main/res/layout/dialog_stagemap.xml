@@ -18,27 +18,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/dialog_stagemap_tv_"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
-                <View
+                <RelativeLayout
                     android:id="@+id/dialog_stagemap_view_topbar"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@color/actionBar" />
+                    android:background="@color/actionBar"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp">
+
+                    <TextView
+                        android:id="@+id/dialog_stagemap_tv_district"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="마포구 |"
+                        android:textColor="#FFF"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/notosanskr_regular_hestia" />
+
+                    <TextView
+                        android:id="@+id/dialog_stagemap_tv_placeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/dialog_stagemap_tv_district"
+                        android:layout_centerVertical="true"
+                        android:text="월드컵 경기장"
+                        android:textColor="#FFF"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/notosanskr_regular_hestia"
+                        />
+                </RelativeLayout>
+
+
 
                 <!-- android:name="com.google.android.gms.maps.SupportMapFragment"-->
                 <FrameLayout
                     android:id="@+id/dialog_stagemap_map"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
+                    android:layout_below="@+id/dialog_stagemap_view_topbar"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/dialog_stagemap_view_topbar" />
+                    android:layout_marginTop="10dp" />
 
                 <TextView
                     android:id="@+id/dialog_stagemap_tv_address"
@@ -46,10 +70,10 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/dialog_stagemap_map"
                     android:layout_centerHorizontal="true"
-                    android:padding="8dp"
                     android:layout_marginBottom="5dp"
                     android:fontFamily="@font/notosanskr_regular_hestia"
-                    android:text="서울특별시 마포구 성산동 증산로 87"/>
+                    android:padding="8dp"
+                    android:text="서울특별시 마포구 성산동 증산로 87" />
             </RelativeLayout>
 
 

@@ -1,9 +1,6 @@
 package com.teamnoname.streetartzone.StreetStage;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
@@ -21,16 +18,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.R;
 
 import java.io.IOException;
-import java.util.List;
 
 public class StageMapDialog extends android.support.v4.app.DialogFragment implements OnMapReadyCallback {
 
     private GoogleMap map_stageInfo;
     private StageInfo stageInfo;
     private TextView tv_address;
+    private TextView tv_district;
+    private TextView tv_placeName;
 
     private SupportMapFragment mapFragment;
 
@@ -64,6 +63,11 @@ public class StageMapDialog extends android.support.v4.app.DialogFragment implem
         View view = inflater.inflate(R.layout.dialog_stagemap, container, false);
 
         tv_address = (TextView)view.findViewById(R.id.dialog_stagemap_tv_address);
+        tv_district = (TextView)view.findViewById(R.id.dialog_stagemap_tv_district);
+        tv_placeName = (TextView)view.findViewById(R.id.dialog_stagemap_tv_placeName);
+
+        tv_district.setText(stageInfo.getDistrict()+" |");
+        tv_placeName.setText(stageInfo.getPlaceName());
         tv_address.setText(stageInfo.getAddress());
 
         Dialog dialog = this.getDialog();

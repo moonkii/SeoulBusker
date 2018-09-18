@@ -1,4 +1,4 @@
-package com.teamnoname.streetartzone.StreetStage;
+package com.teamnoname.streetartzone.Data;
 
 import java.io.Serializable;
 

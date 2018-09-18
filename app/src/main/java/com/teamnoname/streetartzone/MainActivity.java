@@ -2,6 +2,8 @@ package com.teamnoname.streetartzone;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -12,17 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.teamnoname.streetartzone.Schedule.Schedule;
 import com.bumptech.glide.Glide;
 import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
-import com.teamnoname.streetartzone.StreetStage.StageInfo;
+import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.w3c.dom.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +28,6 @@ import java.util.concurrent.ExecutionException;
 
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 import io.realm.Realm;
-import io.realm.RealmObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        realm.init(this);
         realm = Realm.getDefaultInstance();
         sharedPreferences = getSharedPreferences("GET_STAGE", MODE_PRIVATE);
         preferenceEditor = sharedPreferences.edit();
@@ -84,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                                 String placeName = tds.get(index + 2).text();
                                 String address = tds.get(index + 3).text();
 
-                                Log.e("Main", tds.get(index).text() + district + placeName + address + "다음--");
+                                Log.e("Main", tds.get(index).text()+"/" + district+"/" + placeName+"/" + address + "다음--");
 
                                 StageInfo info = new StageInfo();
                                 info.setSeq(seq);
@@ -109,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         preferenceEditor.putBoolean("isStageData",true);
         preferenceEditor.commit();
+
 
     }
 
@@ -204,7 +201,7 @@ class MainBannerAdapter extends PagerAdapter {
     }
 }
 
-class GetStageInfoAsync extends AsyncTask<Void, Void, Elements[]> {
+class GetStageInfoAsync extends AsyncTask <Void, Void, Elements[]> {
     private Realm realm;
 
     public GetStageInfoAsync(Realm realm) {
