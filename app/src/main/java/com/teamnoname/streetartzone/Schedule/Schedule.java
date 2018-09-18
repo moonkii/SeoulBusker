@@ -223,6 +223,7 @@ for(int i=0;i<contests.size();i++){
     //현재 날짜와 동일한 애를 포커싱 해줌.
     if(thisdate==date){
         schedule_rv.scrollToPosition(i);
+        LinearLayoutManager lm;
         break;
     }
     Log.i("Schedule","date : "+date+"thisdate : "+thisdate);
@@ -284,6 +285,7 @@ for(int i=0;i<contests.size();i++){
             Log.i("Schedule","날짜 : "+selectedDate);
             //날짜 구해서 해당 날짜로 아이템 포커싱
             focusItemByDate(selectedDate);
+            date_rv.scrollToPosition(selectedDate);
     }
 
     @Override

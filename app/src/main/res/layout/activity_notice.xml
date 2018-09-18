@@ -139,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.3"
-            android:background="@android:color/darker_gray"
+            android:background="#dbdbdb"
             android:orientation="vertical"
             android:weightSum="5">
 
@@ -167,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/red" />
+                    android:src="@drawable/red" />
 
                 <TextView
 
@@ -181,7 +181,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/blue" />
+                    android:src="@drawable/blue" />
 
                 <TextView
 
@@ -195,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/yellow" />
+                    android:src="@drawable/yellow" />
 
                 <TextView
 
@@ -209,7 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/green" />
+                    android:src="@drawable/green" />
 
                 <TextView
 

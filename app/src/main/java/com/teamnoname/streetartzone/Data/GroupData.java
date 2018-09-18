@@ -9,6 +9,9 @@ public class GroupData extends RealmObject {
     String group_info;
     String group_titleImg;
 
+    public GroupData() {
+    }
+
     public GroupData(String group_name, String group_genre, String group_info, String group_titleImg) {
         this.group_name = group_name;
         this.group_genre = group_genre;
