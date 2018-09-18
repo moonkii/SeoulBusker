@@ -1,10 +1,10 @@
 package com.teamnoname.streetartzone;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import io.realm.Realm;
 
-public class SoeulApp extends Application {
+public class SoeulApp extends MultiDexApplication {
 
     @Override
     public void onCreate() {
