@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.teamnoname.streetartzone.Schedule.Notice;
+import com.teamnoname.streetartzone.Schedule.Schedule;
 import com.bumptech.glide.Glide;
 import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
 import com.teamnoname.streetartzone.Data.StageInfo;
@@ -153,6 +155,11 @@ public class MainActivity extends AppCompatActivity {
                 //내티켓 버튼
 
 
+                break;
+
+                //알림 보기
+            case R.id.main_notice_but :
+                startActivity(new Intent(MainActivity.this, Notice.class));
                 break;
 
         }
