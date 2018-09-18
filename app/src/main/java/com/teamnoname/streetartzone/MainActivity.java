@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_btn_schedule :
                 //공연일정 버튼
-
+                startActivity(new Intent(MainActivity.this,Schedule.class));
                 break;
 
 
