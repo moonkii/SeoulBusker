@@ -29,7 +29,7 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
 
     private String TAG = "## StreetStageAcitivity  ";
     private ExpandableListView exListV_stageInfo;
-    private EditText etv_searchStage;
+
     private ImageView img_soeulMap;
     private ImageView img_districtMap;
     private ImageView img_xBtn;
@@ -57,7 +57,6 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
 
     private void initView() {
 
-        etv_searchStage = (EditText) findViewById(R.id.streetstage_activity_etv_search_district);
         img_soeulMap = (ImageView) findViewById(R.id.streetstage_activity_img_soeulmap);
         img_districtMap = (ImageView)findViewById(R.id.streetstage_activity_img_district);
         exListV_stageInfo = (ExpandableListView) findViewById(R.id.streetstage_activity_list_districtinfo);

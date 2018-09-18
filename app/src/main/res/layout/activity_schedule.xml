@@ -14,8 +14,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2.6"
-            android:background="@mipmap/rectangle"
+            android:layout_weight="2.24"
+            android:background="@drawable/bx"
             android:orientation="vertical"></LinearLayout>
 
         <LinearLayout
@@ -83,7 +83,8 @@
                 <ImageView
                     android:id="@+id/schedule_activity_btn_prevmonth"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:padding="10dp"
                     android:src="@drawable/leftarrow"
@@ -104,9 +105,9 @@
                 <ImageView
                     android:id="@+id/schedule_activity_btn_nextmonth"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-
                     android:padding="10dp"
                     android:src="@drawable/rightarrow"
                     android:textSize="20sp"
@@ -130,39 +131,32 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:layout_marginTop="5dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
-                    android:orientation="horizontal"
                     android:text="이달의\n공연"
                     android:textColor="@android:color/white"
                     android:textSize="25sp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold">
 
-                <LinearLayout
+                </TextView>
+
+
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="6"
-                    android:orientation="vertical"
-                    android:weightSum="5">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="2.7"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
+                 >
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/schedule_rv_date"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2.3"
+                        android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
                         android:background="#00000000" />
 
-                </LinearLayout>
+                </RelativeLayout>
 
 
             </LinearLayout>
