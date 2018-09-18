@@ -58,10 +58,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/home_place"
+            android:src="@drawable/home_icon_calender"
             android:id="@+id/main_btn_schedule"
             android:onClick="setMainBtn"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

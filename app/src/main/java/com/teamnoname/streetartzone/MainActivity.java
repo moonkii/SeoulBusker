@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     public void setBannerData() {
         arrayList_banner = new ArrayList<>();
         arrayList_banner.add(R.drawable.home_banner1);
-        arrayList_banner.add(R.drawable.home_banner2);
+        arrayList_banner.add(R.drawable.banner2);
         arrayList_banner.add(R.drawable.home_banner3);
     }
 
