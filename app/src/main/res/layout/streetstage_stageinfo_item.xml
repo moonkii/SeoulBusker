@@ -5,6 +5,7 @@
     android:layout_marginTop="6dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
+
     android:clipToPadding="false">
 
     <RelativeLayout
@@ -14,7 +15,9 @@
         android:background="@drawable/stage_item_background"
         android:elevation="3dp"
         android:paddingLeft="10dp"
-        android:paddingRight="6dp">
+        android:paddingRight="6dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
         <View
             android:id="@+id/stageinfo_item_view_dot"
             android:layout_width="6dp"
@@ -29,7 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/stageinfo_item_view_dot"
             android:text="롯데몰 김포공항점"
-            android:textSize="17dp" />
+            android:fontFamily="@font/notosanskr_regular_hestia"
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/stageinfo_item_tv_address"
@@ -38,9 +42,12 @@
             android:layout_below="@id/stageinfo_item_tv_placename"
             android:layout_marginBottom="6dp"
             android:layout_toRightOf="@id/stageinfo_item_view_dot"
-            android:text="서울특별시 강서구 하늘로77" />
+            android:text="서울특별시 강서구 하늘로77"
+            android:textSize="11dp"
+            android:fontFamily="@font/notosanskr_regular_hestia"/>
 
         <View
+            android:id="@+id/stageinfo_item_line"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@id/stageinfo_item_tv_address"

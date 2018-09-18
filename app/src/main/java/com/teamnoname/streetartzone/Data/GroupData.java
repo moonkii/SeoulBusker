@@ -22,6 +22,7 @@ public class GroupData extends RealmObject {
         this.group_seq = group_seq;
     }
 
+
     public String getGroup_name() {
         return group_name;
     }
