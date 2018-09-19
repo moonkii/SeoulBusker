@@ -8,44 +8,42 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class Contest extends RealmObject {
-    @PrimaryKey
-    int contestnum;
-    int teamnum;
+
+    int num;
     String teamname;
-    int contesttype;
-    String datetime;
-    String place;
-    double x;
-    double y;
+    String district;
+    String area;
+    String date;
+    String time;
+    String month; //얘는 월 바꿀때를 위한거. 월 바꿀때 해당 월만 가져와야 하기 때문임.
 
     public Contest() {
     }
 
-    public Contest(int contestnum, int teamnum, String teamname, int contesttype, String datetime, String place, double x, double y) {
-        this.contestnum = contestnum;
-        this.teamnum = teamnum;
+    public Contest(int num, String teamname, String district, String area, String date, String time,String month) {
+        this.num = num;
         this.teamname = teamname;
-        this.contesttype = contesttype;
-        this.datetime = datetime;
-        this.place = place;
-        this.x = x;
-        this.y = y;
+        this.district = district;
+        this.area = area;
+        this.date = date;
+        this.time = time;
+        this.month = month;
     }
 
-    public int getContestnum() {
-        return contestnum;
+    public String getMonth() {
+        return month;
     }
 
-    public void setContestnum(int contestnum) {
-        this.contestnum = contestnum;
+    public void setMonth(String month) {
+        this.month = month;
     }
 
-    public int getTeamnum() {
-        return teamnum;
+    public int getNum() {
+        return num;
     }
 
-    public void setTeamnum(int teamnum) {
-        this.teamnum = teamnum;
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public String getTeamname() {
@@ -56,43 +54,35 @@ public class Contest extends RealmObject {
         this.teamname = teamname;
     }
 
-    public int getContesttype() {
-        return contesttype;
+    public String getDistrict() {
+        return district;
     }
 
-    public void setContesttype(int contesttype) {
-        this.contesttype = contesttype;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
-    public String getDatetime() {
-        return datetime;
+    public String getArea() {
+        return area;
     }
 
-    public void setDatetime(String date) {
-        this.datetime = date;
+    public void setArea(String area) {
+        this.area = area;
     }
 
-    public String getPlace() {
-        return place;
+    public String getDate() {
+        return date;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public double getX() {
-        return x;
+    public String getTime() {
+        return time;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
+    public void setTime(String time) {
+        this.time = time;
     }
 }

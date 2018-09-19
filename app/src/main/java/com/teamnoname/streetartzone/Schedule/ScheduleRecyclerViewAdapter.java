@@ -218,25 +218,20 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
 
 //그냥 서버로 부터 데이터를 가져올 때 한번에 다 가져와서 저장한다.
 class Contestitem{
-    int contestnum,teamnum;
+    int contestnum;
     String teamName;
     int contestType; //1.기악 2.퍼포먼스 3. 전통 4. 음악
     String date;
     String time;
     String place;
-    double x;
-    double y;
 
-    public Contestitem(int contestnum, int teamnum, String teamName, int contestType, String date, String time, String place, double x, double y) {
+    public Contestitem(int contestnum, String teamName, int contestType, String date, String time, String place) {
         this.contestnum = contestnum;
-        this.teamnum = teamnum;
         this.teamName = teamName;
         this.contestType = contestType;
         this.date = date;
         this.time = time;
         this.place = place;
-        this.x = x;
-        this.y = y;
     }
 
     public int getContestnum() {
@@ -247,13 +242,6 @@ class Contestitem{
         this.contestnum = contestnum;
     }
 
-    public int getTeamnum() {
-        return teamnum;
-    }
-
-    public void setTeamnum(int teamnum) {
-        this.teamnum = teamnum;
-    }
 
     public String getTeamName() {
         return teamName;
@@ -296,19 +284,4 @@ class Contestitem{
         this.place = place;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
 }

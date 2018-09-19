@@ -99,7 +99,7 @@ public class DateRecyclerViewAdapter extends RecyclerView.Adapter<DateRecyclerVi
             public void onClick(View v) {
              holder.date.setTextColor(Color.WHITE);
              selected_date=position+1;
-            //notifyDataSetChanged();
+            notifyDataSetChanged();
             clickListener.setOnItemClickForDate(selected_date);
 
 

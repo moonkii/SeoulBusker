@@ -252,31 +252,6 @@ for(int i=0;i<contests.size();i++){
 
     }
     public void setDataSet(){
-        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",1,"1993-10-1","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",2,"1993-10-2","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",3,"1993-10-3","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",4,"1993-10-10","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-11","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-12","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-13","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-14","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-15","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-11","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-16","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-20","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-20","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
-        contests.add(new Contestitem(1,1,"안녕",5,"1993-10-20","10:00 ~ 11:00","[성북구] 솔샘로 3길",123.1,123.1));
     }
 
 
@@ -285,7 +260,7 @@ for(int i=0;i<contests.size();i++){
             Log.i("Schedule","날짜 : "+selectedDate);
             //날짜 구해서 해당 날짜로 아이템 포커싱
             focusItemByDate(selectedDate);
-            date_rv.scrollToPosition(selectedDate);
+//            date_rv.scrollToPosition(selectedDate);
     }
 
     @Override
