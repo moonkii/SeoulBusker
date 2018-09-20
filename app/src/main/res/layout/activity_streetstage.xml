@@ -24,11 +24,12 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
 
+        <!--뒤로가기 화살표로 바꾸기-->
         <ImageView
             android:id="@+id/streetstage_activity_img_xbtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/x_icon"
+            android:src="@drawable/icon_back_white"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"/>
 
@@ -46,7 +47,7 @@
             android:id="@+id/streetstage_activity_box_map"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:paddingTop="15dp"
             android:paddingBottom="10dp">
             <ImageView
                 android:id="@+id/streetstage_activity_img_soeulmap"
@@ -62,23 +63,11 @@
         </FrameLayout>
 
 
-        <EditText
-            android:id="@+id/streetstage_activity_etv_search_district"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/streetstage_activity_box_map"
-            android:layout_alignParentRight="true"
-            android:padding="8dp"
-            android:hint="장소를 입력해 주세요."
-            android:textSize="13dp"
-            android:fontFamily="@font/notosanskr_regular_hestia"
-            android:background="@drawable/purple_round_box"/>
-
         <ExpandableListView
             android:id="@+id/streetstage_activity_list_districtinfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/streetstage_activity_etv_search_district"
+            android:layout_below="@+id/streetstage_activity_box_map"
             android:layout_marginTop="8dp"
             android:divider ="@null"
             android:childDivider="@null"
@@ -86,24 +75,6 @@
 
         </ExpandableListView>
 
-        <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-        <!--<Spinner-->
-        <!--android:id="@+id/streetstage_spinner_district"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:entries="@array/district">-->
-        <!--</Spinner>-->
-
-        <!--<fragment-->
-        <!--android:id="@+id/streetstage_map_stageinfo"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_below="@+id/streetstage_spinner_district"-->
-        <!--android:name="com.google.android.gms.maps.SupportMapFragment"/>-->
-        <!--</RelativeLayout>-->
-        <!--<include layout="@layout/bottomsheet_stageinfo"/>-->
 
 
     </RelativeLayout>

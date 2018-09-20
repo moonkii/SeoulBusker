@@ -17,7 +17,8 @@
         android:paddingLeft="10dp"
         android:paddingRight="6dp"
         android:paddingTop="4dp"
-        android:paddingBottom="4dp">
+ >
+
         <View
             android:id="@+id/stageinfo_item_view_dot"
             android:layout_width="6dp"
@@ -51,7 +52,8 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@id/stageinfo_item_tv_address"
-            android:background="#AAA" />
+            android:background="#AAA"
+            android:layout_marginTop="4dp"/>
 
         -
     </RelativeLayout>

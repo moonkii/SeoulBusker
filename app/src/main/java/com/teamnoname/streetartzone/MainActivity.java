@@ -14,10 +14,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.facebook.stetho.Stetho;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.teamnoname.streetartzone.Data.Contest;
+import com.teamnoname.streetartzone.Schedule.Notice;
+import com.teamnoname.streetartzone.Schedule.Schedule;
 import com.bumptech.glide.Glide;
-import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
+import com.teamnoname.streetartzone.Data.StageInfo;
+import com.teamnoname.streetartzone.StreetStage.NearStageActivity;
 import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
+
 
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
@@ -28,86 +39,81 @@ import java.util.concurrent.ExecutionException;
 
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.RealmResults;
+import io.realm.annotations.PrimaryKey;
 
 public class MainActivity extends AppCompatActivity {
 
     AutoScrollViewPager autoScrollViewPager;
     MainBannerAdapter mainBannerAdapter;
     ArrayList<Integer> arrayList_banner;
+
     private Realm realm;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor preferenceEditor;
 
+    DatabaseReference dbref;
+    FirebaseDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Stetho.initializeWithDefaults(MainActivity.this);
         realm = Realm.getDefaultInstance();
         sharedPreferences = getSharedPreferences("GET_STAGE", MODE_PRIVATE);
         preferenceEditor = sharedPreferences.edit();
 
         setBannerData();
         setBannerViewPager();
-
-
-        if (!sharedPreferences.getBoolean("isStageData", false)) {
-            getStageInfoData();
+        if(!sharedPreferences.getBoolean("isContestData",false)){
+            Log.i("MainActivity","가져오기 시작");
+            getContestData();
         }
-
 
     }
 
-    private void getStageInfoData() {
-        GetStageInfoAsync getStageInfoAsync = new GetStageInfoAsync(realm);
-        try {
-            final Elements[] trs = getStageInfoAsync.execute().get();
+    private void getContestData(){
+        db = FirebaseDatabase.getInstance();
+        dbref = db.getReference("contestdata");
+        dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i("MainActivity","onDataChange");
+                realm.beginTransaction();
+                for(DataSnapshot DB : dataSnapshot.getChildren()){
+                   final FcvContest item = DB.getValue(FcvContest.class);
+                            String[] devider = item.getDate().split("-");
+                            String month = devider[1];
+                            Contest contest = new Contest(item.getNum(),item.getTeamname(),item.getDistrict(),item.getArea(),item.getDate(),item.getTime(),month);
+                            realm.copyToRealm(contest);
 
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-
-                    for (int i = 0; i < trs.length; i++) {
-                        Elements tr = trs[i];
-                        Elements tds = tr.select("td");
-
-                        int index = 5, j = 0;
-                        while (index < tds.size()) {
-                            if (j > 4 && index < tds.size()) {
-                                int seq = Integer.valueOf(tds.get(index).text());
-                                String district = tds.get(index + 1).text();
-                                String placeName = tds.get(index + 2).text();
-                                String address = tds.get(index + 3).text();
-
-                                Log.e("Main", tds.get(index).text()+"/" + district+"/" + placeName+"/" + address + "다음--");
-
-                                StageInfo info = new StageInfo();
-                                info.setSeq(seq);
-                                info.setAddress(address);
-                                info.setDistrict(district);
-                                info.setPlaceName(placeName);
-                                realm.copyToRealm(info);
-
-                                index += 4;
-                            }
-                            j++;
-                        }
-                    }
                 }
-            });
+                RealmResults<Contest> a = realm.where(Contest.class).findAll();
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+                for(int i=0;i<a.size();i++){
+                    Log.i("MainActivity","넘버 : "+a.get(i).getNum());
+                    Log.i("MainActivity","이름 : "+a.get(i).getTeamname());
+                    Log.i("MainActivity","장소 : "+a.get(i).getArea());
+                    Log.i("MainActivity","월 : "+a.get(i).getMonth());
+                    Log.i("MainActivity","날짜 : "+a.get(i).getDate());
+                    Log.i("MainActivity","구 : "+a.get(i).getDistrict());
+                    System.out.println();
+                }
+                realm.commitTransaction();
+                Log.i("MainActivity","Commit 완료");
+                preferenceEditor.putBoolean("isContestData",true);
+                preferenceEditor.commit();
+            }
 
-        preferenceEditor.putBoolean("isStageData",true);
-        preferenceEditor.commit();
-
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                realm.commitTransaction();
+            }
+        });
     }
+
 
     public void setBannerData() {
         arrayList_banner = new ArrayList<>();
@@ -137,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_btn_schedule :
                 //공연일정 버튼
-
+                startActivity(new Intent(MainActivity.this,Schedule.class));
                 break;
 
 
@@ -152,6 +158,14 @@ public class MainActivity extends AppCompatActivity {
                 //내티켓 버튼
 
 
+                break;
+
+                //알림 보기
+            case R.id.main_notice_but :
+                startActivity(new Intent(MainActivity.this, Notice.class));
+                break;
+            case R.id.main_near_stage_btn:
+                startActivity(new Intent(MainActivity.this, NearStageActivity.class));
                 break;
 
         }
@@ -201,33 +215,74 @@ class MainBannerAdapter extends PagerAdapter {
     }
 }
 
-class GetStageInfoAsync extends AsyncTask <Void, Void, Elements[]> {
-    private Realm realm;
 
-    public GetStageInfoAsync(Realm realm) {
-        this.realm = realm;
+ class FcvContest  {
+    @PrimaryKey
+    int num;
+    String teamname;
+    String district;
+    String area;
+    String date;
+    String time;
+
+    public FcvContest() {
     }
 
-    @Override
-    protected Elements[] doInBackground(Void... voids) {
-        org.jsoup.nodes.Document stageInfo1 = null;
-        org.jsoup.nodes.Document stageInfo2 = null;
-        try {
-            stageInfo1 = Jsoup
-                    .connect("https://seoulbusking.com/bbs/board.php?bo_table=art_location&page=2&page=1")
-                    .get();
+     public FcvContest(int num, String teamname, String district, String area, String date, String time) {
+         this.num = num;
+         this.teamname = teamname;
+         this.district = district;
+         this.area = area;
+         this.date = date;
+         this.time = time;
+     }
 
-            stageInfo2 = Jsoup
-                    .connect("https://seoulbusking.com/bbs/board.php?bo_table=art_location&page=2&page=2")
-                    .get();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+     public int getNum() {
+         return num;
+     }
 
-        Elements[] trs = new Elements[2];
-        trs[0] = stageInfo1.getElementsByTag("tr");
-        trs[1] = stageInfo2.getElementsByTag("tr");
+     public void setNum(int num) {
+         this.num = num;
+     }
 
-        return trs;
-    }
-}
+     public String getTeamname() {
+         return teamname;
+     }
+
+     public void setTeamname(String teamname) {
+         this.teamname = teamname;
+     }
+
+     public String getDistrict() {
+         return district;
+     }
+
+     public void setDistrict(String district) {
+         this.district = district;
+     }
+
+     public String getArea() {
+         return area;
+     }
+
+     public void setArea(String area) {
+         this.area = area;
+     }
+
+     public String getDate() {
+         return date;
+     }
+
+     public void setDate(String date) {
+         this.date = date;
+     }
+
+     public String getTime() {
+         return time;
+     }
+
+     public void setTime(String time) {
+         this.time = time;
+     }
+ }
+

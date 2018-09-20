@@ -11,7 +11,6 @@ public class GroupData extends RealmObject {
     String group_titleImg;
     String group_youtube;
 
-
     public GroupData() {
     }
 

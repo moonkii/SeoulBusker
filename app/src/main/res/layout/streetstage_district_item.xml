@@ -56,11 +56,12 @@
                     android:text="2개의 공연장"
                     android:layout_marginRight="2dp"/>
 
-                <!--android:layout_weight="0.18"-->
+
+                <!--화살표 올리는 걸로 바꾸기-->
                 <ImageView
                     android:id="@+id/district_item_img_arrow"
-                    android:layout_width="10dp"
-                    android:layout_height="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/down_arrow"/>
