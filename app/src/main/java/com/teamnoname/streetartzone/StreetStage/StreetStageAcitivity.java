@@ -58,16 +58,16 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
     private void initView() {
 
         img_soeulMap = (ImageView) findViewById(R.id.streetstage_activity_img_soeulmap);
-        img_districtMap = (ImageView)findViewById(R.id.streetstage_activity_img_district);
+        img_districtMap = (ImageView) findViewById(R.id.streetstage_activity_img_district);
         exListV_stageInfo = (ExpandableListView) findViewById(R.id.streetstage_activity_list_districtinfo);
-        img_xBtn = (ImageView)findViewById(R.id.streetstage_activity_img_xbtn);
-        adapter_stageInfoList = new DistrictAndStageListAdapter(this, array_district, map_allStageInfo,this);
+        img_xBtn = (ImageView) findViewById(R.id.streetstage_activity_img_xbtn);
+        adapter_stageInfoList = new DistrictAndStageListAdapter(this, array_district, map_allStageInfo, this);
         exListV_stageInfo.setAdapter(adapter_stageInfoList);
 
         exListV_stageInfo.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                if(groupPosition != lastExpandedGroupPosition){
+                if (groupPosition != lastExpandedGroupPosition) {
                     exListV_stageInfo.collapseGroup(lastExpandedGroupPosition);
                 }
                 lastExpandedGroupPosition = groupPosition;
@@ -110,9 +110,9 @@ public class StreetStageAcitivity extends AppCompatActivity implements DistrictA
                         array_districtEng[imageIndex],
                         "drawable",
                         getPackageName()
-                        );
+                );
 
-        Log.e(TAG,array_districtEng[imageIndex]);
+        Log.e(TAG, array_districtEng[imageIndex]);
         img_districtMap.setImageDrawable(getDrawable(imageId));
     }
 }
@@ -125,7 +125,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
     private HashMap<String, ArrayList<StageInfo>> map_stageInfo;
     private LayoutInflater inflater;
     private ChangeMapImageListener changeMapImageListener;
-
+    private StageMapDialog beforeDialog;
 
 
     public DistrictAndStageListAdapter(AppCompatActivity context, String[] array_districts, HashMap<String, ArrayList<StageInfo>> map_stageInfo,
@@ -216,7 +216,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
             childViewHolder.tv_address = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_address);
             childViewHolder.tv_placeName = (TextView) convertView.findViewById(R.id.stageinfo_item_tv_placename);
             childViewHolder.relative_background = (RelativeLayout) convertView.findViewById(R.id.stageinfo_item_rel_background);
-            childViewHolder.view_line = (View)convertView.findViewById(R.id.stageinfo_item_line);
+            childViewHolder.view_line = (View) convertView.findViewById(R.id.stageinfo_item_line);
             convertView.setTag(childViewHolder);
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
@@ -229,7 +229,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
             convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(),
                     convertView.getPaddingRight(), 20);
             childViewHolder.view_line.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             childViewHolder.relative_background.setBackground(context.getDrawable(R.drawable.stage_item_background));
             convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(),
                     convertView.getPaddingRight(), 0);
@@ -239,8 +239,13 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (beforeDialog != null)
+                    beforeDialog.dismiss();
+
                 StageMapDialog dialog_stageMap = StageMapDialog.newInstance(array_stageInfos.get(childPosition));
                 dialog_stageMap.show(context.getSupportFragmentManager(), "DIALOG");
+
+                beforeDialog = dialog_stageMap;
             }
         });
         return convertView;
@@ -251,11 +256,9 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
-    interface ChangeMapImageListener{
+    interface ChangeMapImageListener {
         void onChaneMapImage(int imageIndex);
     }
-
-
 
 
     class GroupViewHolder {

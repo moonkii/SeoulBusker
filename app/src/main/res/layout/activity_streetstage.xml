@@ -75,24 +75,6 @@
 
         </ExpandableListView>
 
-        <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-        <!--<Spinner-->
-        <!--android:id="@+id/streetstage_spinner_district"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:entries="@array/district">-->
-        <!--</Spinner>-->
-
-        <!--<fragment-->
-        <!--android:id="@+id/streetstage_map_stageinfo"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_below="@+id/streetstage_spinner_district"-->
-        <!--android:name="com.google.android.gms.maps.SupportMapFragment"/>-->
-        <!--</RelativeLayout>-->
-        <!--<include layout="@layout/bottomsheet_stageinfo"/>-->
 
 
     </RelativeLayout>

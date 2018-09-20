@@ -19,13 +19,16 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         android:name=".SoeulApp">
 
-        <activity android:name=".MainActivity">
+        <!--스플래쉬 화면-->
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity"/>
 
         <!-- 스케쥴 -->
         <activity android:name=".Schedule.Schedule" />
