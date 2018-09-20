@@ -76,8 +76,14 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
 
 
             init();
-            setGroupData();
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        setGroupData();
+        super.onResume();
     }
 
     public void init(){
@@ -115,14 +121,7 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
 
         setCategoryBar(0);
 
-        //database
-        realm = Realm.getDefaultInstance();
-        db = FirebaseDatabase.getInstance();
-        arrayList_groupData = new ArrayList<>();
-        arrayList_groupReviewData = new ArrayList<>();
-        arrayList_ReviewCount = new ArrayList<>();
-        arrayList_ReviewScore = new ArrayList<>();
-        dbReference = db.getReference(db_groupInfo);
+
 
     }
 
@@ -179,6 +178,15 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
 
 
     public void setGroupData(){
+
+        //database
+        realm = Realm.getDefaultInstance();
+        db = FirebaseDatabase.getInstance();
+        arrayList_groupData = new ArrayList<>();
+        arrayList_groupReviewData = new ArrayList<>();
+        arrayList_ReviewCount = new ArrayList<>();
+        arrayList_ReviewScore = new ArrayList<>();
+        dbReference = db.getReference(db_groupInfo);
 
         dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -243,7 +251,7 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
                         //groupReview data
                         for(int i=0; i<arrayList_groupReviewData.size(); i++){
 
-                            if(realmResults_review.size()<i){
+                            if(realmResults_review.size()<(i+1)){
 
                                 GroupReviewData groupReviewData = realm.createObject(GroupReviewData.class);
                                 groupReviewData.setSocre(arrayList_groupReviewData.get(i).getScore());

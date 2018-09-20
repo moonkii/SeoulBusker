@@ -12,12 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.teamnoname.streetartzone.Data.GroupReviewData;
 import com.teamnoname.streetartzone.R;
 
 import java.util.ArrayList;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ReviewFragment extends Fragment {
 
@@ -27,10 +28,10 @@ public class ReviewFragment extends Fragment {
     TextView tv_reviewCount;
 
     //DataBases
-    DatabaseReference dbReference;
-    FirebaseDatabase db;
-    GroupReviewData groupReviewData;
-    String db_path="groupdata";
+    RealmResults<GroupReviewData> realmResults;
+    int selectedSeq;
+    Realm realm;
+
 
 
     public static ReviewFragment newInstance(){
@@ -43,6 +44,16 @@ public class ReviewFragment extends Fragment {
 
     public ReviewFragment() {
         // Required empty public constructor
+        selectedSeq = StreetGroupDetailActivity.selectedSeq;
+
+        realm = Realm.getDefaultInstance();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realmResults = realm.where(GroupReviewData.class).equalTo("seq",selectedSeq).findAll();
+            }
+        });
+
     }
 
 
@@ -61,6 +72,11 @@ public class ReviewFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        if(realmResults!=null){
+            String reviewCount = Integer.toString(realmResults.size());
+            tv_reviewCount.setText(reviewCount);
+        }
+
         setReviewData();
         setReviewRecyclerView();
 
@@ -69,23 +85,15 @@ public class ReviewFragment extends Fragment {
     }
 
     public void setReviewData(){
-        arrayList_review = new ArrayList<>();
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
-        arrayList_review.add(new ReviewItem("리뷰자","2018.08.30","공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~공연 리뷰~~","이미지"));
 
-        String reviewCount = Integer.toString(arrayList_review.size());
-        tv_reviewCount.setText(reviewCount);
+        arrayList_review= new ArrayList<>();
+
+        for(int i=0; i<realmResults.size(); i++){
+            GroupReviewData tempData = realmResults.get(i);
+            arrayList_review.add(new ReviewItem(tempData.getWriter(),tempData.getDate(),tempData.getContents(),tempData.getSocre()));
+        }
+
+
 
     }
 
@@ -152,7 +160,7 @@ class ReviewRecyclerViewAdapter extends RecyclerView.Adapter<ReviewRecyclerViewA
             tv_review_name = (TextView) itemView.findViewById(R.id.group_detail_review_name);
             tv_review_date = (TextView) itemView.findViewById(R.id.group_detail_review_date);
             tv_review_content = (TextView) itemView.findViewById(R.id.group_detail_review_content);
-            imgV_review_img = (ImageView) itemView.findViewById(R.id.group_detail_review_image);
+            imgV_review_img = (ImageView) itemView.findViewById(R.id.group_detail_review_img);
         }
     }
 }
@@ -165,13 +173,13 @@ class ReviewItem {
     String reviewer;
     String reveiwDate;
     String reviewContent;
-    String reveiwImg;
+    int reviewScore;
 
-    public ReviewItem(String reviewer, String reveiwDate, String reviewContent, String reveiwImg) {
+    public ReviewItem(String reviewer, String reveiwDate, String reviewContent, int reviewScore) {
         this.reviewer = reviewer;
         this.reveiwDate = reveiwDate;
         this.reviewContent = reviewContent;
-        this.reveiwImg = reveiwImg;
+        this.reviewScore = reviewScore;
     }
 
     public String getReviewer() {
@@ -198,11 +206,11 @@ class ReviewItem {
         this.reviewContent = reviewContent;
     }
 
-    public String getReveiwImg() {
-        return reveiwImg;
+    public int getReviewScore() {
+        return reviewScore;
     }
 
-    public void setReveiwImg(String reveiwImg) {
-        this.reveiwImg = reveiwImg;
+    public void setReviewScore(int reviewScore) {
+        this.reviewScore = reviewScore;
     }
 }

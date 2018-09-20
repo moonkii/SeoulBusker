@@ -55,7 +55,8 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
         holder.tv_groupName.setText(arrayList_item.get(position).getGroup_name());
         holder.tv_groupCategory.setText(arrayList_item.get(position).getGroup_category());
         holder.tv_groupDetail.setText(arrayList_item.get(position).getGroup_detail());
-        holder.tv_groupScore.setText(Integer.toString(arrayList_item.get(position).getGroup_score()));
+        int score =arrayList_item.get(position).getGroup_score()/arrayList_item.get(position).getGroup_reviewNumber();
+        holder.tv_groupScore.setText(Integer.toString(score));
         holder.tv_groupReviewNumber.setText("공연후기 "+Integer.toString(arrayList_item.get(position).getGroup_reviewNumber()));
 
         double rating=0;
