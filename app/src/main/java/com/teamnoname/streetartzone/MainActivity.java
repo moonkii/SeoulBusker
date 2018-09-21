@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
                 //알림 보기
-            case R.id.main_notice_but :
+            case R.id.main_bookmark_but :
                 startActivity(new Intent(MainActivity.this, Notice.class));
                 break;
             case R.id.main_near_stage_btn:
