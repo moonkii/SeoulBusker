@@ -3,7 +3,7 @@ package com.teamnoname.streetartzone.Data;
 import io.realm.RealmModel;
 import io.realm.RealmObject;
 
-public class UserBookMark implements RealmModel {
+public class UserBookMarkGroup extends RealmObject {
 
     int groupSeq;
 

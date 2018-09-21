@@ -26,6 +26,7 @@ import com.teamnoname.streetartzone.Schedule.Schedule;
 import com.bumptech.glide.Glide;
 import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
 import com.teamnoname.streetartzone.Data.StageInfo;
+import com.teamnoname.streetartzone.StreetGroup.UserBookmarkGroupsActivity;
 import com.teamnoname.streetartzone.StreetStage.NearStageActivity;
 import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
 
@@ -162,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //알림 보기
             case R.id.main_bookmark_but :
-                startActivity(new Intent(MainActivity.this, Notice.class));
+                startActivity(new Intent(MainActivity.this, UserBookmarkGroupsActivity.class));
                 break;
             case R.id.main_near_stage_btn:
                 startActivity(new Intent(MainActivity.this, NearStageActivity.class));

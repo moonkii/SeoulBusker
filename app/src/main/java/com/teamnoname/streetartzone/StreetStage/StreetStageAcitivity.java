@@ -194,6 +194,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
         groupViewHolder.tv_numberOfStage.setText(map_stageInfo.get(array_districts[groupPosition]).size() + "개의 공연장");
 
 
+        //펴짐 여부에 따른 바의 색변화 & 지도 변화
         if (isExpanded) {
             groupViewHolder.view_selectdBar.setBackgroundColor(Color.parseColor("#A789F5"));
             changeMapImageListener.onChaneMapImage(groupPosition);
@@ -224,6 +225,8 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
 
         childViewHolder.tv_address.setText(array_stageInfos.get(childPosition).getAddress());
         childViewHolder.tv_placeName.setText(array_stageInfos.get(childPosition).getPlaceName());
+
+        //마지막 아이템 여부에 따른 뷰 설정.
         if (isLastChild) {
             childViewHolder.relative_background.setBackground(context.getDrawable(R.drawable.stage_last_item_background));
             convertView.setPadding(convertView.getPaddingLeft(), convertView.getPaddingTop(),
@@ -236,6 +239,7 @@ class DistrictAndStageListAdapter extends BaseExpandableListAdapter {
             childViewHolder.view_line.setVisibility(View.VISIBLE);
         }
 
+        //아이템 클릭시 장소 다이얼로그 띄우기
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

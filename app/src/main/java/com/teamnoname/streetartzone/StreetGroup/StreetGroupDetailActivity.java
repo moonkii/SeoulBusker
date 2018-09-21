@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.teamnoname.streetartzone.Data.GroupData;
+import com.teamnoname.streetartzone.Data.StageInfo;
+import com.teamnoname.streetartzone.Data.UserBookMarkGroup;
 import com.teamnoname.streetartzone.R;
 
 import io.realm.Realm;
@@ -26,6 +28,7 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
     ViewPager viewPager;
     TabLayout tabLayout;
     ImageButton btn_back;
+    ImageButton btn_bookmark;
     TextView tv_title;
 
     //DB
@@ -54,6 +57,22 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 StreetGroupDetailActivity.this.finish();
+            }
+        });
+
+        btn_bookmark = (ImageButton)findViewById(R.id.group_detail_img_bookmark);
+        btn_bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //즐찾 테이블에 해당 그룹 시퉌스 저장.
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        UserBookMarkGroup group = new UserBookMarkGroup();
+                        group.setGroupSeq(selectedSeq);
+                        realm.copyToRealm(group);
+                    }
+                });
             }
         });
 
