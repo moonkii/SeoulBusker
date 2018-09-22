@@ -63,6 +63,7 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
             @Override
             public void execute(Realm realm) {
                 groupData = realm.where(GroupData.class).equalTo("group_seq",selectedSeq).findAll();
+
                 tv_title.setText(groupData.get(0).getGroup_name());
 
             }

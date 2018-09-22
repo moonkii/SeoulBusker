@@ -7,6 +7,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,6 +107,7 @@ public class StageMapDialog extends android.support.v4.app.DialogFragment implem
         try {
             Address location =  geocoder.getFromLocationName(address,1).get(0);
             if(location!=null){
+                Log.i("StageMapDialog","맵 위도 : "+location.getLatitude()+" 경도 : "+location.getLongitude());
                 getLatLng = new LatLng(location.getLatitude(), location.getLongitude());
             }
         } catch (IOException e) {

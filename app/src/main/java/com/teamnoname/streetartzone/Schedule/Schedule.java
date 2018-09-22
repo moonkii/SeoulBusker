@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,17 +20,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.teamnoname.streetartzone.Data.Contest;
+import com.teamnoname.streetartzone.Data.GroupData;
+import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.R;
+import com.teamnoname.streetartzone.StreetGroup.StreetGroupDetailActivity;
+import com.teamnoname.streetartzone.StreetStage.StageMapDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.RealmResults;
 
 /**
  * Created by iyeonghan on 2018. 8. 29..
  */
 
-public class Schedule extends Activity implements ClickListener{
+public class Schedule extends AppCompatActivity implements ClickListener{
     Calendar calendar;         //현재 날짜를 가져올 수 있는 클래스.
     int nowDate,nowMonth,nowYear;                        //현재 날짜.
     int selDate,selMonth,selYear;                        //사용자에 의해 선택된 날짜.
@@ -40,22 +51,27 @@ public class Schedule extends Activity implements ClickListener{
     TextView showMonth ;
     ImageView nextMonthBtn,prevMonthBtn;
 
+    MenuDialog dialog;
 
     //어댑터
     ScheduleRecyclerViewAdapter schedule_adapter;
     DateRecyclerViewAdapter date_adapter;
+    Realm realm;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-        //데이터 초기화 (데모)
-        setDataSet();
+        realm = Realm.getDefaultInstance();
+
+
         //뷰 초기화.
         viewInit();
         //날짜 초기화.
         dateInit();
         //현재 날짜 상단과 좌측에 표기
         initNowMonthOnTop();
+        //데이터 초기화 (데모)
+        setDataSet();
         //공연 rv 설정
         setScheduleRecyclerView();
         //date rv 설정
@@ -194,6 +210,8 @@ private void viewInit(){
 }
 
 public void changedMonth(){
+
+
     if(selMonth==nowMonth&&selYear==nowYear){
         //리스트뷰를 해당 월에 맞춰 변경해 줘야함.
         date_adapter.setCurrentMonth(nowMonth,nowDate);
@@ -209,13 +227,42 @@ public void changedMonth(){
         schedule_adapter.notifyDataSetChanged();
 
     }
+    contests.clear();
+    realm.beginTransaction();
+    RealmResults<Contest> realmResults = realm.where(Contest.class).equalTo("month",selMonth+"").findAllSorted("date");
+    for (int i=0;i<realmResults.size();i++){
+        GroupData ro = realm.where(GroupData.class).equalTo("group_name",realmResults.get(i).getTeamname()).findFirst();
+        String place = "["+realmResults.get(i).getDistrict()+"]"+realmResults.get(i).getArea();
+        int genre = 0;
+        if(ro!=null) {
+             genre = getGenre(ro.getGroup_genre());
+        }
+        contests.add(new Contestitem(realmResults.get(i).getNum(),realmResults.get(i).getTeamname(),genre,realmResults.get(i).getDate(),realmResults.get(i).getTime(),place));
+    }
+    realm.commitTransaction();
+    schedule_adapter.notifyDataSetChanged();
+}
+public int getGenre(String genre){
+        if (genre.equals("기악")){
+            return 1;
+        }else if (genre.equals("기악")){
+            return 2;
+        }else if (genre.equals("기악")){
+            return 3;
+        }else{
+            return 4;
+        }
+
 }
 
 //현재 arraylist에 있는 date를 찾아서 몇번째 포지션에 있는지 확인하기
 public void focusItemByDate(int date){
     Log.i("Schedule","처음date : "+date);
+    boolean isItem = false;
 for(int i=0;i<contests.size();i++){
+
     String fullDate = contests.get(i).getDate();
+    Log.i("Schedule","날짜 : "+fullDate);
     String[] devidedDate = fullDate.split("-");
 
     int thisdate = Integer.parseInt(devidedDate[2]);
@@ -224,10 +271,13 @@ for(int i=0;i<contests.size();i++){
     if(thisdate==date){
         schedule_rv.scrollToPosition(i);
         LinearLayoutManager lm;
+        isItem = true;
         break;
     }
     Log.i("Schedule","date : "+date+"thisdate : "+thisdate);
-
+}
+if(!isItem){
+    Toast.makeText(Schedule.this,date+"일에 공연이 없습니다.",Toast.LENGTH_SHORT).show();
 }
 }
 
@@ -252,7 +302,25 @@ for(int i=0;i<contests.size();i++){
 
     }
     public void setDataSet(){
+        Log.i("setDataSet","선택된 월 : "+nowMonth);
+
+        realm.beginTransaction();
+        RealmResults<Contest> realmResults = realm.where(Contest.class).equalTo("month",selMonth+"").findAllSorted("date");
+        for (int i=0;i<realmResults.size();i++){
+            Log.i("가져오려는 팀명 : ",realmResults.get(i).getTeamname());
+            GroupData ro = realm.where(GroupData.class).equalTo("group_name",realmResults.get(i).getTeamname()).findFirst();
+            String place = "["+realmResults.get(i).getDistrict()+"]"+realmResults.get(i).getArea();
+            int genre = 0;
+            if(ro!=null){
+                 genre = getGenre(ro.getGroup_genre());
+            }
+
+            Log.i("돌아감.",place);
+            contests.add(new Contestitem(realmResults.get(i).getNum(),realmResults.get(i).getTeamname(),genre,realmResults.get(i).getDate(),realmResults.get(i).getTime(),place));
+        }
+        realm.commitTransaction();
     }
+
 
 
     @Override
@@ -260,6 +328,7 @@ for(int i=0;i<contests.size();i++){
             Log.i("Schedule","날짜 : "+selectedDate);
             //날짜 구해서 해당 날짜로 아이템 포커싱
             focusItemByDate(selectedDate);
+
 //            date_rv.scrollToPosition(selectedDate);
     }
 
@@ -267,17 +336,25 @@ for(int i=0;i<contests.size();i++){
     public void setOnItemClickForSchedule(final int selectedPosition) {
         Log.i("Schedule","선택된 포지션 : "+selectedPosition);
         //아이템 클릭시,
-        MenuDialog dialog = new MenuDialog(Schedule.this,
+         dialog = new MenuDialog(Schedule.this,
                 //왼쪽 리스너
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
                         //공연단 소개 페이지로 넘기기.
-                        Intent intent = new Intent();
+                        Intent intent = new Intent(Schedule.this, StreetGroupDetailActivity.class);
 
+                        String teamname = contests.get(selectedPosition).getTeamName();
+
+                        GroupData ro = realm.where(GroupData.class).equalTo("group_name",teamname).findFirst();
+                        int seq = ro.getGroup_seq();
+                        Log.i("teamname",teamname);
                         //팀 소개를 보여줄 것이므로 팀넘버를 넘겨준다.
-                        intent.putExtra("teamnum",contests.get(selectedPosition).getTeamName());
+                        intent.putExtra("seq",seq);
+                        Log.i("팀 시퀀스 : ",seq+"");
                         startActivity(intent);
+                        dialog.dismiss();
+
                     }
                 },
                 //오른쪽 리스너
@@ -287,12 +364,31 @@ for(int i=0;i<contests.size();i++){
                         //맵으로 넘기기
                         Intent intent = new Intent();
 
-                        //공연 위치를 보여줘야 하므로 공연 넘버를 넘겨줌
-                        intent.putExtra("contestnum",contests.get(selectedPosition).getContestnum());
-                        startActivity(intent);
+                        //현재 arraylist contest에 있는 주소의 형태와 db에 있는 데이터의 형태가 다름.
+                        //그러므로 num을 기준으로 realm으로 부터 공연장 명을 가져온 후에, 혜진씨가 만든 StageInfo 테이블에서 공연장 명을 가지고
+                        //진짜 주소를 찾아서 넘겨줘야함.
+                        int num = contests.get(selectedPosition).getContestnum();
+                        realm.beginTransaction();
+                        Log.i("Schedule","리스트뷰에 띄워지는 주소 : "+contests.get(selectedPosition).getPlace());
+                        Contest contest = realm.where(Contest.class).equalTo("num",num).findFirst();
+
+                        StageInfo stageInfo = realm.where(StageInfo.class).equalTo("placeName",contest.getArea()).findFirst();
+                        Log.i("Schedule","장소명 : "+contest.getArea());
+                        if(stageInfo==null){
+                            Log.i("Schedule","Schedule 빈 여부: true");
+                        }else {
+                            Log.i("Schedule","Schedule 빈 여부: false");
+                        }
+
+                        //공연 위치를 보여줘야 하므로\ 공연 넘버를 넘겨줌
+                        StageMapDialog dialog_stageMap = StageMapDialog.newInstance(stageInfo);
+                        dialog_stageMap.show(getSupportFragmentManager(),"DIALOG");
+                        realm.commitTransaction();
+                        dialog.dismiss();
                     }
                 });
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
 }
