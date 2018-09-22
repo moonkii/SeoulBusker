@@ -35,26 +35,31 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/group_detail_review_star1"
                     android:src="@drawable/group_star_full"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/group_detail_review_star2"
                     android:src="@drawable/group_star_full"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/group_detail_review_star3"
                     android:src="@drawable/group_star_full"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/group_detail_review_star4"
                     android:src="@drawable/group_star_full"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ImageView
+                    android:id="@+id/group_detail_review_star5"
                     android:src="@drawable/group_star_full"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

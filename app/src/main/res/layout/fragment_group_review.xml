@@ -17,7 +17,7 @@
         android:layout_weight="1">
 
         <Button
-
+            android:id="@+id/group_detail_review_write"
             android:background="@android:color/transparent"
             android:text="   공연후기를 남겨주세요"
             android:drawableStart="@drawable/group_pen"
