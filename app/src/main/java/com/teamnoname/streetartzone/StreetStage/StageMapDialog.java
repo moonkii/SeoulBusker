@@ -42,6 +42,7 @@ public class StageMapDialog extends android.support.v4.app.DialogFragment implem
         return dialog;
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

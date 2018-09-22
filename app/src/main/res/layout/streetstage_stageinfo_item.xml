@@ -19,7 +19,6 @@
         android:paddingTop="4dp"
  >
 
-        <!--좀 더 위로-->
         <View
             android:id="@+id/stageinfo_item_view_dot"
             android:layout_width="6dp"
