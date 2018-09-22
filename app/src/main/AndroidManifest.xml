@@ -9,6 +9,8 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -38,6 +40,8 @@
 
         <!-- 공연팀 상세 페이지 -->
         <activity android:name=".StreetGroup.StreetGroupDetailActivity" />
+
+        <activity android:name=".StreetGroup.WriteReview"/>
 
         <!--공연장소-->
         <activity android:name=".StreetStage.StreetStageAcitivity" />

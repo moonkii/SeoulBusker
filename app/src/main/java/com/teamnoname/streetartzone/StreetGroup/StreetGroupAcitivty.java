@@ -3,7 +3,6 @@ package com.teamnoname.streetartzone.StreetGroup;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,11 +15,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.teamnoname.streetartzone.Data.GroupData;
 import com.teamnoname.streetartzone.Data.GroupReviewData;
 import com.teamnoname.streetartzone.R;
@@ -41,7 +35,7 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
     ArrayList<StreetGroupItem> arrayList_groupinfo_tradition;
     ArrayList<StreetGroupItem> arrayList_groupinfo_music;
 
-    String selectedCategory="전체";
+    String selectedCategory = "전체";
 
     //UI View
     ArrayList<TextView> arrayList_bar;
@@ -56,17 +50,11 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
 
 
     //DataBases
-    DatabaseReference dbReference;
-    FirebaseDatabase db;
-    String db_groupInfo="groupdata";
-    ArrayList<GroupFirebaseData> arrayList_groupData;
-    ArrayList<GroupReviewFirebaseData> arrayList_groupReviewData;
     ArrayList<Integer> arrayList_ReviewCount;
     ArrayList<Integer> arrayList_ReviewScore;
     Realm realm;
     RealmResults<GroupData> realmResults_group;
-    RealmResults<GroupReviewData> realmResults_review;
-
+    RealmResults<GroupReviewData> realmResults_groupReview;
 
 
     @Override
@@ -75,18 +63,18 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
         setContentView(R.layout.activity_streetgroup);
 
 
-            init();
-
+        init();
+        setGroupData();
 
     }
 
     @Override
     protected void onResume() {
-        setGroupData();
+
         super.onResume();
     }
 
-    public void init(){
+    public void init() {
         recyclerView_group = (RecyclerView) findViewById(R.id.group_recyclerView);
         bar_category_all = (TextView) findViewById(R.id.group_bar_all);
         bar_category_instrument = (TextView) findViewById(R.id.group_bar_instrument);
@@ -122,11 +110,9 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
         setCategoryBar(0);
 
 
-
     }
 
-    public void showSearchDialog()
-    {
+    public void showSearchDialog() {
         final EditText edit_search = new EditText(this);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -136,10 +122,10 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String searchStr = edit_search.getText().toString();
-                        
-                        boolean isFinding=false;
-                        for(int i =0 ; i<arrayList_groupInfo.size() ; i++ ){
-                            if(arrayList_groupInfo.get(i).getGroup_name().equalsIgnoreCase(searchStr)){
+
+                        boolean isFinding = false;
+                        for (int i = 0; i < arrayList_groupInfo.size(); i++) {
+                            if (arrayList_groupInfo.get(i).getGroup_name().equalsIgnoreCase(searchStr)) {
                                 ArrayList<StreetGroupItem> arrayList_temp = new ArrayList<>();
                                 arrayList_temp.add(new StreetGroupItem(
                                         arrayList_groupInfo.get(i).getGroup_seq(),
@@ -149,19 +135,19 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
                                         arrayList_groupInfo.get(i).getGroup_detail(),
                                         arrayList_groupInfo.get(i).getGroup_score(),
                                         arrayList_groupInfo.get(i).getGroup_reviewNumber()
-                                        
+
                                 ));
 
-                                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this,arrayList_temp,StreetGroupAcitivty.this);
+                                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this, arrayList_temp, StreetGroupAcitivty.this);
                                 recyclerView_group.setLayoutManager(new LinearLayoutManager(StreetGroupAcitivty.this));
                                 recyclerView_group.setAdapter(recyclerViewAdapter);
-                                
-                                isFinding=true;
+
+                                isFinding = true;
                                 break;
                             }
                         }
-                        
-                        if(!isFinding){
+
+                        if (!isFinding) {
                             Toast.makeText(StreetGroupAcitivty.this, "검색결과가 없습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -169,200 +155,121 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
         builder.setNegativeButton("취소",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        
+
                     }
                 });
         builder.show();
     }
 
 
-
-    public void setGroupData(){
+    public void setGroupData() {
 
         //database
         realm = Realm.getDefaultInstance();
-        db = FirebaseDatabase.getInstance();
-        arrayList_groupData = new ArrayList<>();
-        arrayList_groupReviewData = new ArrayList<>();
+        realmResults_group = realm.where(GroupData.class).findAll();
+        realmResults_groupReview = realm.where(GroupReviewData.class).findAll();
+
         arrayList_ReviewCount = new ArrayList<>();
         arrayList_ReviewScore = new ArrayList<>();
-        dbReference = db.getReference(db_groupInfo);
 
-        dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        arrayList_groupInfo = new ArrayList<>();
+        arrayList_groupinfo_instrument = new ArrayList<>();
+        arrayList_groupinfo_performance = new ArrayList<>();
+        arrayList_groupinfo_tradition = new ArrayList<>();
+        arrayList_groupinfo_music = new ArrayList<>();
 
-                realmResults_group = realm.where(GroupData.class).findAll();
-                realmResults_review = realm.where(GroupReviewData.class).findAll();
+        //리뷰 데이터 초기화
+        for(int i=0; i<realmResults_group.size(); i++){
+            arrayList_ReviewCount.add(0);
+            arrayList_ReviewScore.add(0);
+        }
 
-
-                //group data
-                if(realmResults_group !=null && realmResults_group.size()>0){
-
-                    //group data 개수만큼 리뷰 정보 준비
-                    for(int i=0; i<realmResults_group.size(); i++){
-                        arrayList_ReviewCount.add(0);
-                        arrayList_ReviewScore.add(0);
-                    }
-
-                }else{
-                    for(DataSnapshot groupDB : dataSnapshot.child("group").getChildren()){
-                        arrayList_groupData.add(groupDB.getValue(GroupFirebaseData.class));
-                    }
-
-                    //group data 개수만큼 리뷰 정보 준비
-                    for(int i=0; i<arrayList_groupData.size(); i++){
-                        arrayList_ReviewCount.add(0);
-                        arrayList_ReviewScore.add(0);
-                    }
-                }
-
-                //group review data
-                for(DataSnapshot groupReviewDB : dataSnapshot.child("groupreview").getChildren()){
-                    arrayList_groupReviewData.add(groupReviewDB.getValue(GroupReviewFirebaseData.class));
-                    Log.v("디비확인",groupReviewDB.getValue().toString());
-                }
+        //리뷰 개수 및 평가점수
+        for (int i = 0; i < realmResults_groupReview.size(); i++) {
+            GroupReviewData groupReviewData = realmResults_groupReview.get(i);
+            Log.v("리뷰확인1",""+groupReviewData.getSeq());
+            int tempReviewCount = arrayList_ReviewCount.get(groupReviewData.getSeq());
+            arrayList_ReviewCount.set(groupReviewData.getSeq(),tempReviewCount+1);
+            Log.v("리뷰확인2",""+tempReviewCount);
 
 
-                realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
+            int temReviewScore  = arrayList_ReviewScore.get(groupReviewData.getSeq());
+            arrayList_ReviewScore.set(groupReviewData.getSeq(),temReviewScore+groupReviewData.getscore());
 
-                        //group data
-                        if(realmResults_group.size()<1){
+            Log.v("리뷰확인3",""+temReviewScore);
 
-                            for(int i=0; i<arrayList_groupData.size(); i++){
+        }
 
-                                GroupData groupData = realm.createObject(GroupData.class);
-                                groupData.setGroup_seq(i);
-                                groupData.setGroup_name(arrayList_groupData.get(i).getName());
-                                groupData.setGroup_genre(arrayList_groupData.get(i).getGenre());
-                                groupData.setGroup_info(arrayList_groupData.get(i).getIntro());
-                                groupData.setGroup_titleImg(arrayList_groupData.get(i).getImage());
-                                groupData.setGroup_youtube(arrayList_groupData.get(i).getYoutube());
+        for (int i = 0; i < realmResults_group.size(); i++) {
+            GroupData groupData = realmResults_group.get(i);
+            arrayList_groupInfo.add(new StreetGroupItem(
+                    groupData.getGroup_seq(),
+                    groupData.getGroup_titleImg(),
+                    groupData.getGroup_name(),
+                    groupData.getGroup_genre(),
+                    groupData.getGroup_info(),
+                    arrayList_ReviewScore.get(i),
+                    arrayList_ReviewCount.get(i)
+            ));
 
-                            }
+            if (groupData.getGroup_genre().equals("기악")) {
+                arrayList_groupinfo_instrument.add(new StreetGroupItem(
+                        groupData.getGroup_seq(),
+                        groupData.getGroup_titleImg(),
+                        groupData.getGroup_name(),
+                        groupData.getGroup_genre(),
+                        groupData.getGroup_info(),
+                        arrayList_ReviewScore.get(i),
+                        arrayList_ReviewCount.get(i)
+                ));
 
-                        }
+            } else if (groupData.getGroup_genre().equals("퍼포먼스")) {
+                arrayList_groupinfo_performance.add(new StreetGroupItem(
+                        groupData.getGroup_seq(),
+                        groupData.getGroup_titleImg(),
+                        groupData.getGroup_name(),
+                        groupData.getGroup_genre(),
+                        groupData.getGroup_info(),
+                        arrayList_ReviewScore.get(i),
+                        arrayList_ReviewCount.get(i)
+                ));
 
+            } else if (groupData.getGroup_genre().equals("전통")) {
+                arrayList_groupinfo_tradition.add(new StreetGroupItem(
+                        groupData.getGroup_seq(),
+                        groupData.getGroup_titleImg(),
+                        groupData.getGroup_name(),
+                        groupData.getGroup_genre(),
+                        groupData.getGroup_info(),
+                        arrayList_ReviewScore.get(i),
+                        arrayList_ReviewCount.get(i)
+                ));
 
-
-
-                        //groupReview data
-                        for(int i=0; i<arrayList_groupReviewData.size(); i++){
-
-                            if(realmResults_review.size()<(i+1)){
-
-                                GroupReviewData groupReviewData = realm.createObject(GroupReviewData.class);
-                                groupReviewData.setSocre(arrayList_groupReviewData.get(i).getScore());
-                                groupReviewData.setWriter(arrayList_groupReviewData.get(i).getWriter());
-                                groupReviewData.setDate(arrayList_groupReviewData.get(i).getDate());
-                                groupReviewData.setContents(arrayList_groupReviewData.get(i).getContents());
-                                groupReviewData.setSeq(arrayList_groupReviewData.get(i).getSeq());
-
-                            }
-
-                            //review count
-                            int reviewCount =arrayList_ReviewCount.get(arrayList_groupReviewData.get(i).getSeq());
-                            arrayList_ReviewCount.set(arrayList_groupReviewData.get(i).getSeq(),reviewCount+1);
-
-
-
-                            //review score
-                            int reviewScore =arrayList_ReviewScore.get(arrayList_groupReviewData.get(i).getSeq());
-                            arrayList_ReviewScore.set(arrayList_groupReviewData.get(i).getSeq(),reviewScore+arrayList_groupReviewData.get(i).getScore());
-
-                        }
-
-
-
-
-
-                        arrayList_groupInfo = new ArrayList<>();
-                        arrayList_groupinfo_instrument = new ArrayList<>();
-                        arrayList_groupinfo_performance = new ArrayList<>();
-                        arrayList_groupinfo_tradition = new ArrayList<>();
-                        arrayList_groupinfo_music = new ArrayList<>();
-                        for(int i=0; i<realmResults_group.size() ; i++){
-                            GroupData temp = realmResults_group.get(i);
-
-
-                            arrayList_groupInfo.add(new StreetGroupItem(
-                                    temp.getGroup_seq(),
-                                    temp.getGroup_titleImg()
-                                    ,temp.getGroup_name()
-                                    ,temp.getGroup_genre()
-                                    ,temp.getGroup_info()
-                                    ,arrayList_ReviewScore.get(temp.getGroup_seq())
-                                    ,arrayList_ReviewCount.get(temp.getGroup_seq()))
-                            );
-
-                            if(temp.getGroup_genre().equals("기악")){
-                                arrayList_groupinfo_instrument.add(new StreetGroupItem(
-                                        temp.getGroup_seq(),
-                                        temp.getGroup_titleImg()
-                                        ,temp.getGroup_name()
-                                        ,temp.getGroup_genre()
-                                        ,temp.getGroup_info()
-                                        ,arrayList_ReviewScore.get(temp.getGroup_seq())
-                                        ,arrayList_ReviewCount.get(temp.getGroup_seq())));
-                            }else if(temp.getGroup_genre().equals("퍼포먼스")){
-                                arrayList_groupinfo_performance.add(new StreetGroupItem(
-                                        temp.getGroup_seq(),
-                                        temp.getGroup_titleImg()
-                                        ,temp.getGroup_name()
-                                        ,temp.getGroup_genre()
-                                        ,temp.getGroup_info()
-                                        ,arrayList_ReviewScore.get(temp.getGroup_seq())
-                                        ,arrayList_ReviewCount.get(temp.getGroup_seq())));
-                            }else if(temp.getGroup_genre().equals("전통")){
-                                arrayList_groupinfo_tradition.add(new StreetGroupItem(
-                                        temp.getGroup_seq(),
-                                        temp.getGroup_titleImg()
-                                        ,temp.getGroup_name()
-                                        ,temp.getGroup_genre()
-                                        ,temp.getGroup_info()
-                                        ,arrayList_ReviewScore.get(temp.getGroup_seq())
-                                        ,arrayList_ReviewCount.get(temp.getGroup_seq())));
-                            }else if(temp.getGroup_genre().equals("음악")){
-                                arrayList_groupinfo_music.add(new StreetGroupItem(
-                                        temp.getGroup_seq(),
-                                        temp.getGroup_titleImg()
-                                        ,temp.getGroup_name()
-                                        ,temp.getGroup_genre()
-                                        ,temp.getGroup_info()
-                                        ,arrayList_ReviewScore.get(temp.getGroup_seq())
-                                        ,arrayList_ReviewCount.get(temp.getGroup_seq())));
-                            }
-                        }
-
-                        setGroupRecyclerView();
-
-
-
-                    }
-                });
-
+            } else if (groupData.getGroup_genre().equals("음악")) {
+                arrayList_groupinfo_music.add(new StreetGroupItem(
+                        groupData.getGroup_seq(),
+                        groupData.getGroup_titleImg(),
+                        groupData.getGroup_name(),
+                        groupData.getGroup_genre(),
+                        groupData.getGroup_info(),
+                        arrayList_ReviewScore.get(i),
+                        arrayList_ReviewCount.get(i)
+                ));
 
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
 
-            }
-        });
-
-
+        setGroupRecyclerView();
 
     }
 
-    public void setGroupRecyclerView(){
+    public void setGroupRecyclerView() {
 
 
-        recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this,arrayList_groupInfo,StreetGroupAcitivty.this);
+        recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this, arrayList_groupInfo, StreetGroupAcitivty.this);
         recyclerView_group.setLayoutManager(new LinearLayoutManager(StreetGroupAcitivty.this));
         recyclerView_group.setAdapter(recyclerViewAdapter);
-
 
 
     }
@@ -371,24 +278,24 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
     @Override
     public void setOnItemClick(int selectedPosition) {
 
-        Intent intent = new Intent(StreetGroupAcitivty.this,StreetGroupDetailActivity.class);
-        intent.putExtra("seq",selectedPosition);
+        Intent intent = new Intent(StreetGroupAcitivty.this, StreetGroupDetailActivity.class);
+        intent.putExtra("seq", selectedPosition);
         startActivity(intent);
 
 
     }
 
-    public void setCategoryBar(int order){
+    public void setCategoryBar(int order) {
         //전체 , 기악, 퍼포먼스, 전통, 음악 순
-        for(int i=0; i<5 ; i++){
+        for (int i = 0; i < 5; i++) {
 
-            if(i==order){
-                if(arrayList_bar.get(i).getVisibility()==View.INVISIBLE){
+            if (i == order) {
+                if (arrayList_bar.get(i).getVisibility() == View.INVISIBLE) {
                     arrayList_bar.get(i).setVisibility(View.VISIBLE);
                 }
 
-            }else{
-                if(arrayList_bar.get(i).getVisibility()==View.VISIBLE){
+            } else {
+                if (arrayList_bar.get(i).getVisibility() == View.VISIBLE) {
                     arrayList_bar.get(i).setVisibility(View.INVISIBLE);
                 }
 
@@ -398,41 +305,41 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
 
     }
 
-    public void setRecyclerViewNotify(String category){
+    public void setRecyclerViewNotify(String category) {
 
-        switch (category){
-            case "전체" :
-                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this,arrayList_groupInfo,StreetGroupAcitivty.this);
+        switch (category) {
+            case "전체":
+                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this, arrayList_groupInfo, StreetGroupAcitivty.this);
                 recyclerView_group.setLayoutManager(new LinearLayoutManager(StreetGroupAcitivty.this));
                 recyclerView_group.setAdapter(recyclerViewAdapter);
 
 
                 break;
 
-            case "기악" :
-                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this,arrayList_groupinfo_instrument,StreetGroupAcitivty.this);
+            case "기악":
+                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this, arrayList_groupinfo_instrument, StreetGroupAcitivty.this);
                 recyclerView_group.setLayoutManager(new LinearLayoutManager(StreetGroupAcitivty.this));
                 recyclerView_group.setAdapter(recyclerViewAdapter);
 
 
                 break;
-            case "퍼포먼스" :
-                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this,arrayList_groupinfo_performance,StreetGroupAcitivty.this);
+            case "퍼포먼스":
+                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this, arrayList_groupinfo_performance, StreetGroupAcitivty.this);
                 recyclerView_group.setLayoutManager(new LinearLayoutManager(StreetGroupAcitivty.this));
                 recyclerView_group.setAdapter(recyclerViewAdapter);
 
 
                 break;
-            case "전통" :
-                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this,arrayList_groupinfo_tradition,StreetGroupAcitivty.this);
+            case "전통":
+                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this, arrayList_groupinfo_tradition, StreetGroupAcitivty.this);
                 recyclerView_group.setLayoutManager(new LinearLayoutManager(StreetGroupAcitivty.this));
                 recyclerView_group.setAdapter(recyclerViewAdapter);
 
 
                 break;
 
-            case "음악" :
-                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this,arrayList_groupinfo_music,StreetGroupAcitivty.this);
+            case "음악":
+                recyclerViewAdapter = new StreetGroupRecyclerViewAdapter(StreetGroupAcitivty.this, arrayList_groupinfo_music, StreetGroupAcitivty.this);
                 recyclerView_group.setLayoutManager(new LinearLayoutManager(StreetGroupAcitivty.this));
                 recyclerView_group.setAdapter(recyclerViewAdapter);
 
@@ -447,35 +354,35 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
     //카레고리 클릭
     public void setCategoryClick(View view) {
 
-        switch (view.getId()){
-            case R.id.group_btn_all :
+        switch (view.getId()) {
+            case R.id.group_btn_all:
                 setCategoryBar(0);
-                selectedCategory="전체";
+                selectedCategory = "전체";
                 setRecyclerViewNotify(selectedCategory);
                 break;
 
-            case R.id.group_btn_instrument :
+            case R.id.group_btn_instrument:
                 setCategoryBar(1);
-                selectedCategory="기악";
+                selectedCategory = "기악";
                 setRecyclerViewNotify(selectedCategory);
                 break;
 
 
-            case R.id.group_btn_performance :
+            case R.id.group_btn_performance:
                 setCategoryBar(2);
-                selectedCategory="퍼포먼스";
+                selectedCategory = "퍼포먼스";
                 setRecyclerViewNotify(selectedCategory);
                 break;
 
-            case R.id.group_btn_tradition :
+            case R.id.group_btn_tradition:
                 setCategoryBar(3);
-                selectedCategory="전통";
+                selectedCategory = "전통";
                 setRecyclerViewNotify(selectedCategory);
                 break;
 
-            case R.id.group_btn_music :
+            case R.id.group_btn_music:
                 setCategoryBar(4);
-                selectedCategory="음악";
+                selectedCategory = "음악";
                 setRecyclerViewNotify(selectedCategory);
 
                 break;
@@ -485,8 +392,8 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
 }
 
 
+class GroupFirebaseData {
 
-class GroupFirebaseData{
 
     String name;
     String genre;
@@ -547,7 +454,7 @@ class GroupFirebaseData{
 }
 
 
-class GroupReviewFirebaseData{
+class GroupReviewFirebaseData {
 
     int score;
     String writer;

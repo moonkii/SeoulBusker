@@ -3,7 +3,6 @@ package com.teamnoname.streetartzone;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.stetho.Stetho;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,23 +23,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.teamnoname.streetartzone.Data.Contest;
 import com.teamnoname.streetartzone.Schedule.Notice;
 import com.teamnoname.streetartzone.Schedule.Schedule;
-import com.bumptech.glide.Glide;
 import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
-import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.StreetStage.NearStageActivity;
 import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
 
-
-import org.jsoup.Jsoup;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 import io.realm.Realm;
-import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
@@ -67,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
         setBannerData();
         setBannerViewPager();
-        if(!sharedPreferences.getBoolean("isContestData",false)){
-            Log.i("MainActivity","가져오기 시작");
-            getContestData();
-        }
+//        if(!sharedPreferences.getBoolean("isContestData",false)){
+//            Log.i("MainActivity","가져오기 시작");
+//            getContestData();
+//        }
 
     }
 

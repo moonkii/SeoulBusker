@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,14 +56,23 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
         holder.tv_groupName.setText(arrayList_item.get(position).getGroup_name());
         holder.tv_groupCategory.setText(arrayList_item.get(position).getGroup_category());
         holder.tv_groupDetail.setText(arrayList_item.get(position).getGroup_detail());
-        int score =arrayList_item.get(position).getGroup_score()/arrayList_item.get(position).getGroup_reviewNumber();
+
+        int score =0;
+        if(arrayList_item.get(position).getGroup_reviewNumber()>0){
+            score =arrayList_item.get(position).getGroup_score()/arrayList_item.get(position).getGroup_reviewNumber();
+        }
+
         holder.tv_groupScore.setText(Integer.toString(score));
         holder.tv_groupReviewNumber.setText("공연후기 "+Integer.toString(arrayList_item.get(position).getGroup_reviewNumber()));
 
-        double rating=0;
+        float rating=0;
         if(arrayList_item.get(position).getGroup_reviewNumber()>0){
             rating = arrayList_item.get(position).getGroup_score()/arrayList_item.get(position).getGroup_reviewNumber();
+            Log.v("레이팅확인1",""+rating);
+            Log.v("레이팅확인2",""+arrayList_item.get(position).getGroup_score());
+            Log.v("레이팅확인3",""+arrayList_item.get(position).getGroup_reviewNumber());
         }
+
 
 
         if(rating==0){
