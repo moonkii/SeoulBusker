@@ -65,9 +65,9 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
         holder.tv_groupScore.setText(Integer.toString(score));
         holder.tv_groupReviewNumber.setText("공연후기 "+Integer.toString(arrayList_item.get(position).getGroup_reviewNumber()));
 
-        float rating=0;
+        double rating=0;
         if(arrayList_item.get(position).getGroup_reviewNumber()>0){
-            rating = arrayList_item.get(position).getGroup_score()/arrayList_item.get(position).getGroup_reviewNumber();
+            rating = arrayList_item.get(position).getGroup_score()/(double) arrayList_item.get(position).getGroup_reviewNumber();
             Log.v("레이팅확인1",""+rating);
             Log.v("레이팅확인2",""+arrayList_item.get(position).getGroup_score());
             Log.v("레이팅확인3",""+arrayList_item.get(position).getGroup_reviewNumber());
