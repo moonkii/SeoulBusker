@@ -60,4 +60,5 @@ public class MenuDialog extends Dialog {
         this.left = left;
         this.right = right;
     }
+
 }
