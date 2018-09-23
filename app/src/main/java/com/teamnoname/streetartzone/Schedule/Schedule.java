@@ -50,7 +50,7 @@ public class Schedule extends AppCompatActivity implements ClickListener{
     RecyclerView date_rv;
     TextView showMonth ;
     ImageView nextMonthBtn,prevMonthBtn;
-
+    ImageView backBtn;
     MenuDialog dialog;
 
     //어댑터
@@ -107,8 +107,14 @@ private void viewInit(){
     //button
     nextMonthBtn = (ImageView)findViewById(R.id.schedule_activity_btn_nextmonth);
     prevMonthBtn = (ImageView)findViewById(R.id.schedule_activity_btn_prevmonth);
+    backBtn = (ImageView)findViewById(R.id.backbtn);
 
-
+    backBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            finish();
+        }
+    });
     //이전 월 버튼 클릭
     prevMonthBtn.setOnClickListener(new View.OnClickListener() {
         @Override
