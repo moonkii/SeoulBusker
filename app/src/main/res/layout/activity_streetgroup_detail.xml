@@ -23,6 +23,8 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:textStyle="bold"
+            android:textSize="17dp"
             android:id="@+id/group_detail_title"
             android:gravity="center"
             android:textColor="@android:color/white"
@@ -43,6 +45,7 @@
 
 
     <android.support.design.widget.TabLayout
+        app:tabBackground="@android:color/white"
         app:tabSelectedTextColor="@color/actionBar"
         app:tabIndicatorColor="@color/actionBar"
         android:id="@+id/group_detail_tab"

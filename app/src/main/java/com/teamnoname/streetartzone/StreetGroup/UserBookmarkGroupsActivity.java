@@ -2,9 +2,12 @@ package com.teamnoname.streetartzone.StreetGroup;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +42,8 @@ public class UserBookmarkGroupsActivity extends AppCompatActivity implements Use
 
     private Realm realm;
 
+    private AlertDialog dialog_checkDelete;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +55,7 @@ public class UserBookmarkGroupsActivity extends AppCompatActivity implements Use
 
     private void initView(){
         recycler_bookmarkGroup = (RecyclerView)findViewById(R.id.bookmark_recycler_group);
+        img_backBtn = (ImageView)findViewById(R.id.bookmark_img_back_btn);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -57,6 +64,12 @@ public class UserBookmarkGroupsActivity extends AppCompatActivity implements Use
         adapter_bookmarkGroup = new UserBookMarkGroupListAdapter(this,realm,this,result_bookmarkGroup,true);
         recycler_bookmarkGroup.setAdapter(adapter_bookmarkGroup);
 
+        img_backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void getBookmarkGroupData(){
@@ -66,13 +79,36 @@ public class UserBookmarkGroupsActivity extends AppCompatActivity implements Use
 
     @Override
     public void onClick(final int position) {
-        realm.executeTransaction(new Realm.Transaction() {
+        View customView = getLayoutInflater().inflate(R.layout.bookmark_delete_dialog,null);
+         Button btn_ok = (Button)customView.findViewById(R.id.bookmark_delete_btn_ok);
+         Button btn_no = (Button)customView.findViewById(R.id.bookmark_delete_btn_no);
+
+        dialog_checkDelete = new AlertDialog.Builder(this)
+                .setView(customView)
+                .show();
+
+        btn_no.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void execute(Realm realm) {
-                result_bookmarkGroup.get(position).deleteFromRealm();
-                Log.e("itemDelete","delete!!");
+            public void onClick(View v) {
+                dialog_checkDelete.dismiss();
             }
         });
+
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        result_bookmarkGroup.get(position).deleteFromRealm();
+                        Log.e("itemDelete","delete!!");
+                    }
+                });
+                dialog_checkDelete.dismiss();
+            }
+        });
+
     }
 }
 

@@ -15,6 +15,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -45,6 +47,8 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
     private Realm realm;
     private RealmResults<StageInfo> result_StageInfo;
 
+    private ImageView img_backBtn;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,14 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
         realm = Realm.getDefaultInstance();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.near_stage_map);
         mapFragment.getMapAsync(this);
+
+        img_backBtn = (ImageView)findViewById(R.id.near_stage_img_backbtn);
+        img_backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -68,7 +80,7 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         LatLng soeul = getLatLotFromAddress("대한민국 서울특별시");
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(soeul, 16f));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(soeul, 13f));
     }
 
     private void getLocation() {
@@ -76,7 +88,7 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
-            Toast.makeText(this, "GPS수신설정바람", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "위치 서비스 사용 권한을 설정해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -91,11 +103,19 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
                 userLocation = new LatLng(latitude, longitude);
                 String address = getAddressFromLatLng();
                 //String address = "대한민국 서울특별시 마포구";
+                if(address == null){
+                    Toast.makeText(NearStageActivity.this,"GPS 신호가 약합니다. 잠시후 다시 시도해 주세요",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Log.e("Near", address);
 
                 String district = address.split(" ")[2];
                 result_StageInfo = getDistrictStageData(district);
-                addMapMarker(result_StageInfo.size());
+                if (result_StageInfo.size() > 0)
+                    addMapMarker(result_StageInfo.size());
+                else
+                    Toast.makeText(NearStageActivity.this,"주변에 공연장이 없습니다.",Toast.LENGTH_SHORT).show();
 
 
             }
@@ -112,18 +132,19 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
 
             @Override
             public void onProviderDisabled(String provider) {
+                Toast.makeText(NearStageActivity.this,"GPS 신호가 약합니다. 잠시후 다시 시도해 주세요",Toast.LENGTH_SHORT).show();
 
             }
         };
 
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                600000,
+                1000,
                 500,
                 locationListener);
 
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                600000,
+                1000,
                 500,
                 locationListener);
 
@@ -137,6 +158,7 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
 
     }
 
+    //위도,경도로부터 주소추출
     private String getAddressFromLatLng() {
         Geocoder geocoder = new Geocoder(this, Locale.KOREA);
         List<Address> addresses;
@@ -152,6 +174,7 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
         return address;
     }
 
+    //주소로부터 위도, 경도 추출
     private LatLng getLatLotFromAddress(String address) {
         Geocoder geocoder = new Geocoder(this);
         LatLng getLatLng = null;

@@ -28,7 +28,8 @@
             android:fontFamily="@font/notosanskr_regular_hestia"
             android:text="내 북마크"
             android:textColor="#FFF"
-            android:textSize="24dp"/>
+            android:textSize="24dp"
+            android:textStyle="bold"/>
 
         <ImageView
             android:layout_width="140dp"

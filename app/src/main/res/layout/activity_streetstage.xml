@@ -18,13 +18,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="공연장위치"
+            android:textStyle="bold"
             android:textColor="#FFF"
-            android:textSize="22dp"
+            android:textSize="17dp"
             android:fontFamily="@font/notosanskr_regular_hestia"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
 
-        <!--뒤로가기 화살표로 바꾸기-->
         <ImageView
             android:id="@+id/streetstage_activity_img_xbtn"
             android:layout_width="wrap_content"

@@ -73,6 +73,7 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
         Log.i("Adapter","onBindViewHolder");
 
         String fullDate = arrayListContests.get(position).getDate();
+        Log.i("ScheduleRecyclerViewAdapter","날자 : "+fullDate);
         String[] devidedDate = fullDate.split("-");
         int year =Integer.parseInt(devidedDate[0]);
         int month = Integer.parseInt(devidedDate[1]);
@@ -111,6 +112,11 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
 //            dateCheck.add(date);
 //        }
 
+        if(arrayListContests.get(position).getTeamName().length()>10){
+            holder.teamname.setTextSize(15);
+        }else {
+            holder.teamname.setTextSize(20);
+        }
         holder.teamname.setText(arrayListContests.get(position).getTeamName());
         holder.place.setText(arrayListContests.get(position).getPlace());
         holder.time.setText(arrayListContests.get(position).getTime());
@@ -123,13 +129,14 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
 
         //색깔 변동주기
         if(arrayListContests.get(position).getContestType()==1){//기악
-        holder.type_light.setBackgroundColor(Color.RED);
+        holder.type_light.setBackgroundColor(Color.parseColor("#C40000"));
         }else if(arrayListContests.get(position).getContestType()==2){//퍼포먼스
-            holder.type_light.setBackgroundColor(Color.BLUE);
+            holder.type_light.setBackgroundColor(Color.parseColor("#14C322"));
         }else if(arrayListContests.get(position).getContestType()==3){//전통
             holder.type_light.setBackgroundColor(Color.YELLOW);
         }else{  //4 : 음악.
-            holder.type_light.setBackgroundColor(Color.GREEN);
+            holder.type_light.setBackgroundColor(Color.parseColor("#0B427B"));
+
 
         }
 

@@ -1,34 +1,29 @@
 package com.teamnoname.streetartzone.Data;
 
-import io.realm.RealmObject;
+public class GroupReviewDataItem {
 
-public class GroupReviewData extends RealmObject {
-
-    int seq;
     int score;
     String writer;
     String date;
     String contents;
+    int seq;
 
-
-    public GroupReviewData() {
+    public GroupReviewDataItem() {
     }
 
-
-    public int getSeq() {
-        return seq;
-    }
-
-    public void setSeq(int seq) {
+    public GroupReviewDataItem(int score, String writer, String date, String contents, int seq) {
+        this.score = score;
+        this.writer = writer;
+        this.date = date;
+        this.contents = contents;
         this.seq = seq;
     }
 
-
-    public int getscore() {
+    public int getScore() {
         return score;
     }
 
-    public void setscore(int score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
@@ -54,5 +49,13 @@ public class GroupReviewData extends RealmObject {
 
     public void setContents(String contents) {
         this.contents = contents;
+    }
+
+    public int getSeq() {
+        return seq;
+    }
+
+    public void setSeq(int seq) {
+        this.seq = seq;
     }
 }

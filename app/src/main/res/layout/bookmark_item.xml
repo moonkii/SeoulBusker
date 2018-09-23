@@ -3,18 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:padding="6dp"
+    android:paddingRight="6dp"
+    android:paddingLeft="6dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
+    android:layout_marginTop="3dp"
+
    >
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="10dp"
-        card_view:cardElevation="6dp"
+        card_view:cardElevation="4dp"
         android:layout_marginRight="3dp"
         android:layout_marginLeft="3dp"
+        android:layout_marginBottom="8dp"
         >
 
         <FrameLayout

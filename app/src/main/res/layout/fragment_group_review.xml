@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:background="@android:color/white"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -16,8 +17,9 @@
         android:layout_weight="1">
 
         <Button
+            android:id="@+id/group_detail_review_write"
             android:background="@android:color/transparent"
-            android:text="공연후기를 남겨주세요"
+            android:text="   공연후기를 남겨주세요"
             android:drawableStart="@drawable/group_pen"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
@@ -25,12 +27,15 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:orientation="horizontal">
         <TextView
+            android:textStyle="bold"
             android:layout_marginRight="5dp"
             android:textColor="@android:color/black"
             android:text="총"
@@ -49,6 +54,7 @@
             android:gravity="center" />
 
         <TextView
+            android:textStyle="bold"
             android:textColor="@android:color/black"
             android:text="개의 후기가 있습니다"
             android:layout_width="wrap_content"

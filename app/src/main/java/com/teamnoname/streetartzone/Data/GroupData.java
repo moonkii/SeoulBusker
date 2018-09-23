@@ -1,9 +1,11 @@
 package com.teamnoname.streetartzone.Data;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class GroupData extends RealmObject {
 
+    @PrimaryKey
     int group_seq;
     String group_name;
     String group_genre;

@@ -48,7 +48,7 @@
                     android:lineSpacingExtra="4sp"
                     android:paddingLeft="20dp"
                     android:paddingTop="15dp"
-                    android:text="공연팀에 대한 자세한 소개나\n현재 공연장 위치를\n선택하여 볼 수 있습니다"
+                    android:text="해당 공연팀을 북마크에서 \n삭제 하시겠습니까?"
                     android:textSize="15sp" />
 
                 <LinearLayout
@@ -60,12 +60,12 @@
                     android:weightSum="4">
 
                     <Button
-                        android:id="@+id/btn_introduce"
+                        android:id="@+id/bookmark_delete_btn_ok"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@android:color/white"
-                        android:text="공연팀소개" />
+                        android:text="예" />
 
                     <LinearLayout
                         android:layout_width="1dp"
@@ -98,12 +98,12 @@
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/btn_map"
+                        android:id="@+id/bookmark_delete_btn_no"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@android:color/white"
-                        android:text="지도 보기" />
+                        android:text="아니오" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

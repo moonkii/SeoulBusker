@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2.24"
+            android:layout_weight="2"
             android:background="@drawable/bx"
             android:orientation="vertical"></LinearLayout>
 
@@ -26,28 +26,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3.3"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@mipmap/calendarpeople"
-                android:orientation="vertical">
-
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -70,14 +48,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.9"
+                android:layout_weight="0.8"
                 android:orientation="horizontal"
                 android:weightSum="10">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:padding="12dp"
+                    app:srcCompat="@drawable/leftarrow4" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2.5"
+                    android:layout_weight="1"
                     android:orientation="horizontal"></LinearLayout>
 
                 <ImageView
@@ -117,7 +103,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.1"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
@@ -131,10 +117,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_marginTop="5dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
+                    android:gravity="bottom"
                     android:text="이달의\n공연"
                     android:textColor="@android:color/white"
                     android:textSize="25sp"
@@ -146,8 +132,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="6"
-                 >
+                    android:layout_weight="6">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/schedule_rv_date"
@@ -189,6 +174,22 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/blue" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:text="음악" />
+
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/red" />
 
@@ -203,8 +204,9 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/blue" />
+                android:src="@drawable/green" />
 
             <TextView
 
@@ -217,6 +219,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/yellow" />
 
@@ -224,22 +227,10 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="12dp"
                 android:text="전통" />
 
-            <ImageView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/green" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:text="음악" />
 
         </LinearLayout>
     </LinearLayout>
