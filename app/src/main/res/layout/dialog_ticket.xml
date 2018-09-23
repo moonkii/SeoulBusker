@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:background="@android:color/transparent"
+        android:src="@drawable/ticket_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/dialog_ticket_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/notosanskr_regular_hestia"
+            android:text="ARTIST"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/dialog_ticket_groupName"
+            android:textSize="20dp"
+            android:fontFamily="@font/notosanskr_regular_hestia"
+            android:textColor="@android:color/white"
+            android:text="공연팀 이름"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/dialog_ticket_date"
+            android:fontFamily="@font/notosanskr_regular_hestia"
+            android:textSize="18dp"
+            android:textColor="@android:color/white"
+            android:gravity="end"
+            android:text="2018. 09. 24"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dialog_ticket_place"
+                android:textSize="15dp"
+                android:fontFamily="@font/notosanskr_regular_hestia"
+                android:textColor="@android:color/white"
+                android:text="공연장소"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/dialog_ticket_time"
+                android:textSize="15dp"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/notosanskr_regular_hestia"
+                android:gravity="end"
+                android:text="12:00 ~ 14:00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+
+
+
+    <ImageView
+
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>
