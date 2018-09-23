@@ -235,7 +235,7 @@ public void changedMonth(){
     }
     contests.clear();
     realm.beginTransaction();
-    RealmResults<Contest> realmResults = realm.where(Contest.class).equalTo("month",selMonth+"").findAllSorted("date");
+    RealmResults<Contest> realmResults = realm.where(Contest.class).equalTo("month",selMonth+"").findAllSorted("dateForSort");
     for (int i=0;i<realmResults.size();i++){
         GroupData ro = realm.where(GroupData.class).equalTo("group_name",realmResults.get(i).getTeamname()).findFirst();
         String place = "["+realmResults.get(i).getDistrict()+"]"+realmResults.get(i).getArea();

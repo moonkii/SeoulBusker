@@ -260,6 +260,7 @@ public class SplashActivity extends AppCompatActivity {
 
                                 ContestDataItem contestDataItem = contestDB.getValue(ContestDataItem.class);
                                 String[] devider = contestDataItem.getDate().split("-");
+                                int dateForSort= Integer.parseInt(devider[0]+devider[1]+devider[2]);
                                 String month = devider[1];
                                 Contest contest = new Contest(
                                         contestDataItem.getNum(),
@@ -268,7 +269,7 @@ public class SplashActivity extends AppCompatActivity {
                                         contestDataItem.getArea(),
                                         contestDataItem.getDate(),
                                         contestDataItem.getTime(),
-                                        month);
+                                        month,dateForSort);
 
                                 realm.copyToRealm(contest);
 

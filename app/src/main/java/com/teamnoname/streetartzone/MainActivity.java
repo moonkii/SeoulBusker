@@ -65,45 +65,45 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getContestData(){
-        db = FirebaseDatabase.getInstance();
-        dbref = db.getReference("contestdata");
-        dbref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i("MainActivity","onDataChange");
-                realm.beginTransaction();
-                for(DataSnapshot DB : dataSnapshot.getChildren()){
-                   final FcvContest item = DB.getValue(FcvContest.class);
-                            String[] devider = item.getDate().split("-");
-                            String month = devider[1];
-                            Contest contest = new Contest(item.getNum(),item.getTeamname(),item.getDistrict(),item.getArea(),item.getDate(),item.getTime(),month);
-                            realm.copyToRealm(contest);
-
-                }
-                RealmResults<Contest> a = realm.where(Contest.class).findAll();
-
-                for(int i=0;i<a.size();i++){
-                    Log.i("MainActivity","넘버 : "+a.get(i).getNum());
-                    Log.i("MainActivity","이름 : "+a.get(i).getTeamname());
-                    Log.i("MainActivity","장소 : "+a.get(i).getArea());
-                    Log.i("MainActivity","월 : "+a.get(i).getMonth());
-                    Log.i("MainActivity","날짜 : "+a.get(i).getDate());
-                    Log.i("MainActivity","구 : "+a.get(i).getDistrict());
-                    System.out.println();
-                }
-                realm.commitTransaction();
-                Log.i("MainActivity","Commit 완료");
-                preferenceEditor.putBoolean("isContestData",true);
-                preferenceEditor.commit();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                realm.commitTransaction();
-            }
-        });
-    }
+//    private void getContestData(){
+//        db = FirebaseDatabase.getInstance();
+//        dbref = db.getReference("contestdata");
+//        dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                Log.i("MainActivity","onDataChange");
+//                realm.beginTransaction();
+//                for(DataSnapshot DB : dataSnapshot.getChildren()){
+//                   final FcvContest item = DB.getValue(FcvContest.class);
+//                            String[] devider = item.getDate().split("-");
+//                            String month = devider[1];
+//                            Contest contest = new Contest(item.getNum(),item.getTeamname(),item.getDistrict(),item.getArea(),item.getDate(),item.getTime(),month);
+//                            realm.copyToRealm(contest);
+//
+//                }
+//                RealmResults<Contest> a = realm.where(Contest.class).findAll();
+//
+//                for(int i=0;i<a.size();i++){
+//                    Log.i("MainActivity","넘버 : "+a.get(i).getNum());
+//                    Log.i("MainActivity","이름 : "+a.get(i).getTeamname());
+//                    Log.i("MainActivity","장소 : "+a.get(i).getArea());
+//                    Log.i("MainActivity","월 : "+a.get(i).getMonth());
+//                    Log.i("MainActivity","날짜 : "+a.get(i).getDate());
+//                    Log.i("MainActivity","구 : "+a.get(i).getDistrict());
+//                    System.out.println();
+//                }
+//                realm.commitTransaction();
+//                Log.i("MainActivity","Commit 완료");
+//                preferenceEditor.putBoolean("isContestData",true);
+//                preferenceEditor.commit();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                realm.commitTransaction();
+//            }
+//        });
+//    }
 
 
     public void setBannerData() {
