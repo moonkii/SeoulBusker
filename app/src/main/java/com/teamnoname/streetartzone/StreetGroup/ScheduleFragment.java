@@ -34,7 +34,7 @@ public class ScheduleFragment extends Fragment {
     }
 
     public ScheduleFragment() {
-        // Required empty public constructor
+        //        // Required empty public constructor
     }
 
 
