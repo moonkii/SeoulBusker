@@ -3,15 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:padding="3dp">
+    android:padding="6dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+   >
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="10dp"
-        card_view:cardElevation="2dp"
+        card_view:cardElevation="6dp"
         android:layout_marginRight="3dp"
-        android:layout_marginLeft="3dp">
+        android:layout_marginLeft="3dp"
+        >
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -52,18 +56,19 @@
                     android:id="@+id/bookmark_item_tv_groupname"
                     android:layout_weight="0.7"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="그룹이름"
                     android:textSize="17dp"
+                    android:minHeight="0dp"
                     android:fontFamily="@font/notosanskr_regular_hestia"
-                    android:layout_margin="10dp"
                     android:layout_gravity="center_vertical"
                     />
 
                 <ImageView
-                    android:id="@+id/bookmark_img_x_btn"
+                    android:id="@+id/bookmark_img_delete_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="15dp"
                     android:src="@drawable/x"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>

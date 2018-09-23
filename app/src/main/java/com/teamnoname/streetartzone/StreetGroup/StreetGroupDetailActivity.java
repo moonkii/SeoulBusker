@@ -9,14 +9,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.teamnoname.streetartzone.Data.GroupData;
 import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.Data.UserBookMarkGroup;
 import com.teamnoname.streetartzone.R;
+
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -64,15 +68,23 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
         btn_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //즐찾 테이블에 해당 그룹 시퉌스 저장.
-                realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        UserBookMarkGroup group = new UserBookMarkGroup();
-                        group.setGroupSeq(selectedSeq);
-                        realm.copyToRealm(group);
-                    }
-                });
+                //즐찾 테이블에 해당 그룹 시퀀스 저장.
+                if(realm.where(UserBookMarkGroup.class).equalTo("groupSeq",selectedSeq).findFirst() ==null){
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            long now = System.currentTimeMillis();
+                            UserBookMarkGroup group = new UserBookMarkGroup();
+                            group.setGroupSeq(selectedSeq);
+                            group.setAddDate(new Date(now));
+                            realm.copyToRealm(group);
+                        }
+                    });
+                }else{
+                    Toast.makeText(StreetGroupDetailActivity.this,"이미 북마크에 추가된 공연단 입니다.",Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
