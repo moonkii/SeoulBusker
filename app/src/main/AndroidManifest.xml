@@ -41,6 +41,10 @@
         <!-- 공연팀 상세 페이지 -->
         <activity android:name=".StreetGroup.StreetGroupDetailActivity" />
 
+        <!-- 공연팀 상세 이미지 클릭 -->
+        <activity android:name=".StreetGroup.StreetGroupDetailImgActivity"/>
+
+        <!-- 공연팀 리뷰 작성 -->
         <activity android:name=".StreetGroup.WriteReview"/>
 
         <!--공연장소-->

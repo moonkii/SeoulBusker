@@ -35,12 +35,5 @@ public class TicketDialog extends Dialog {
         tv_place = (TextView) findViewById(R.id.dialog_ticket_place);
         tv_time = (TextView) findViewById(R.id.dialog_ticket_time);
 
-
-
-
-
-
-
-
     }
 }

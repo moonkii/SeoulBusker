@@ -1,5 +1,6 @@
 package com.teamnoname.streetartzone.StreetGroup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -105,6 +106,28 @@ public class InfoFragment extends Fragment implements YouTubePlayer.OnInitialize
                 .load(groupData.getGroup_titleImg())
                 .into(imgV_main);
 
+        imgV_img1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goDetailImage(groupImageFirebaseData.getImg1());
+            }
+        });
+
+        imgV_img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goDetailImage(groupImageFirebaseData.getImg2());
+
+            }
+        });
+
+        imgV_img3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goDetailImage(groupImageFirebaseData.getImg3());
+            }
+        });
+
 
 
         dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -169,6 +192,15 @@ public class InfoFragment extends Fragment implements YouTubePlayer.OnInitialize
             }
         });
 
+
+    }
+
+    public void goDetailImage(String imgPath){
+        if(!imgPath.equals("없음")){
+            Intent goDetailImg = new Intent(getActivity(),StreetGroupDetailImgActivity.class);
+            goDetailImg.putExtra("path",imgPath);
+            startActivity(goDetailImg);
+        }
 
     }
 
