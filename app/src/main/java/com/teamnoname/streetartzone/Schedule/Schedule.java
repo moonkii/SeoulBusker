@@ -378,7 +378,7 @@ if(!isItem){
                         Log.i("Schedule","리스트뷰에 띄워지는 주소 : "+contests.get(selectedPosition).getPlace());
                         Contest contest = realm.where(Contest.class).equalTo("num",num).findFirst();
 
-                        StageInfo stageInfo = realm.where(StageInfo.class).equalTo("placeName",contest.getArea()).findFirst();
+                        StageInfo stageInfo = realm.where(StageInfo.class).like("placeName","*"+contest.getArea()+"*").findFirst();
                         Log.i("Schedule","장소명 : "+contest.getArea());
                         if(stageInfo==null){
                             Log.i("Schedule","Schedule 빈 여부: true");

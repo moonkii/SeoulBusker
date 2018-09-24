@@ -14,6 +14,9 @@ public class StageInfo extends RealmObject implements Serializable {
     private String placeName;
     private String address;
 
+    public StageInfo() {
+    }
+
     public int getSeq() {
         return seq;
     }
