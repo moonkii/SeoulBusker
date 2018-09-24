@@ -15,11 +15,12 @@ public class Contest extends RealmObject {
     String date;
     String time;
     String month; //얘는 월 바꿀때를 위한거. 월 바꿀때 해당 월만 가져와야 하기 때문임.
+    int dateForSort;
 
     public Contest() {
     }
 
-    public Contest(int num, String teamname, String district, String area, String date, String time,String month) {
+    public Contest(int num, String teamname, String district, String area, String date, String time,String month,int dateForSort) {
         this.num = num;
         this.teamname = teamname;
         this.district = district;
@@ -27,6 +28,15 @@ public class Contest extends RealmObject {
         this.date = date;
         this.time = time;
         this.month = month;
+        this.dateForSort = dateForSort;
+    }
+
+    public int getDateForSort() {
+        return dateForSort;
+    }
+
+    public void setDateForSort(int dateForSort) {
+        this.dateForSort = dateForSort;
     }
 
     public String getMonth() {

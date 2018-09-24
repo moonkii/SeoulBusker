@@ -50,7 +50,7 @@ public class Schedule extends AppCompatActivity implements ClickListener{
     RecyclerView date_rv;
     TextView showMonth ;
     ImageView nextMonthBtn,prevMonthBtn;
-
+    ImageView backBtn;
     MenuDialog dialog;
 
     //어댑터
@@ -107,8 +107,14 @@ private void viewInit(){
     //button
     nextMonthBtn = (ImageView)findViewById(R.id.schedule_activity_btn_nextmonth);
     prevMonthBtn = (ImageView)findViewById(R.id.schedule_activity_btn_prevmonth);
+    backBtn = (ImageView)findViewById(R.id.backbtn);
 
-
+    backBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            finish();
+        }
+    });
     //이전 월 버튼 클릭
     prevMonthBtn.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -229,7 +235,7 @@ public void changedMonth(){
     }
     contests.clear();
     realm.beginTransaction();
-    RealmResults<Contest> realmResults = realm.where(Contest.class).equalTo("month",selMonth+"").findAllSorted("date");
+    RealmResults<Contest> realmResults = realm.where(Contest.class).equalTo("month",selMonth+"").findAllSorted("dateForSort");
     for (int i=0;i<realmResults.size();i++){
         GroupData ro = realm.where(GroupData.class).equalTo("group_name",realmResults.get(i).getTeamname()).findFirst();
         String place = "["+realmResults.get(i).getDistrict()+"]"+realmResults.get(i).getArea();
@@ -372,7 +378,7 @@ if(!isItem){
                         Log.i("Schedule","리스트뷰에 띄워지는 주소 : "+contests.get(selectedPosition).getPlace());
                         Contest contest = realm.where(Contest.class).equalTo("num",num).findFirst();
 
-                        StageInfo stageInfo = realm.where(StageInfo.class).equalTo("placeName",contest.getArea()).findFirst();
+                        StageInfo stageInfo = realm.where(StageInfo.class).like("placeName","*"+contest.getArea()+"*").findFirst();
                         Log.i("Schedule","장소명 : "+contest.getArea());
                         if(stageInfo==null){
                             Log.i("Schedule","Schedule 빈 여부: true");

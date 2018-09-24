@@ -13,17 +13,24 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.teamnoname.streetartzone.Data.Contest;
+import com.teamnoname.streetartzone.Data.GroupData;
 import com.teamnoname.streetartzone.R;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class ScheduleFragment extends Fragment {
 
-    ArrayList<ScheduleItem> arrayList_schedule;
-    ArrayList<Integer> arrayList_scheduleCategory;
+    ArrayList<ScheduleItem> arrayList_schedule= new ArrayList<>();
+    ArrayList<Integer> arrayList_scheduleCategory= new ArrayList<>();
     RecyclerView recyclerView_schedule;
     ScheduleRecyclerViewAdapter scheduleRecyclerViewAdapter;
 
+
+    Realm realm = Realm.getDefaultInstance();
 
     public static ScheduleFragment newInstance(){
         Bundle args = new Bundle();
@@ -34,7 +41,7 @@ public class ScheduleFragment extends Fragment {
     }
 
     public ScheduleFragment() {
-        // Required empty public constructor
+        //        // Required empty public constructor
     }
 
 
@@ -53,7 +60,8 @@ public class ScheduleFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setScheduleData();
+//        setScheduleData();
+        setScheduleData2();
         setScheduleRecyclerView();
 
     }
@@ -84,11 +92,40 @@ public class ScheduleFragment extends Fragment {
             }
 
         }
+    }
+
+
+    public void setScheduleData2(){
+        GroupData groupData = realm.where(GroupData.class).equalTo("group_seq",StreetGroupDetailActivity.selectedSeq).findFirst();
+        RealmResults<Contest> contest = realm.where(Contest.class).equalTo("teamname",groupData.getGroup_name()).findAllSorted("date");
+
+for (int i=0;i<contest.size();i++){
+    String fulldate = contest.get(i).getDate();
+    String fulltime = contest.get(i).getTime();
+    String []devider = fulldate.split("-");
+    String year = devider[0];
+    String date = devider[2];
+    String []devider2 = fulltime.split("~");
+    String starttime = devider2[0];
+    String endtime = devider2[1];
+    String month = contest.get(i).getMonth();
+    String place = contest.get(i).getDistrict()+" | "+contest.get(i).getArea();
+    arrayList_schedule.add(new ScheduleItem(date,place,starttime,endtime,year,month));
+
+    if(i>0) {
+        if (!arrayList_schedule.get(i).getMonth().equals(arrayList_schedule.get(i - 1).getMonth()))
+            arrayList_scheduleCategory.add(i);
+    }
+
+}
+
 
 
 
 
     }
+
+
 
     public void setScheduleRecyclerView(){
 

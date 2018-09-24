@@ -87,9 +87,9 @@ public class SplashActivity extends AppCompatActivity {
             } else {
                 //권한 모두 획득시
 
-                if (!sharedPreferences.getBoolean("isStageData", false)) {
-                    getStageInfoData();
-                }
+//                if (!sharedPreferences.getBoolean("isStageData", false)) {
+//                    getStageInfoData();
+//                }
 
 
                 //데이터 설정
@@ -111,9 +111,9 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             //마시멜로 미만 버전 ( 권한 요청 따로 구분 x)
 
-            if (!sharedPreferences.getBoolean("isStageData", false)) {
-                getStageInfoData();
-            }
+//            if (!sharedPreferences.getBoolean("isStageData", false)) {
+//                getStageInfoData();
+//            }
 
 
             //데이터 설정
@@ -226,10 +226,10 @@ public class SplashActivity extends AppCompatActivity {
 
 
                         //거리 공연단 리뷰 데이터
-                        Log.v("리뷰데이터확인1",""+realmResults_GroupReviewData.size());
-                        Log.v("리뷰데이터확인2",""+dataSnapshot.child("groupdata/groupreview").getChildrenCount());
+                        Log.v("리뷰데이터확인1", "" + realmResults_GroupReviewData.size());
+                        Log.v("리뷰데이터확인2", "" + dataSnapshot.child("groupdata/groupreview").getChildrenCount());
 
-                        if(realmResults_GroupReviewData.size()<dataSnapshot.child("groupdata/groupreview").getChildrenCount()){
+                        if (realmResults_GroupReviewData.size() < dataSnapshot.child("groupdata/groupreview").getChildrenCount()) {
                             reviewCount = 0;
                             for (DataSnapshot groupReviewDB : dataSnapshot.child("groupdata/groupreview").getChildren()) {
 
@@ -252,7 +252,6 @@ public class SplashActivity extends AppCompatActivity {
                         }
 
 
-
                         //공연일정 데이터
                         if (!sharedPreferences.getBoolean("isContestData", false)) {
 
@@ -260,6 +259,7 @@ public class SplashActivity extends AppCompatActivity {
 
                                 ContestDataItem contestDataItem = contestDB.getValue(ContestDataItem.class);
                                 String[] devider = contestDataItem.getDate().split("-");
+                                int dateForSort= Integer.parseInt(devider[0]+devider[1]+devider[2]);
                                 String month = devider[1];
                                 Contest contest = new Contest(
                                         contestDataItem.getNum(),
@@ -268,13 +268,37 @@ public class SplashActivity extends AppCompatActivity {
                                         contestDataItem.getArea(),
                                         contestDataItem.getDate(),
                                         contestDataItem.getTime(),
-                                        month);
+                                        month,dateForSort);
 
                                 realm.copyToRealm(contest);
 
                             }
 
                             preferenceEditor.putBoolean("isContestData", true);
+                            preferenceEditor.commit();
+                        }
+
+//                        //데이터 로딩 완료 체크
+//                        isDataLoadingEnd = true;
+//                        Log.v("확인", "완료");
+//
+
+                        //공연장소 데이터
+                        if (!sharedPreferences.getBoolean("isStageData", false)) {
+
+                            for (DataSnapshot stageDB : dataSnapshot.child("stagedata").getChildren()) {
+
+                                StageInfoItem stageInfo = stageDB.getValue(StageInfoItem.class);
+
+                                StageInfo info = new StageInfo();
+                                info.setSeq(stageInfo.getSeq());
+                                info.setAddress(stageInfo.getAddress());
+                                info.setDistrict(stageInfo.getDistrict());
+                                info.setPlaceName(stageInfo.getPlaceName());
+                                realm.copyToRealm(info);
+                            }
+
+                            preferenceEditor.putBoolean("isStageData", true);
                             preferenceEditor.commit();
                         }
 
@@ -324,92 +348,8 @@ public class SplashActivity extends AppCompatActivity {
         Log.v("확인", "3초지남");
 
     }
-
-    //공연장 정보를 가져오는 메소드
-    private void getStageInfoData() {
-        GetStageInfoAsync getStageInfoAsync = new GetStageInfoAsync(realm);
-        try {
-            final Elements[] trs = getStageInfoAsync.execute().get();
-
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-
-                    for (int i = 0; i < trs.length; i++) {
-                        Elements tr = trs[i];
-                        Elements tds = tr.select("td");
-
-                        int index = 5, j = 0;
-                        while (index < tds.size()) {
-                            if (j > 4 && index < tds.size()) {
-                                int seq = Integer.valueOf(tds.get(index).text());
-                                String district = tds.get(index + 1).text();
-                                String placeName = tds.get(index + 2).text();
-                                String address = tds.get(index + 3).text();
-
-                                Log.e("Main", tds.get(index).text() + "/" + district + "/" + placeName + "/" + address + "다음--");
-
-                                StageInfo info = new StageInfo();
-                                info.setSeq(seq);
-                                info.setAddress(address);
-                                info.setDistrict(district);
-                                info.setPlaceName(placeName);
-                                realm.copyToRealm(info);
-
-                                index += 4;
-                            }
-                            j++;
-                        }
-                    }
-                }
-            });
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        preferenceEditor.putBoolean("isStageData", true);
-        preferenceEditor.commit();
-
-
-    }
-
-
 }
 
-
-class GetStageInfoAsync extends AsyncTask<Void, Void, Elements[]> {
-    private Realm realm;
-
-    public GetStageInfoAsync(Realm realm) {
-        this.realm = realm;
-    }
-
-    @Override
-    protected Elements[] doInBackground(Void... voids) {
-        org.jsoup.nodes.Document stageInfo1 = null;
-        org.jsoup.nodes.Document stageInfo2 = null;
-        try {
-            stageInfo1 = Jsoup
-                    .connect("https://seoulbusking.com/bbs/board.php?bo_table=art_location&page=2&page=1")
-                    .get();
-
-            stageInfo2 = Jsoup
-                    .connect("https://seoulbusking.com/bbs/board.php?bo_table=art_location&page=2&page=2")
-                    .get();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Elements[] trs = new Elements[2];
-        trs[0] = stageInfo1.getElementsByTag("tr");
-        trs[1] = stageInfo2.getElementsByTag("tr");
-
-        return trs;
-    }
-}
 
 
 class GroupDataItem {
@@ -532,5 +472,56 @@ class ContestDataItem {
 
     public void setTime(String time) {
         this.time = time;
+    }
+}
+
+class StageInfoItem {
+
+    @PrimaryKey
+    int seq;
+    String district;
+    String address;
+    String placeName;
+
+    public StageInfoItem() {
+    }
+
+    public StageInfoItem(int seq, String district, String address, String placeName) {
+        this.seq = seq;
+        this.district = district;
+        this.address = address;
+        this.placeName = placeName;
+    }
+
+    public int getSeq() {
+        return seq;
+    }
+
+    public void setSeq(int seq) {
+        this.seq = seq;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPlaceName() {
+        return placeName;
+    }
+
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 }

@@ -48,7 +48,7 @@
                     android:lineSpacingExtra="4sp"
                     android:paddingLeft="20dp"
                     android:paddingTop="15dp"
-                    android:text="공연팀에 대한 자세한 소개나\n현재 공연장 위치를\n선택하여 볼 수 있습니다"
+                    android:text="해당 공연팀을 북마크에서 \n삭제 하시겠습니까?"
                     android:textSize="15sp" />
 
                 <LinearLayout
@@ -56,36 +56,54 @@
                     android:layout_height="0dp"
                     android:layout_weight="1.3"
                     android:orientation="horizontal"
-                    android:paddingBottom="14dp"
-                    android:paddingTop="10dp"
+                    android:paddingBottom="4dp"
                     android:weightSum="4">
 
                     <Button
-                        android:id="@+id/btn_introduce"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="#fffefe"
-                        android:text="공연팀소개" />
-
-                    <Button
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:weightSum="10">
-
-
-                    </Button>
-
-                    <Button
-                        android:id="@+id/btn_map"
+                        android:id="@+id/bookmark_delete_btn_ok"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@android:color/white"
-                        android:text="지도 보기" />
+                        android:text="예" />
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white"
+                        android:orientation="vertical"
+                        android:weightSum="10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1.5"
+                            android:background="#ffffff"
+                            android:orientation="horizontal"></LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="7"
+                            android:background="@android:color/darker_gray"
+                            android:orientation="horizontal"></LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1.5"
+                            android:background="#ffffff"
+                            android:orientation="horizontal"></LinearLayout>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/bookmark_delete_btn_no"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/white"
+                        android:text="아니오" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

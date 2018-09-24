@@ -206,7 +206,7 @@ public class InfoFragment extends Fragment implements YouTubePlayer.OnInitialize
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-        if(youtube_path.equals("없음")){
+        if(youtube_path == null || youtube_path.equals("없음")){
 
             if(tv_youtubeInfo.getVisibility()==View.GONE){
                 tv_youtubeInfo.setVisibility(View.VISIBLE);

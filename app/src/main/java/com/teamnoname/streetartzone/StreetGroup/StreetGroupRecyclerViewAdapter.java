@@ -47,7 +47,6 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
     @Override
     public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, final int position) {
 
-
         Glide.with(context)
                 .load(arrayList_item.get(position).getGroup_img())
                 .into(holder.imgV_titleImg);
