@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +37,10 @@ public class InfoFragment extends Fragment implements YouTubePlayer.OnInitialize
     ImageView imgV_img1;
     ImageView imgV_img2;
     ImageView imgV_img3;
+    
+    ImageButton btn_ticket;
+
+    TicketScheduleDialog dialog_ticketSchedule;
 
 
     int selectedSeq;
@@ -85,6 +90,8 @@ public class InfoFragment extends Fragment implements YouTubePlayer.OnInitialize
         imgV_img1 = (ImageView) view.findViewById(R.id.fragment_group_info_img1);
         imgV_img2 = (ImageView) view.findViewById(R.id.fragment_group_info_img2);
         imgV_img3 = (ImageView) view.findViewById(R.id.fragment_group_info_img3);
+        
+        btn_ticket = (ImageButton) view.findViewById(R.id.fragment_group_info_ticket);
 
         youTubePlayerView = (YouTubePlayerSupportFragment) getChildFragmentManager().findFragmentById(R.id.fragment_group_info_youtube);
         youTubePlayerView.initialize(youtube_path,this);
@@ -125,6 +132,19 @@ public class InfoFragment extends Fragment implements YouTubePlayer.OnInitialize
             @Override
             public void onClick(View view) {
                 goDetailImage(groupImageFirebaseData.getImg3());
+            }
+        });
+
+        btn_ticket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog_ticketSchedule = new TicketScheduleDialog(getActivity());
+                dialog_ticketSchedule.setImagePath(groupData.getGroup_titleImg());
+                dialog_ticketSchedule.setCanceledOnTouchOutside(false);
+                dialog_ticketSchedule.show();
+
+
             }
         });
 

@@ -1,7 +1,6 @@
 package com.teamnoname.streetartzone.StreetGroup;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -23,9 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teamnoname.streetartzone.Data.GroupData;
-import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.Data.UserBookMarkGroup;
-import com.teamnoname.streetartzone.MainActivity;
 import com.teamnoname.streetartzone.R;
 import com.teamnoname.streetartzone.SoeulApp;
 
@@ -43,6 +40,7 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
     ImageButton btn_back;
     ImageButton btn_bookmark;
     TextView tv_title;
+    public static String groupName;
 
     //DB
     Realm realm;
@@ -80,6 +78,7 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
             public void execute(Realm realm) {
                 groupData = realm.where(GroupData.class).equalTo("group_seq", selectedSeq).findAll();
                 tv_title.setText(groupData.get(0).getGroup_name());
+                groupName = groupData.get(0).getGroup_name();
 
             }
         });

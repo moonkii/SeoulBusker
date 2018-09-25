@@ -45,6 +45,9 @@
         <!-- 공연팀 상세 이미지 클릭 -->
         <activity android:name=".StreetGroup.StreetGroupDetailImgActivity"/>
 
+        <!-- 티켓 이미지 화면-->
+        <activity android:name=".StreetGroup.TicketImage"/>
+
         <!-- 공연팀 리뷰 작성 -->
         <activity android:name=".StreetGroup.WriteReview"/>
 

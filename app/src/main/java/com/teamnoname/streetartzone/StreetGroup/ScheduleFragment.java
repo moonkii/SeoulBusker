@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,15 +25,15 @@ import io.realm.RealmResults;
 
 public class ScheduleFragment extends Fragment {
 
-    ArrayList<ScheduleItem> arrayList_schedule= new ArrayList<>();
-    ArrayList<Integer> arrayList_scheduleCategory= new ArrayList<>();
+    ArrayList<ScheduleItem> arrayList_schedule = new ArrayList<>();
+    ArrayList<Integer> arrayList_scheduleCategory = new ArrayList<>();
     RecyclerView recyclerView_schedule;
     ScheduleRecyclerViewAdapter scheduleRecyclerViewAdapter;
 
 
     Realm realm = Realm.getDefaultInstance();
 
-    public static ScheduleFragment newInstance(){
+    public static ScheduleFragment newInstance() {
         Bundle args = new Bundle();
 
         ScheduleFragment ScheduleFragment = new ScheduleFragment();
@@ -41,7 +42,7 @@ public class ScheduleFragment extends Fragment {
     }
 
     public ScheduleFragment() {
-        //        // Required empty public constructor
+                // Required empty public constructor
     }
 
 
@@ -49,7 +50,7 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_group_schedule,container,false);
+        View view = inflater.inflate(R.layout.fragment_group_schedule, container, false);
 
         recyclerView_schedule = (RecyclerView) view.findViewById(R.id.group_schedule_recyclerView);
 
@@ -60,64 +61,34 @@ public class ScheduleFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        setScheduleData();
-        setScheduleData2();
+        setScheduleData();
         setScheduleRecyclerView();
 
     }
 
-    public void setScheduleData(){
-        arrayList_schedule = new ArrayList<>();
-        arrayList_scheduleCategory = new ArrayList<>();
 
-        for(int i=0; i<20 ; i++){
-            String date = Integer.toString(i);
-            if(i<5){
-                arrayList_schedule.add(new ScheduleItem(date,"종로구 | 낙산공원 놀이마당","14:00","16:00","2018","4월"));
-            }else if(i<10){
-                arrayList_schedule.add(new ScheduleItem(date,"종로구 | 낙산공원 놀이마당","14:00","16:00","2018","5월"));
+    public void setScheduleData() {
+        GroupData groupData = realm.where(GroupData.class).equalTo("group_seq", StreetGroupDetailActivity.selectedSeq).findFirst();
+        RealmResults<Contest> contest = realm.where(Contest.class).equalTo("teamname", groupData.getGroup_name()).findAllSorted("date");
 
-            }else if(i<15){
-                arrayList_schedule.add(new ScheduleItem(date,"종로구 | 낙산공원 놀이마당","14:00","16:00","2018","6월"));
-            }else{
-                arrayList_schedule.add(new ScheduleItem(date,"종로구 | 낙산공원 놀이마당","14:00","16:00","2018","7월"));
-            }
+            for (int i = 0; i < contest.size(); i++) {
+                String fulldate = contest.get(i).getDate();
+                String fulltime = contest.get(i).getTime();
+                String[] devider = fulldate.split("-");
+                String year = devider[0];
+                String date = devider[2];
+                String[] devider2 = fulltime.split("~");
+                String starttime = devider2[0];
+                String endtime = devider2[1];
+                String month = contest.get(i).getMonth();
+                String place = contest.get(i).getDistrict() + " | " + contest.get(i).getArea();
+                arrayList_schedule.add(new ScheduleItem(date, place, starttime, endtime, year, month));
 
-
-            if(i>0){
-                if (!arrayList_schedule.get(i).getMonth().equals(arrayList_schedule.get(i-1).getMonth())) {
-                    Log.v("일정구분",": "+i);
-                    arrayList_scheduleCategory.add(i);
+                if (i > 0) {
+                    if (!arrayList_schedule.get(i).getMonth().equals(arrayList_schedule.get(i - 1).getMonth()))
+                        arrayList_scheduleCategory.add(i);
                 }
-            }
-
         }
-    }
-
-
-    public void setScheduleData2(){
-        GroupData groupData = realm.where(GroupData.class).equalTo("group_seq",StreetGroupDetailActivity.selectedSeq).findFirst();
-        RealmResults<Contest> contest = realm.where(Contest.class).equalTo("teamname",groupData.getGroup_name()).findAllSorted("date");
-
-for (int i=0;i<contest.size();i++){
-    String fulldate = contest.get(i).getDate();
-    String fulltime = contest.get(i).getTime();
-    String []devider = fulldate.split("-");
-    String year = devider[0];
-    String date = devider[2];
-    String []devider2 = fulltime.split("~");
-    String starttime = devider2[0];
-    String endtime = devider2[1];
-    String month = contest.get(i).getMonth();
-    String place = contest.get(i).getDistrict()+" | "+contest.get(i).getArea();
-    arrayList_schedule.add(new ScheduleItem(date,place,starttime,endtime,year,month));
-
-    if(i>0) {
-        if (!arrayList_schedule.get(i).getMonth().equals(arrayList_schedule.get(i - 1).getMonth()))
-            arrayList_scheduleCategory.add(i);
-    }
-
-}
 
 
 
@@ -126,10 +97,9 @@ for (int i=0;i<contest.size();i++){
     }
 
 
+    public void setScheduleRecyclerView() {
 
-    public void setScheduleRecyclerView(){
-
-        scheduleRecyclerViewAdapter = new ScheduleRecyclerViewAdapter(arrayList_schedule,arrayList_scheduleCategory);
+        scheduleRecyclerViewAdapter = new ScheduleRecyclerViewAdapter(arrayList_schedule, arrayList_scheduleCategory);
         recyclerView_schedule.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView_schedule.setAdapter(scheduleRecyclerViewAdapter);
 
@@ -138,10 +108,12 @@ for (int i=0;i<contest.size();i++){
 }
 
 
-class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerViewAdapter.ScheduleViewHolder>{
+class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerViewAdapter.ScheduleViewHolder> {
 
     ArrayList<ScheduleItem> arrayList_schedule;
     ArrayList<Integer> arrayList_scheduleCategory;
+    boolean isSelectMode=false;
+    ScheduleItemClickListener scheduleItemClickListener;
 
 
     public ScheduleRecyclerViewAdapter(ArrayList<ScheduleItem> arrayList_schedule, ArrayList<Integer> arrayList_scheduleCategory) {
@@ -160,39 +132,71 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
         return new ScheduleViewHolder(itemView);
     }
 
+    public void setSelectMode(boolean selectMode) {
+        isSelectMode = selectMode;
+    }
+
+    public boolean isSelectMode() {
+        return isSelectMode;
+    }
+
+    public void setScheduleItemClickListener(ScheduleItemClickListener scheduleItemClickListener) {
+        this.scheduleItemClickListener = scheduleItemClickListener;
+    }
+
     @Override
-    public void onBindViewHolder(@NonNull ScheduleViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ScheduleViewHolder holder, int position) {
 
         holder.tv_schedule_category_month.setText(arrayList_schedule.get(position).getMonth());
+
+        if(isSelectMode()){
+            holder.tv_schedule_date.setTextSize(18);
+        }
         holder.tv_schedule_date.setText(arrayList_schedule.get(position).getDate());
+
+        if(isSelectMode()){
+            holder.tv_schedule_place.setTextSize(13);
+        }
         holder.tv_schedule_place.setText(arrayList_schedule.get(position).getPlace());
+
         holder.tv_schedule_start.setText(arrayList_schedule.get(position).getStartTime());
         holder.tv_schedule_end.setText(arrayList_schedule.get(position).getEndTime());
 
-        if(holder.getAdapterPosition()==0){
-            if(holder.linearLayout_schedule_category.getVisibility()==View.GONE){
+        if(isSelectMode()){
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(scheduleItemClickListener!=null){
+                        scheduleItemClickListener.setOnitemClick(
+                                arrayList_schedule.get(holder.getAdapterPosition()).getMonth(),
+                                arrayList_schedule.get(holder.getAdapterPosition()).getDate(),
+                                arrayList_schedule.get(holder.getAdapterPosition()).getPlace(),
+                                arrayList_schedule.get(holder.getAdapterPosition()).getStartTime(),
+                                arrayList_schedule.get(holder.getAdapterPosition()).getEndTime()
+                        );
+                    }
+                }
+            });
+        }
+
+
+        if (holder.getAdapterPosition() == 0) {
+            if (holder.linearLayout_schedule_category.getVisibility() == View.GONE) {
                 holder.linearLayout_schedule_category.setVisibility(View.VISIBLE);
             }
-        }else {
+        } else {
 
-            if(arrayList_scheduleCategory.contains(holder.getAdapterPosition())) {
-                Log.v("일정 구분 포지션값 : ",""+holder.getAdapterPosition());
+            if (arrayList_scheduleCategory.contains(holder.getAdapterPosition())) {
+                Log.v("일정 구분 포지션값 : ", "" + holder.getAdapterPosition());
                 if (holder.linearLayout_schedule_category.getVisibility() == View.GONE) {
                     holder.linearLayout_schedule_category.setVisibility(View.VISIBLE);
                 }
-            }else{
-                if(holder.linearLayout_schedule_category.getVisibility() !=View.GONE){
+            } else {
+                if (holder.linearLayout_schedule_category.getVisibility() != View.GONE) {
                     holder.linearLayout_schedule_category.setVisibility(View.GONE);
                 }
             }
         }
-
-
-
-
-
-
-
 
 
 
@@ -202,6 +206,10 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
     @Override
     public int getItemCount() {
         return (null == arrayList_schedule) ? 0 : arrayList_schedule.size();
+    }
+
+    public interface ScheduleItemClickListener{
+        void setOnitemClick(String month, String day, String place, String start, String end);
     }
 
     public static class ScheduleViewHolder extends RecyclerView.ViewHolder {
@@ -214,6 +222,7 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
         TextView tv_schedule_category_year;
         TextView tv_schedule_category_month;
         LinearLayout linearLayout_schedule_category;
+        CardView cardView;
 
 
         public ScheduleViewHolder(View itemView) {
@@ -227,15 +236,13 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
             tv_schedule_category_year = (TextView) itemView.findViewById(R.id.group_schedule_category_year);
             linearLayout_schedule_category = (LinearLayout) itemView.findViewById(R.id.group_schedule_category);
 
-
-
+            cardView = (CardView) itemView.findViewById(R.id.group_schedule_cardView);
 
         }
     }
 
 
 }
-
 
 
 class ScheduleItem {

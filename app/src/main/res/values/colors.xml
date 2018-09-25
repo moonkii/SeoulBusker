@@ -15,4 +15,6 @@
     <color name="instrumental">#14C322</color>
     <color name="music">#C40000</color>
     <color name="tradition">#FFE900</color>
+
+    <color name="dim">#88000000</color>
 </resources>

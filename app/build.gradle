@@ -69,5 +69,8 @@ dependencies {
     //realmAdapter
     implementation 'io.realm:android-adapters:2.1.1'
 
+    //coverflow
+    implementation 'com.github.moondroid.coverflow:library:1.0'
+
     implementation files('lib/YouTubeAndroidPlayerApi.jar')
 }

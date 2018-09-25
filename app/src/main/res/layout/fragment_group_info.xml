@@ -141,6 +141,7 @@
             </View>
 
             <ImageButton
+                android:id="@+id/fragment_group_info_ticket"
                 android:layout_marginTop="5dp"
                 android:padding="5dp"
                 android:layout_marginStart="15dp"
@@ -152,6 +153,7 @@
                 android:layout_height="wrap_content" />
 
             <ImageButton
+
                 android:visibility="invisible"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"
