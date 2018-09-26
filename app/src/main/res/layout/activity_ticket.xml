@@ -11,6 +11,7 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
+        android:padding="5dp"
         android:orientation="horizontal"
         android:id="@+id/ticket_final_top"
         android:weightSum="10"

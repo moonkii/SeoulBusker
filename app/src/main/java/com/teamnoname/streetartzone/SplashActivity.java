@@ -1,10 +1,11 @@
 package com.teamnoname.streetartzone;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,12 +27,6 @@ import com.teamnoname.streetartzone.Data.GroupData;
 import com.teamnoname.streetartzone.Data.GroupReviewData;
 import com.teamnoname.streetartzone.Data.GroupReviewDataItem;
 import com.teamnoname.streetartzone.Data.StageInfo;
-
-import org.jsoup.Jsoup;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -71,6 +66,17 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
+
+    public boolean isNetworkConnected(){
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
+    }
+
+
+
+
+
     private void checkPermissions() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { //API level 구분
@@ -90,6 +96,7 @@ public class SplashActivity extends AppCompatActivity {
 //                if (!sharedPreferences.getBoolean("isStageData", false)) {
 //                    getStageInfoData();
 //                }
+
 
 
                 //데이터 설정
@@ -330,18 +337,26 @@ public class SplashActivity extends AppCompatActivity {
 
     public void goMainActivity() {
 
+
+
         if (isDataLoadingEnd) {
             Intent go_MainActivity = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(go_MainActivity);
             finish();
 
         } else {
-            Log.v("확인", "2번째");
+
             Handler h = new Handler();
             h.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    goMainActivity();
+                    if(isNetworkConnected()){
+                        goMainActivity();
+                    }else{
+                        Toast.makeText(SplashActivity.this, "인터넷 상태를 확인해주세요", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+
                 }
             }, 1500);
         }

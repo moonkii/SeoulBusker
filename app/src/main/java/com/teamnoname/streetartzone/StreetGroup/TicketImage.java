@@ -21,9 +21,12 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.teamnoname.streetartzone.Data.TicketData;
 import com.teamnoname.streetartzone.R;
 
 import java.io.File;
+
+import io.realm.Realm;
 
 public class TicketImage extends AppCompatActivity {
 
@@ -33,7 +36,15 @@ public class TicketImage extends AppCompatActivity {
     Button btn_share;
     Button btn_delete;
 
+    String coverPath;
     String filePath;
+    boolean isListing=false;
+
+    Realm realm;
+
+    public TicketImage() {
+        realm = Realm.getDefaultInstance();
+    }
 
 
     @Override
@@ -44,6 +55,9 @@ public class TicketImage extends AppCompatActivity {
 
         Intent intent = getIntent();
         filePath = intent.getExtras().getString("filePath");
+        coverPath = intent.getExtras().getString("coverPath");
+        isListing = intent.getBooleanExtra("isListing",false);
+
 
         imgV_ticketImage = (ImageView) findViewById(R.id.ticket_final_image);
         linearLayout_topMenu = (LinearLayout) findViewById(R.id.ticket_final_top);
@@ -103,6 +117,18 @@ public class TicketImage extends AppCompatActivity {
                                     if (file.delete()) {
 
                                         refreshGallery(file); //갤러리 갱신
+
+                                        realm.executeTransaction(new Realm.Transaction() {
+                                            @Override
+                                            public void execute(Realm realm) {
+                                                TicketData ticketData = realm.where(TicketData.class).equalTo("ticketPath",filePath).findFirst();
+                                                if(ticketData!=null){
+                                                    ticketData.deleteFromRealm();
+                                                }
+
+                                            }
+                                        });
+
                                         TicketImage.this.finish();
 
                                     }
@@ -139,7 +165,24 @@ public class TicketImage extends AppCompatActivity {
             }
         });
 
+        if(!isListing){
+            saveTicket();
+        }
 
+
+
+    }
+
+    private void saveTicket(){
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                TicketData ticketData = new TicketData();
+                ticketData.setTicketPath(filePath);
+                ticketData.setCoverPath(coverPath);
+                realm.copyToRealm(ticketData);
+            }
+        });
     }
 
     private void refreshGallery(File file) {

@@ -93,6 +93,8 @@ public class TicketDialog extends Dialog {
         imgV_sending = (ImageView) findViewById(R.id.ticket_sending);
 
         linearLayout_ticket = (LinearLayout) findViewById(R.id.ticket_total);
+
+        imgV_sending.setMinimumWidth(imgV_top.getWidth());
         
 
         Glide.with(context)
@@ -127,6 +129,7 @@ public class TicketDialog extends Dialog {
                 if(!isComplete){
                     imgV_sending.setImageResource(R.drawable.ticket_bottom);
                     edit_msg.setCursorVisible(false);
+                    edit_msg.setText("");
                     isComplete=true;
                     picCapture();
                 }
@@ -166,6 +169,7 @@ public class TicketDialog extends Dialog {
 
             Intent intent = new Intent(context,TicketImage.class);
             intent.putExtra("filePath",ticketPath);
+            intent.putExtra("coverPath",imagePath);
             context.startActivity(intent);
             Toast.makeText(context, "초대장은 공연티켓 메뉴에서 확인하실 수 있습니다.", Toast.LENGTH_SHORT).show();
             TicketDialog.this.dismiss();

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,25 +14,19 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.facebook.stetho.Stetho;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.teamnoname.streetartzone.Data.Contest;
-import com.teamnoname.streetartzone.Schedule.Notice;
 import com.teamnoname.streetartzone.Schedule.Schedule;
 import com.teamnoname.streetartzone.StreetGroup.StreetGroupAcitivty;
-import com.teamnoname.streetartzone.Data.StageInfo;
 import com.teamnoname.streetartzone.StreetGroup.UserBookmarkGroupsActivity;
 import com.teamnoname.streetartzone.StreetStage.NearStageActivity;
 import com.teamnoname.streetartzone.StreetStage.StreetStageAcitivity;
+import com.teamnoname.streetartzone.Ticket.TicketListActivity;
 
 import java.util.ArrayList;
 
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 import io.realm.Realm;
-import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 public class MainActivity extends AppCompatActivity {
@@ -149,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.main_btn_ticket :
                 //내티켓 버튼
-
+                startActivity(new Intent(MainActivity.this, TicketListActivity.class));
 
                 break;
 
