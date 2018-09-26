@@ -246,6 +246,7 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
                         arrayList_ReviewCount.get(i)
                 ));
 
+
             } else if (groupData.getGroup_genre().equals("음악")) {
                 arrayList_groupinfo_music.add(new StreetGroupItem(
                         groupData.getGroup_seq(),
