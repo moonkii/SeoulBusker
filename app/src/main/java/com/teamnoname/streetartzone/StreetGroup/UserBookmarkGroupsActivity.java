@@ -1,6 +1,7 @@
 package com.teamnoname.streetartzone.StreetGroup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -77,11 +78,13 @@ public class UserBookmarkGroupsActivity extends AppCompatActivity implements Use
                 .sort("addDate", Sort.DESCENDING);
     }
 
+
     @Override
-    public void onClick(final int position) {
+    public void onDeleteClick(final int position) {
+
         View customView = getLayoutInflater().inflate(R.layout.bookmark_delete_dialog,null);
-         Button btn_ok = (Button)customView.findViewById(R.id.bookmark_delete_btn_ok);
-         Button btn_no = (Button)customView.findViewById(R.id.bookmark_delete_btn_no);
+        Button btn_ok = (Button)customView.findViewById(R.id.bookmark_delete_btn_ok);
+        Button btn_no = (Button)customView.findViewById(R.id.bookmark_delete_btn_no);
 
         dialog_checkDelete = new AlertDialog.Builder(this)
                 .setView(customView)
@@ -110,6 +113,14 @@ public class UserBookmarkGroupsActivity extends AppCompatActivity implements Use
         });
 
     }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent go_groupDetailActivity = new Intent(UserBookmarkGroupsActivity.this,StreetGroupDetailActivity.class);
+        go_groupDetailActivity.putExtra("seq",result_bookmarkGroup.get(position).getGroupSeq());
+        startActivity(go_groupDetailActivity);
+
+    }
 }
 
 class UserBookMarkGroupListAdapter extends RealmRecyclerViewAdapter<UserBookMarkGroup,UserBookMarkGroupListAdapter.ItemViewHolder>{
@@ -119,7 +130,8 @@ class UserBookMarkGroupListAdapter extends RealmRecyclerViewAdapter<UserBookMark
     private Context context;
     private OnClickListener clickListener;
 
-    public UserBookMarkGroupListAdapter(Context context,Realm realm,OnClickListener clickListener, @Nullable OrderedRealmCollection<UserBookMarkGroup> data, boolean autoUpdate) {
+    public UserBookMarkGroupListAdapter(Context context,Realm realm,OnClickListener clickListener,
+                                        @Nullable OrderedRealmCollection<UserBookMarkGroup> data, boolean autoUpdate) {
         super(data, autoUpdate);
         this.realm = realm;
         this.context = context;
@@ -184,14 +196,21 @@ class UserBookMarkGroupListAdapter extends RealmRecyclerViewAdapter<UserBookMark
             img_deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickListener.onClick(getAdapterPosition());
+                    clickListener.onDeleteClick(getAdapterPosition());
+                }
+            });
+            tv_groupName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onItemClick(getAdapterPosition());
                 }
             });
         }
     }
 
     interface OnClickListener{
-        void onClick(int position);
+        void onDeleteClick(int position);
+        void onItemClick(int position);
     }
 }
 

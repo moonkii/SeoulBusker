@@ -61,11 +61,13 @@
                     android:layout_weight="0.7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:text="그룹이름"
                     android:textSize="17dp"
                     android:minHeight="0dp"
                     android:fontFamily="@font/notosanskr_regular_hestia"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical|center_horizontal"
                     />
 
                 <ImageView
