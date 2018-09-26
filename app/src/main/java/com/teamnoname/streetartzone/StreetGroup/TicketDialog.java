@@ -129,7 +129,10 @@ public class TicketDialog extends Dialog {
                 if(!isComplete){
                     imgV_sending.setImageResource(R.drawable.ticket_bottom);
                     edit_msg.setCursorVisible(false);
-                    edit_msg.setText("");
+                    if(edit_msg.getText().toString().equals("")){
+                        edit_msg.setText("  ");
+                    }
+
                     isComplete=true;
                     picCapture();
                 }

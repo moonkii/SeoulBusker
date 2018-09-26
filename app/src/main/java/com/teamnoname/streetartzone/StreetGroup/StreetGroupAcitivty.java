@@ -64,7 +64,7 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
 
 
         init();
-        setGroupData();
+
 
     }
 
@@ -72,6 +72,7 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
     protected void onResume() {
 
         super.onResume();
+        setGroupData();
     }
 
     public void init() {
