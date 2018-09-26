@@ -153,6 +153,7 @@ public class TicketDialog extends Dialog {
 
         FileOutputStream fos;   // FileOutputStream 이용 파일 쓰기 한다
         String strFolderPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/busker/ticket";
+
         File folder = new File(strFolderPath);
         if(!folder.exists()) {
             folder.mkdirs();

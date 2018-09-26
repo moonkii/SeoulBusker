@@ -75,7 +75,10 @@ public class TicketImage extends AppCompatActivity {
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        shareTicket();
+                        if(!isListing){
+                            shareTicket();
+                        }
+
                         return false;
                     }
                 })
