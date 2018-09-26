@@ -49,8 +49,9 @@ public class SplashActivity extends AppCompatActivity {
     DatabaseReference dbReference;
     FirebaseDatabase firebaseDatabase;
 
-    final int permissionRequestCodeForStorage = 1000;
-    final int permissionRequestCodeForMap = 1001;
+    final int permissionRequestCodeForStorageW = 1000;
+    final int permissionRequestCodeForStorageR = 1001;
+    final int permissionRequestCodeForMap = 1002;
 
 
     @Override
@@ -89,7 +90,13 @@ public class SplashActivity extends AppCompatActivity {
 
             } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 //저장소 권한
-                ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, permissionRequestCodeForStorage);
+                ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, permissionRequestCodeForStorageW);
+
+            } else if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                //저장소 권한
+                ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, permissionRequestCodeForStorageR);
+
+
             } else {
                 //권한 모두 획득시
 
@@ -162,7 +169,21 @@ public class SplashActivity extends AppCompatActivity {
 
                 break;
 
-            case permissionRequestCodeForStorage:
+            case permissionRequestCodeForStorageW:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //권한 허용 (다시 권한 체크 로직 -> 모두 완료되면 다음 이벤트 실행)
+                    checkPermissions();
+
+                } else {
+                    //권한 거절 시
+
+                    finish();
+                    Toast.makeText(this, "권한을 허용하셔야 서비스 이용이 가능합니다.", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+
+            case permissionRequestCodeForStorageR:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //권한 허용 (다시 권한 체크 로직 -> 모두 완료되면 다음 이벤트 실행)
                     checkPermissions();
