@@ -118,6 +118,9 @@ public class ReviewFragment extends Fragment {
 
     public void setReviewData(){
 
+        Log.v("데이터확인!!!!","갱신");
+        realmResults_total = realm.where(GroupReviewData.class).findAll();
+
         firebaseDatabase =FirebaseDatabase.getInstance();
         dbReference = firebaseDatabase.getReference("groupdata/groupreview");
 
@@ -125,6 +128,7 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
 
+                Log.v("데이터 확인0",""+realmResults_total.size());
                 Log.v("데이터 확인1",""+realmResults.size());
                 Log.v("데이터 확인2",""+dataSnapshot.getChildrenCount());
 
@@ -140,7 +144,9 @@ public class ReviewFragment extends Fragment {
 
                                 reviewCount += 1;
 
-                                if (realmResults.size() < reviewCount) {
+                                if (realmResults_total.size() < reviewCount) {
+
+                                    Log.v("데이터 확인","데이터삽입"+reviewCount);
                                     GroupReviewDataItem groupReviewDataItem = groupReviewDB.getValue(GroupReviewDataItem.class);
                                     GroupReviewData groupReviewData = new GroupReviewData();
 
@@ -160,12 +166,21 @@ public class ReviewFragment extends Fragment {
 
                 }
 
+                realmResults = realm.where(GroupReviewData.class).equalTo("seq",selectedSeq).findAll();
+                Log.v("데이터 확인 개수",""+realmResults.size());
                 arrayList_review= new ArrayList<>();
 
                 for(int i=0; i<realmResults.size(); i++){
                     GroupReviewData tempData = realmResults.get(i);
                     arrayList_review.add(new ReviewItem(tempData.getWriter(),tempData.getDate(),tempData.getContents(),tempData.getscore()));
                 }
+
+
+                if(realmResults!=null){
+                    String reviewCount = Integer.toString(realmResults.size());
+                    tv_reviewCount.setText(reviewCount);
+                }
+
 
                 setReviewRecyclerView();
             }
