@@ -164,7 +164,6 @@ class MainBannerAdapter extends PagerAdapter {
     ArrayList<Integer> arrayList_banner;
     Context context;
 
-
     public MainBannerAdapter(ArrayList<Integer> arrayList_banner, Context context) {
         this.arrayList_banner = arrayList_banner;
         this.context = context;
