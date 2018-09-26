@@ -262,7 +262,7 @@ public class StreetGroupAcitivty extends AppCompatActivity implements StreetGrou
 
         }
 
-        setGroupRecyclerView();
+        setRecyclerViewNotify(selectedCategory);
 
     }
 
