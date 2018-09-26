@@ -4,12 +4,10 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.multidex.MultiDexApplication;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 public class SoeulApp extends MultiDexApplication {
 
@@ -27,6 +25,7 @@ public class SoeulApp extends MultiDexApplication {
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }
+
 
     public static String getChannelID(){
         return "SoeulBusker";
