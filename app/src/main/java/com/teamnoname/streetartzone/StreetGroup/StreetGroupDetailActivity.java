@@ -83,12 +83,17 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
             }
         });
 
-        //북마크 클릭리스너
+        //북마크 관련
         btn_bookmark = (ImageButton) findViewById(R.id.group_detail_img_bookmark);
+
+        if(realm.where(UserBookMarkGroup.class).equalTo("groupSeq", selectedSeq).findFirst()!=null)
+            btn_bookmark.setImageDrawable(getDrawable(R.drawable.full_bookmark));
+        else
+            btn_bookmark.setImageDrawable(getDrawable(R.drawable.bookmark_icon));
         btn_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                btn_bookmark.setImageDrawable(getDrawable(R.drawable.full_bookmark));
 
                 if (realm.where(UserBookMarkGroup.class).equalTo("groupSeq", selectedSeq).findFirst() == null) {
                     //즐찾 테이블에 해당 그룹 시퀀스가 없으면 저장.
@@ -151,6 +156,7 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
 
             }
         });
+        //북마크 관련 끝
     }
 }
 
