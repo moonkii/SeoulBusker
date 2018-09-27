@@ -30,6 +30,7 @@
             android:textColor="@android:color/white"
             android:text="공연팀이름"
             android:layout_weight="3"
+            android:fontFamily="@font/notosanskr_regular_hestia"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
 

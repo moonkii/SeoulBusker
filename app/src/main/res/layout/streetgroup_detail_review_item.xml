@@ -24,6 +24,7 @@
                     android:id="@+id/group_detail_review_name"
                     android:textColor="@android:color/black"
                     android:text="아무개"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:layout_height="wrap_content" />
@@ -69,6 +70,7 @@
                 <TextView
                     android:layout_marginStart="5dp"
                     android:id="@+id/group_detail_review_date"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:text="2018.08.30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -81,6 +83,7 @@
                 android:id="@+id/group_detail_review_content"
                 android:text="리뷰 글 입니다. 다양한 노래들리뷰 글 입니다. 다양한 노래들리뷰 글 입니다. 다양한 노래들리뷰 글 입니다. 다양한 노래들"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/notosanskr_regular_hestia"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>

@@ -27,6 +27,7 @@
                 <TextView
                     android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:layout_height="wrap_content"
                     android:background="@color/actionBar"
                     android:text="  ARTIST  "
@@ -35,6 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:gravity="center"
                     android:text="장르 | " />
 
@@ -42,6 +44,7 @@
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:gravity="center"
                     android:text="음악" />
             </LinearLayout>
@@ -57,6 +60,7 @@
                 android:lineSpacingExtra="4dp"
                 android:id="@+id/fragment_group_info_contents"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/notosanskr_regular_hestia"
                 android:layout_height="wrap_content"
                 android:text="공연팀 설명" />
 
@@ -74,6 +78,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="사진"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/notosanskr_regular_hestia"
                 android:layout_height="wrap_content" />
 
             <LinearLayout
@@ -115,6 +120,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="동영상"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/notosanskr_regular_hestia"
                 android:layout_height="wrap_content" />
 
             <fragment
@@ -128,6 +134,7 @@
                 android:id="@+id/fragment_group_info_tv_youtube"
                 android:gravity="center"
                 android:text="동영상이 없습니다."
+                android:fontFamily="@font/notosanskr_regular_hestia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

@@ -48,6 +48,7 @@
                         android:layout_toRightOf="@+id/dialog_stagemap_tv_district"
                         android:layout_centerVertical="true"
                         android:text="월드컵 경기장"
+
                         android:textColor="#FFF"
                         android:textSize="18dp"
                         android:fontFamily="@font/notosanskr_regular_hestia"

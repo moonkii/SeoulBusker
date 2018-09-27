@@ -26,6 +26,7 @@
             android:fontFamily="@font/notosanskr_regular_hestia"
             android:textStyle="bold"
             android:textSize="17dp"
+
             android:gravity="center"
             android:textColor="@android:color/white"
             android:layout_width="0dp"

@@ -84,6 +84,7 @@
                     android:layout_weight="3"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="2018년 9월"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -120,10 +121,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
-                    android:gravity="bottom"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
+
                     android:text="이달의\n공연"
                     android:textColor="@android:color/white"
-                    android:textSize="25sp"
+                    android:textSize="22dp"
                     android:textStyle="bold">
 
                 </TextView>
@@ -182,6 +184,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_marginRight="12dp"
                 android:text="음악" />
 
@@ -198,6 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
+                android:fontFamily="@font/notosanskr_regular_hestia"
                 android:text="기악" />
 
             <ImageView
@@ -212,6 +216,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanskr_regular_hestia"
                 android:layout_marginRight="5dp"
                 android:text="퍼포먼스" />
 
@@ -220,6 +225,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="3dp"
+
                 android:adjustViewBounds="true"
                 android:src="@drawable/yellow" />
 
@@ -228,6 +234,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
+                android:fontFamily="@font/notosanskr_regular_hestia"
                 android:text="전통" />
 
 

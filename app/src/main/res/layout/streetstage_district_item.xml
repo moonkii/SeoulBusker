@@ -40,6 +40,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:paddingTop="8dp"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:paddingBottom="8dp"
                     android:text="강동구"
                     android:textSize="16dp"
@@ -51,6 +52,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textAlignment="viewEnd"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:layout_gravity="center_vertical"
                     android:text="2개의 공연장"
                     android:layout_marginRight="2dp"/>

@@ -13,6 +13,7 @@
         android:fontFamily="@font/notosanskr_regular_hestia"
         android:gravity="center"
         android:text="공연 일정을 선택해주세요"
+
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

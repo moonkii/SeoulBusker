@@ -109,6 +109,7 @@
                     android:layout_weight="3"
                     android:orientation="horizontal"
                     android:text="공연 알림"
+                    android:fontFamily="@font/notosanskr_regular_hestia"
                     android:textColor="@android:color/white"
                     android:textSize="25sp"
                     android:textStyle="bold"></TextView>
