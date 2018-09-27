@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -57,7 +58,8 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
     private RealmResults<StageInfo> result_StageInfoDistrict;
 
     private ImageView img_backBtn;
-    private Bitmap curLocationMarker;
+    private boolean showDialogTag = true;
+    private AlertDialog dialog_gpsSetting;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,7 +72,6 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-
         img_backBtn = (ImageView) findViewById(R.id.near_stage_img_backbtn);
         img_backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,14 +81,13 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
         });
 
         result_StageInfo = realm.where(StageInfo.class).findAll();
-        curLocationMarker = BitmapFactory.decodeResource(getResources(), R.drawable.main_color_circle);
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
+        if (dialog_gpsSetting != null) dialog_gpsSetting.dismiss();
 
     }
 
@@ -131,9 +131,9 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
                 String district = address.split(" ")[2];
                 result_StageInfoDistrict = getDistrictStageData(district);
 
-                if (result_StageInfoDistrict.size() > 0){
+                if (result_StageInfoDistrict.size() > 0) {
                     addMapMarker(result_StageInfoDistrict.size());
-                }else{
+                } else {
                     Toast.makeText(NearStageActivity.this, "주변에 공연장이 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -169,7 +169,7 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
     }
 
     private RealmResults<StageInfo> getDistrictStageData(String district) {
-        return result_StageInfo.where().equalTo("district",district).findAll();
+        return result_StageInfo.where().equalTo("district", district).findAll();
     }
 
     //위도,경도로부터 주소추출
@@ -219,12 +219,20 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
     }
 
     void checkGPS() {
-        if (locationManager != null) {
+        if (locationManager != null && showDialogTag) {
             if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                showDialogTag = false;
                 View customView = getLayoutInflater().inflate(R.layout.dialog_gps_setting, null);
                 Button btn_setting = (Button) customView.findViewById(R.id.gps_setting_btn_gosetting);
-                final AlertDialog dialog_gpsSetting = new AlertDialog.Builder(this)
+                dialog_gpsSetting = new AlertDialog.Builder(this)
                         .setView(customView)
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                                    Toast.makeText(NearStageActivity.this, "GPS기능이 꺼져 있어 주변 공연장 정보를 받아 옿 수 없습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        })
                         .show();
                 btn_setting.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -232,11 +240,9 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
                         Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivity(intent);
-                        dialog_gpsSetting.dismiss();
+                        //dialog_gpsSetting.dismiss();
                     }
                 });
-
-
             }
         }
     }
