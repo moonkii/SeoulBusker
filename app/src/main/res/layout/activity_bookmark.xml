@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.3"
+        android:layout_weight="2"
         android:background="@color/actionBar">
 
         <ImageView
@@ -23,10 +23,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_below="@+id/bookmark_img_back_btn"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
-
             android:fontFamily="@font/notosanskr_regular_hestia"
             android:text="내 북마크"
             android:textColor="#FFF"
@@ -51,7 +50,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/bookmark_recycler_group"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingTop="16dp">
 
         </android.support.v7.widget.RecyclerView>
 
