@@ -105,7 +105,6 @@ public class UserBookmarkGroupsActivity extends AppCompatActivity implements Use
                     @Override
                     public void execute(Realm realm) {
                         result_bookmarkGroup.get(position).deleteFromRealm();
-                        Log.e("itemDelete","delete!!");
                     }
                 });
                 dialog_checkDelete.dismiss();
@@ -148,7 +147,6 @@ class UserBookMarkGroupListAdapter extends RealmRecyclerViewAdapter<UserBookMark
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder,int position) {
-        Log.e("Position", String.valueOf(position) + getData().get(position).getAddDate() ) ;
         int seq = getData().get(position).getGroupSeq();
         final GroupData data = realm.where(GroupData.class).equalTo("group_seq",seq).findFirst();
 
