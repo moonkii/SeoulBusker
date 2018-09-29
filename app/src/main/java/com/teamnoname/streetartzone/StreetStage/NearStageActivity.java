@@ -230,7 +230,7 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
                             @Override
                             public void onDismiss(DialogInterface dialog) {
                                 if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-                                    Toast.makeText(NearStageActivity.this, "GPS기능이 꺼져 있어 주변 공연장 정보를 받아 옿 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(NearStageActivity.this, "GPS기능이 꺼져 있어 주변 공연장 정보를 받아 올 수 없습니다.", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .show();
