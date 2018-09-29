@@ -154,9 +154,9 @@ public class TicketListActivity extends AppCompatActivity implements MyPagerAdap
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(TicketListActivity.this,TicketImage.class);
-        intent.putExtra("filePath",arrayList_ticket.get(position).getTicketPath());
-        intent.putExtra("coverPath",arrayList_ticket.get(position).getCoverPath());
-        intent.putExtra("isListing",true);
+        intent.putExtra("filePath",arrayList_ticket.get(position).getTicketPath());     //티켓 이미지
+        intent.putExtra("coverPath",arrayList_ticket.get(position).getCoverPath());     //티켓 배경 이미지
+        intent.putExtra("isListing",true);                                         //접근 구분
         startActivity(intent);
     }
 }
@@ -271,7 +271,6 @@ class CarouselEffectTransformer implements ViewPager.PageTransformer {
             view.setScaleX(scaleFactor);
             view.setScaleY(scaleFactor);
             view.setTranslationX(-maxTranslateOffsetX * offsetRate);
-            //ViewCompat.setElevation(view, 0.0f);
         }
         ViewCompat.setElevation(view, scaleFactor);
 

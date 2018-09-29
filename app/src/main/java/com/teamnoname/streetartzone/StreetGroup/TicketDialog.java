@@ -148,13 +148,13 @@ public class TicketDialog extends Dialog {
 
     }
 
-    public void picCapture(){   // 버튼 onClick 리스너
+    public void picCapture(){
 
 
-        linearLayout_ticket.buildDrawingCache();   // 캡처할 뷰를 지정하여 buildDrawingCache() 한다
-        Bitmap captureView = linearLayout_ticket.getDrawingCache();   // 캡쳐할 뷰를 지정하여 getDrawingCache() 한다
+        linearLayout_ticket.buildDrawingCache();
+        Bitmap captureView = linearLayout_ticket.getDrawingCache();
 
-        FileOutputStream fos;   // FileOutputStream 이용 파일 쓰기 한다
+        FileOutputStream fos;
         String strFolderPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/busker/ticket";
 
         File folder = new File(strFolderPath);
@@ -175,8 +175,8 @@ public class TicketDialog extends Dialog {
         } finally {
 
             Intent intent = new Intent(context,TicketImage.class);
-            intent.putExtra("filePath",ticketPath);
-            intent.putExtra("coverPath",imagePath);
+            intent.putExtra("filePath",ticketPath); //티켓 이미지
+            intent.putExtra("coverPath",imagePath); //티켓 배경 이미지
             context.startActivity(intent);
             Toast.makeText(context, "초대장은 공연티켓 메뉴에서 확인하실 수 있습니다.", Toast.LENGTH_SHORT).show();
             TicketDialog.this.dismiss();

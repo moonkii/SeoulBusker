@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -187,7 +186,6 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
         } else {
 
             if (arrayList_scheduleCategory.contains(holder.getAdapterPosition())) {
-                Log.v("일정 구분 포지션값 : ", "" + holder.getAdapterPosition());
                 if (holder.linearLayout_schedule_category.getVisibility() == View.GONE) {
                     holder.linearLayout_schedule_category.setVisibility(View.VISIBLE);
                 }

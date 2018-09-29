@@ -14,7 +14,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -34,10 +33,9 @@ import io.realm.annotations.PrimaryKey;
 
 public class SplashActivity extends AppCompatActivity {
 
-
     boolean isDataLoadingEnd = false;                             //데이터 로딩 완료 체크
 
-    //local database
+    //Local database
     private Realm realm;
     RealmResults<GroupData> realmResults_GroupData;               //공연팀 데이터
     RealmResults<GroupReviewData> realmResults_GroupReviewData;   //공연팀 리뷰 데이터
@@ -49,6 +47,7 @@ public class SplashActivity extends AppCompatActivity {
     DatabaseReference dbReference;
     FirebaseDatabase firebaseDatabase;
 
+    //Permission
     final int permissionRequestCodeForStorageW = 1000;
     final int permissionRequestCodeForStorageR = 1001;
     final int permissionRequestCodeForMap = 1002;
@@ -75,9 +74,6 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private void checkPermissions() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { //API level 구분
@@ -100,18 +96,8 @@ public class SplashActivity extends AppCompatActivity {
             } else {
                 //권한 모두 획득시
 
-//                if (!sharedPreferences.getBoolean("isStageData", false)) {
-//                    getStageInfoData();
-//                }
-
-
-
-                //데이터 설정
                 setFirebaseData();
 
-                Log.v("확인", "카운트다운");
-
-                //3초후에 메인 액티비티로 이동
                 Handler h = new Handler();
                 h.postDelayed(new Runnable() {
                     @Override
@@ -125,17 +111,8 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             //마시멜로 미만 버전 ( 권한 요청 따로 구분 x)
 
-//            if (!sharedPreferences.getBoolean("isStageData", false)) {
-//                getStageInfoData();
-//            }
-
-
-            //데이터 설정
             setFirebaseData();
 
-            Log.v("확인", "카운트다운");
-
-            //3초후에 메인 액티비티로 이동
             Handler h = new Handler();
             h.postDelayed(new Runnable() {
                 @Override
@@ -157,12 +134,13 @@ public class SplashActivity extends AppCompatActivity {
 
             case permissionRequestCodeForMap:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
                     //권한 허용 (다시 권한 체크 로직 -> 모두 완료되면 다음 이벤트 실행)
                     checkPermissions();
 
                 } else {
-                    //권한 거절 시
 
+                    //권한 거절 시
                     finish();
                     Toast.makeText(this, "권한을 허용하셔야 서비스 이용이 가능합니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -171,12 +149,13 @@ public class SplashActivity extends AppCompatActivity {
 
             case permissionRequestCodeForStorageW:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
                     //권한 허용 (다시 권한 체크 로직 -> 모두 완료되면 다음 이벤트 실행)
                     checkPermissions();
 
                 } else {
-                    //권한 거절 시
 
+                    //권한 거절 시
                     finish();
                     Toast.makeText(this, "권한을 허용하셔야 서비스 이용이 가능합니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -185,12 +164,13 @@ public class SplashActivity extends AppCompatActivity {
 
             case permissionRequestCodeForStorageR:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
                     //권한 허용 (다시 권한 체크 로직 -> 모두 완료되면 다음 이벤트 실행)
                     checkPermissions();
 
                 } else {
-                    //권한 거절 시
 
+                    //권한 거절 시
                     finish();
                     Toast.makeText(this, "권한을 허용하셔야 서비스 이용이 가능합니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -216,7 +196,6 @@ public class SplashActivity extends AppCompatActivity {
 
     public void setFirebaseData() {
 
-        //init Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         dbReference = firebaseDatabase.getReference();
 
@@ -254,9 +233,6 @@ public class SplashActivity extends AppCompatActivity {
 
 
                         //거리 공연단 리뷰 데이터
-                        Log.v("리뷰데이터확인1", "" + realmResults_GroupReviewData.size());
-                        Log.v("리뷰데이터확인2", "" + dataSnapshot.child("groupdata/groupreview").getChildrenCount());
-
                         if (realmResults_GroupReviewData.size() < dataSnapshot.child("groupdata/groupreview").getChildrenCount()) {
                             reviewCount = 0;
                             for (DataSnapshot groupReviewDB : dataSnapshot.child("groupdata/groupreview").getChildren()) {
@@ -278,7 +254,6 @@ public class SplashActivity extends AppCompatActivity {
 
                             }
                         }
-
 
                         //공연일정 데이터
                         if (!sharedPreferences.getBoolean("isContestData", false)) {
@@ -306,10 +281,6 @@ public class SplashActivity extends AppCompatActivity {
                             preferenceEditor.commit();
                         }
 
-//                        //데이터 로딩 완료 체크
-//                        isDataLoadingEnd = true;
-//                        Log.v("확인", "완료");
-//
 
                         //공연장소 데이터
                         if (!sharedPreferences.getBoolean("isStageData", false)) {
@@ -332,8 +303,6 @@ public class SplashActivity extends AppCompatActivity {
 
                         //데이터 로딩 완료 체크
                         isDataLoadingEnd = true;
-                        Log.v("확인", "완료");
-
 
                     }
                 });
@@ -349,16 +318,8 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-
-    }
 
     public void goMainActivity() {
-
-
 
         if (isDataLoadingEnd) {
             Intent go_MainActivity = new Intent(SplashActivity.this, MainActivity.class);
@@ -381,15 +342,12 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }, 1500);
         }
-        Log.v("확인", "3초지남");
-
     }
 }
 
 
 
 class GroupDataItem {
-
 
     String name;
     String genre;

@@ -28,7 +28,6 @@ import io.realm.Realm;
 
 public class InfoFragment extends Fragment implements YouTubePlayer.OnInitializedListener {
 
-    //UI
     TextView tv_contents;
     ImageView imgV_main;
     YouTubePlayerSupportFragment youTubePlayerView;
@@ -41,7 +40,6 @@ public class InfoFragment extends Fragment implements YouTubePlayer.OnInitialize
     ImageButton btn_ticket;
 
     TicketScheduleDialog dialog_ticketSchedule;
-
 
     int selectedSeq;
     Realm realm;

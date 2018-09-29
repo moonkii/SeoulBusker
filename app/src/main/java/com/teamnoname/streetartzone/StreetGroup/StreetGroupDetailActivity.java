@@ -15,7 +15,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -191,9 +190,9 @@ class FragmentAdapter extends FragmentPagerAdapter {
 
 
     @Override
-    public CharSequence getPageTitle(int position) {//프래그먼트 제목 지정 메소드 시작
+    public CharSequence getPageTitle(int position) {
 
-        switch (position) { //프래그먼트 제목 지정 switch 시작
+        switch (position) {
             case 0:
                 return "소개";
 

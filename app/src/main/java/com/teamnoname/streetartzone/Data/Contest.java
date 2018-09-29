@@ -2,9 +2,6 @@ package com.teamnoname.streetartzone.Data;
 
 import io.realm.RealmObject;
 
-/**
- * Created by iyeonghan on 2018. 9. 17..
- */
 
 public class Contest extends RealmObject {
 
@@ -14,7 +11,7 @@ public class Contest extends RealmObject {
     String area;
     String date;
     String time;
-    String month; //얘는 월 바꿀때를 위한거. 월 바꿀때 해당 월만 가져와야 하기 때문임.
+    String month;
     int dateForSort;
 
     public Contest() {
