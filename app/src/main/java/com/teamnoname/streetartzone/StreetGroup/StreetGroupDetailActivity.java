@@ -124,13 +124,9 @@ public class StreetGroupDetailActivity extends AppCompatActivity {
                 NotificationCompat.Builder builder;
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    Log.e("noti", "오레오 이상");
                     builder = new NotificationCompat.Builder(StreetGroupDetailActivity.this, SoeulApp.getChannelID());
-
                 } else {
-                    Log.e("noti", "오레오 미만");
                     builder = new NotificationCompat.Builder(StreetGroupDetailActivity.this);
-
                 }
 
                 Intent dummyIntent = new Intent();
