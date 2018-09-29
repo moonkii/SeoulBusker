@@ -81,14 +81,6 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/dialog_ticket_place"
-                    android:textSize="15dp"
-                    android:fontFamily="@font/notosanskr_regular_hestia"
-                    android:textColor="@android:color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
                     android:id="@+id/dialog_ticket_time"
                     android:textSize="15dp"
                     android:textColor="@android:color/white"
@@ -97,6 +89,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+
+            <TextView
+                android:gravity="end"
+                android:layout_gravity="bottom"
+                android:id="@+id/dialog_ticket_place"
+                android:textSize="15dp"
+                android:fontFamily="@font/notosanskr_regular_hestia"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
 
 
             <View
@@ -125,7 +128,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:hint="메세지를 입력해주세요!"
+            android:hint="여기를 눌러서 메세지를 입력해주세요!"
             android:maxLines="4"
             android:inputType="none"
             android:textSize="14dp"

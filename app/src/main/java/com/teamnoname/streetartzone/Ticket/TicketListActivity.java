@@ -191,7 +191,6 @@ class MyPagerAdapter extends PagerAdapter {
             switch (adapterType)
             {
                 case TicketListActivity.ADAPTER_TYPE_TOP:
-//                    linMain.setBackgroundResource(R.drawable.shadow);
                     GlideApp.with(context)
                             .load(arrayList_ticket.get(position).getTicketPath())
                             .into(imageCover);

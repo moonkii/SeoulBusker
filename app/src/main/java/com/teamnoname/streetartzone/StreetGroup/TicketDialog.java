@@ -81,6 +81,7 @@ public class TicketDialog extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.dialog_ticket);
 
+
         imgV_ticket = (ImageView) findViewById(R.id.dialog_ticket_image);
         tv_groupName = (TextView) findViewById(R.id.dialog_ticket_groupName);
         tv_date = (TextView) findViewById(R.id.dialog_ticket_date);
@@ -90,12 +91,13 @@ public class TicketDialog extends Dialog {
         imgV_top = (ImageView) findViewById(R.id.ticket_top);
         edit_msg = (EditText) findViewById(R.id.ticket_edit);
         imgV_msg = (ImageView) findViewById(R.id.ticket_edit_background);
+
+
         imgV_sending = (ImageView) findViewById(R.id.ticket_sending);
+        imgV_sending.setMinimumWidth(imgV_top.getWidth());
 
         linearLayout_ticket = (LinearLayout) findViewById(R.id.ticket_total);
 
-        imgV_sending.setMinimumWidth(imgV_top.getWidth());
-        
 
         Glide.with(context)
                 .load(imagePath)
@@ -113,6 +115,7 @@ public class TicketDialog extends Dialog {
                         tv_place.setText(getPlace());
                         tv_time.setText(getStart()+" ~ "+getEnd());
                         edit_msg.setWidth(imgV_msg.getWidth());
+
 
                         return false;
                     }
