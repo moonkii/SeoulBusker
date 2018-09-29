@@ -138,9 +138,6 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
                     Toast.makeText(NearStageActivity.this, "GPS 신호가 약합니다. 잠시후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                Log.e("Near", address);
-
                 String district = address.split(" ")[2];
                 result_StageInfoDistrict = getDistrictStageData(district);
 
