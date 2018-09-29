@@ -300,12 +300,17 @@ public class Schedule extends AppCompatActivity implements ClickListener {
                         String teamname = contests.get(selectedPosition).getTeamName();
 
                         GroupData ro = realm.where(GroupData.class).equalTo("group_name", teamname).findFirst();
-                        int seq = ro.getGroup_seq();
-                        //팀 소개를 보여줄 것이므로 팀넘버를 넘겨준다.
-                        intent.putExtra("seq", seq);
-                        startActivity(intent);
-                        dialog.dismiss();
+                        if(ro!=null){
+                            int seq = ro.getGroup_seq();
+                            //팀 소개를 보여줄 것이므로 팀넘버를 넘겨준다.
+                            intent.putExtra("seq", seq);
+                            startActivity(intent);
+                            dialog.dismiss();
 
+                        }else{
+                            Toast.makeText(Schedule.this, "해당 공연팀은 정보가 없습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        
                     }
                 },
                 //오른쪽 리스너
