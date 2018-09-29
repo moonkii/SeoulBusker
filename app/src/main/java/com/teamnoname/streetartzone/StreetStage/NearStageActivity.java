@@ -88,16 +88,29 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
     protected void onStart() {
         super.onStart();
         if (dialog_gpsSetting != null) dialog_gpsSetting.dismiss();
+        getLocation();
 
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        getLocation();
+
 
         LatLng soeul = getLatLotFromAddress("대한민국 서울특별시");
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(soeul, 13f));
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            Toast.makeText(this, "위치 서비스 사용 권한을 설정해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        map.setMyLocationEnabled(true);
 
 
     }
@@ -110,7 +123,7 @@ public class NearStageActivity extends FragmentActivity implements OnMapReadyCal
             Toast.makeText(this, "위치 서비스 사용 권한을 설정해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
-        map.setMyLocationEnabled(true);
+        //map.setMyLocationEnabled(true);
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
