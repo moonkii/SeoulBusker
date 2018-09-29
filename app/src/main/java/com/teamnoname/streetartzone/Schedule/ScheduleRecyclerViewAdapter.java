@@ -88,6 +88,11 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
         }else {
             holder.teamname.setTextSize(20);
         }
+        if(arrayListContests.get(position).getPlace().length()>17){
+            holder.place.setTextSize(11);
+        }else{
+            holder.place.setTextSize(12);
+        }
         holder.teamname.setText(arrayListContests.get(position).getTeamName());
         holder.place.setText(arrayListContests.get(position).getPlace());
         holder.time.setText(arrayListContests.get(position).getTime());
