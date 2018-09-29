@@ -39,7 +39,6 @@ public class Notice extends Activity implements NoticeClickListener {
     @Override
     public void setOnItemClickForNotice(int selectedPosition) {
 //        Intent intent = new Intent(Notice.this,);
-        Log.i("Notice","클릭" + selectedPosition);
     }
 
     //삭제 버튼
@@ -47,7 +46,6 @@ public class Notice extends Activity implements NoticeClickListener {
     public void setOnItemClickForDeleteButton(int selectedPosition) {
         //렘에서 삭제.
         //arraylist에서 삭제.
-        Log.i("Notice","삭제 : "+selectedPosition);
     }
     public void setDataSet(){
 

@@ -70,10 +70,9 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
 
     @Override
     public void onBindViewHolder(@NonNull ScheduleViewHolder holder, final int position) {
-        Log.i("Adapter","onBindViewHolder");
 
         String fullDate = arrayListContests.get(position).getDate();
-        Log.i("ScheduleRecyclerViewAdapter","날자 : "+fullDate);
+
         String[] devidedDate = fullDate.split("-");
         int year =Integer.parseInt(devidedDate[0]);
         int month = Integer.parseInt(devidedDate[1]);
@@ -83,10 +82,10 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
         try {
              whatDate = getDateDay(fullDate);
         } catch (Exception e) {
-            Log.i("Adapter","요일얻기 에러");
+
             e.printStackTrace();
         }
-        Log.i("Adapter","일 : "+date+" whatdate : "+whatDate);
+
 //        boolean already = false;    //리사이클러뷰에 일표시를 해줬는지 확인하는 변수
 //        //리사이클러뷰에 이미 일표시를 해줬는지 확인하는 과정.
 //        for(int i=0;i<dateCheck.size();i++){

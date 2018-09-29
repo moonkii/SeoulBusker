@@ -55,7 +55,6 @@ class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecyclerViewA
 
     @Override
     public void onBindViewHolder(@NonNull NoticeViewHolder holder, final int position) {
-        Log.i("Adapter","onBindViewHolder");
 
         String fullDate = arrayListContests.get(position).getDate();
         String[] devidedDate = fullDate.split("-");
@@ -67,10 +66,10 @@ class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecyclerViewA
         try {
             whatDate = getDateDay(fullDate);
         } catch (Exception e) {
-            Log.i("Adapter","요일얻기 에러");
+
             e.printStackTrace();
         }
-        Log.i("Adapter","일 : "+date+" whatdate : "+whatDate);
+
 //        boolean already = false;    //리사이클러뷰에 일표시를 해줬는지 확인하는 변수
 //        //리사이클러뷰에 이미 일표시를 해줬는지 확인하는 과정.
 //        for(int i=0;i<dateCheck.size();i++){

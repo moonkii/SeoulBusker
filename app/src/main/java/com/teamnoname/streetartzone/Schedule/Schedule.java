@@ -136,8 +136,7 @@ private void viewInit(){
             //현재월인지 확인하기
             //현재월이면 오늘 날짜로 표시해주고 아니면 1일로 포커싱
             //해당 날짜로 리사이클러뷰 포커싱 하기.
-            Log.i("Schedule","selMonth : "+selMonth);
-            Log.i("Schedule","nowMonth : "+nowMonth);
+
             if(nowMonth==selMonth){
             selDate = nowDate;
             }else{
@@ -180,8 +179,7 @@ private void viewInit(){
             else{
                 selMonth+=1;
             }
-            Log.i("Schedule","selMonth : "+selMonth);
-            Log.i("Schedule","nowMonth : "+nowMonth);
+
 //            //변경된 월수에 맞춰 상단 날짜 변경.
             showMonth.setText(selYear+"년 "+selMonth+"월");
 
@@ -221,7 +219,7 @@ public void changedMonth(){
     if(selMonth==nowMonth&&selYear==nowYear){
         //리스트뷰를 해당 월에 맞춰 변경해 줘야함.
         date_adapter.setCurrentMonth(nowMonth,nowDate);
-        Log.i("Schedule","날짜변경 : "+date_adapter.getSelected_month());
+
         //ArrayList안에 있는 데이터도 모두 현재월의 데이터로 변경해줘야함.
         //그 이후 스케쥴 노티
         schedule_adapter.notifyDataSetChanged();
@@ -263,12 +261,10 @@ public int getGenre(String genre){
 
 //현재 arraylist에 있는 date를 찾아서 몇번째 포지션에 있는지 확인하기
 public void focusItemByDate(int date){
-    Log.i("Schedule","처음date : "+date);
     boolean isItem = false;
 for(int i=0;i<contests.size();i++){
 
     String fullDate = contests.get(i).getDate();
-    Log.i("Schedule","날짜 : "+fullDate);
     String[] devidedDate = fullDate.split("-");
 
     int thisdate = Integer.parseInt(devidedDate[2]);
@@ -280,7 +276,7 @@ for(int i=0;i<contests.size();i++){
         isItem = true;
         break;
     }
-    Log.i("Schedule","date : "+date+"thisdate : "+thisdate);
+
 }
 if(!isItem){
     Toast.makeText(Schedule.this,date+"일에 공연이 없습니다.",Toast.LENGTH_SHORT).show();
@@ -304,16 +300,16 @@ if(!isItem){
         date_rv.setAdapter(date_adapter);
 //        date_rv.scrollToPosition(nowDate+1);
         date_rv.smoothScrollToPosition(nowDate+1);
-        Log.i("Schedule","setScheduleRecyclerView DATE : "+nowDate);
+
 
     }
     public void setDataSet(){
-        Log.i("setDataSet","선택된 월 : "+nowMonth);
+
 
         realm.beginTransaction();
         RealmResults<Contest> realmResults = realm.where(Contest.class).equalTo("month",selMonth+"").findAllSorted("date");
         for (int i=0;i<realmResults.size();i++){
-            Log.i("가져오려는 팀명 : ",realmResults.get(i).getTeamname());
+
             GroupData ro = realm.where(GroupData.class).equalTo("group_name",realmResults.get(i).getTeamname()).findFirst();
             String place = "["+realmResults.get(i).getDistrict()+"]"+realmResults.get(i).getArea();
             int genre = 0;
@@ -321,7 +317,6 @@ if(!isItem){
                  genre = getGenre(ro.getGroup_genre());
             }
 
-            Log.i("돌아감.",place);
             contests.add(new Contestitem(realmResults.get(i).getNum(),realmResults.get(i).getTeamname(),genre,realmResults.get(i).getDate(),realmResults.get(i).getTime(),place));
         }
         realm.commitTransaction();
@@ -331,7 +326,6 @@ if(!isItem){
 
     @Override
     public void setOnItemClickForDate(int selectedDate) {
-            Log.i("Schedule","날짜 : "+selectedDate);
             //날짜 구해서 해당 날짜로 아이템 포커싱
             focusItemByDate(selectedDate);
 
@@ -340,7 +334,6 @@ if(!isItem){
 
     @Override
     public void setOnItemClickForSchedule(final int selectedPosition) {
-        Log.i("Schedule","선택된 포지션 : "+selectedPosition);
         //아이템 클릭시,
          dialog = new MenuDialog(Schedule.this,
                 //왼쪽 리스너
@@ -354,10 +347,8 @@ if(!isItem){
 
                         GroupData ro = realm.where(GroupData.class).equalTo("group_name",teamname).findFirst();
                         int seq = ro.getGroup_seq();
-                        Log.i("teamname",teamname);
                         //팀 소개를 보여줄 것이므로 팀넘버를 넘겨준다.
                         intent.putExtra("seq",seq);
-                        Log.i("팀 시퀀스 : ",seq+"");
                         startActivity(intent);
                         dialog.dismiss();
 
@@ -375,15 +366,11 @@ if(!isItem){
                         //진짜 주소를 찾아서 넘겨줘야함.
                         int num = contests.get(selectedPosition).getContestnum();
                         realm.beginTransaction();
-                        Log.i("Schedule","리스트뷰에 띄워지는 주소 : "+contests.get(selectedPosition).getPlace());
                         Contest contest = realm.where(Contest.class).equalTo("num",num).findFirst();
 
                         StageInfo stageInfo = realm.where(StageInfo.class).like("placeName","*"+contest.getArea()+"*").findFirst();
-                        Log.i("Schedule","장소명 : "+contest.getArea());
                         if(stageInfo==null){
-                            Log.i("Schedule","Schedule 빈 여부: true");
                         }else {
-                            Log.i("Schedule","Schedule 빈 여부: false");
                         }
 
                         //공연 위치를 보여줘야 하므로\ 공연 넘버를 넘겨줌
