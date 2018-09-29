@@ -1,20 +1,15 @@
 package com.teamnoname.streetartzone.Schedule;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.teamnoname.streetartzone.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by iyeonghan on 2018. 9. 17..
- */
 
 public class Notice extends Activity implements NoticeClickListener {
     RecyclerView notice_rv;

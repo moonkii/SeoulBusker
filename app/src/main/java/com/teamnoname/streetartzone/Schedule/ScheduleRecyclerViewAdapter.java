@@ -2,9 +2,7 @@ package com.teamnoname.streetartzone.Schedule;
 
 import android.graphics.Color;
 import android.icu.util.Calendar;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,25 +52,11 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
     }
 
 
-//    //현재의 포지션을 확인하여 어떤 타입의 레이아웃을 보여줄지 결정할 viewtype을 리턴함.
-//    //position : 새로 보여질 뷰의 포지션값.. 그때 현재 리사이클러뷰에서 보여지는 몇번쨰 포지션인지 리턴함
-//    @Override
-//    public int getItemViewType(int position){
-//        Log.i("Adapter","getItemViewType position : "+position);
-//        Log.i("Adapter","getItemViewType position : "+super.getItemViewType(position));
-//
-//        arrayListContests.get(position).getDate();
-//        //구분선을 어떻게 나눌지 생각해 봐야함.
-//        //일을 확인해서
-//        return 0;
-//    }
-
 
     @Override
     public void onBindViewHolder(@NonNull ScheduleViewHolder holder, final int position) {
 
         String fullDate = arrayListContests.get(position).getDate();
-
         String[] devidedDate = fullDate.split("-");
         int year =Integer.parseInt(devidedDate[0]);
         int month = Integer.parseInt(devidedDate[1]);
@@ -82,17 +66,10 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
         try {
              whatDate = getDateDay(fullDate);
         } catch (Exception e) {
-
+            Log.i("Adapter","요일얻기 에러");
             e.printStackTrace();
         }
 
-//        boolean already = false;    //리사이클러뷰에 일표시를 해줬는지 확인하는 변수
-//        //리사이클러뷰에 이미 일표시를 해줬는지 확인하는 과정.
-//        for(int i=0;i<dateCheck.size();i++){
-//            if(dateCheck.get(i)==date){
-//                already = true;
-//            }
-//        }
         if(dateNotice.get(date)==null){
             dateNotice.put(date,position);
             holder.date.setText(date+"("+whatDate+")");
@@ -104,12 +81,7 @@ class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerV
         }else{
             holder.date.setVisibility(View.GONE);
         }
-//        //안해줬다면, 현재 요일을 입력해주고 visible로 변경.
-//        if(already==false){
-//            holder.date.setText(date+"("+whatDate+")");
-//            holder.date.setVisibility(View.VISIBLE);
-//            dateCheck.add(date);
-//        }
+
 
         if(arrayListContests.get(position).getTeamName().length()>10){
             holder.teamname.setTextSize(15);

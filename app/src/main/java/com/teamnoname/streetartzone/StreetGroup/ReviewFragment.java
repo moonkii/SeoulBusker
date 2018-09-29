@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,7 +117,6 @@ public class ReviewFragment extends Fragment {
 
     public void setReviewData(){
 
-        Log.v("데이터확인!!!!","갱신");
         realmResults_total = realm.where(GroupReviewData.class).findAll();
 
         firebaseDatabase =FirebaseDatabase.getInstance();
@@ -128,10 +126,6 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
 
-                Log.v("데이터 확인0",""+realmResults_total.size());
-                Log.v("데이터 확인1",""+realmResults.size());
-                Log.v("데이터 확인2",""+dataSnapshot.getChildrenCount());
-
                 if(realmResults_total.size()<dataSnapshot.getChildrenCount()){
 
 
@@ -140,13 +134,11 @@ public class ReviewFragment extends Fragment {
                         public void execute(Realm realm) {
                             int reviewCount = 0;
                             for (DataSnapshot groupReviewDB : dataSnapshot.getChildren()) {
-                                Log.v("데이터 확인",""+groupReviewDB.getValue().toString());
 
                                 reviewCount += 1;
 
                                 if (realmResults_total.size() < reviewCount) {
 
-                                    Log.v("데이터 확인","데이터삽입"+reviewCount);
                                     GroupReviewDataItem groupReviewDataItem = groupReviewDB.getValue(GroupReviewDataItem.class);
                                     GroupReviewData groupReviewData = new GroupReviewData();
 
@@ -167,7 +159,6 @@ public class ReviewFragment extends Fragment {
                 }
 
                 realmResults = realm.where(GroupReviewData.class).equalTo("seq",selectedSeq).findAll();
-                Log.v("데이터 확인 개수",""+realmResults.size());
                 arrayList_review= new ArrayList<>();
 
                 for(int i=0; i<realmResults.size(); i++){

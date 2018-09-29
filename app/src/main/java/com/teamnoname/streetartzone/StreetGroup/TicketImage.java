@@ -121,7 +121,7 @@ public class TicketImage extends AppCompatActivity {
                                     //파일 존재 확인
                                     if (file.delete()) {
 
-                                        refreshGallery(file); //갤러리 갱신
+                                        refreshGallery(file);
 
                                         realm.executeTransaction(new Realm.Transaction() {
                                             @Override
@@ -206,7 +206,6 @@ public class TicketImage extends AppCompatActivity {
         if (shareFile.exists()) {
             //파일 존재 여부 검사
 
-//            Uri uri = Uri.fromFile(shareFile); //파일 경로를 uri로 변경
             Uri uri = FileProvider.getUriForFile(TicketImage.this, BuildConfig.APPLICATION_ID + ".provider",shareFile);
 
             Intent shareIntent = new Intent();

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,9 +66,6 @@ public class StreetGroupRecyclerViewAdapter extends RecyclerView.Adapter<StreetG
         double rating=0;
         if(arrayList_item.get(position).getGroup_reviewNumber()>0){
             rating = arrayList_item.get(position).getGroup_score()/(double) arrayList_item.get(position).getGroup_reviewNumber();
-            Log.v("레이팅확인1",""+rating);
-            Log.v("레이팅확인2",""+arrayList_item.get(position).getGroup_score());
-            Log.v("레이팅확인3",""+arrayList_item.get(position).getGroup_reviewNumber());
         }
 
 

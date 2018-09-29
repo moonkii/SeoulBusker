@@ -20,10 +20,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 
-/**
- * Created by iyeonghan on 2018. 9. 17..
- */
-
 
 public
 //알림 어댑터
@@ -31,7 +27,6 @@ class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecyclerViewA
 
     ArrayList<Contestitem> arrayListContests;
     NoticeClickListener clickListener;
-//    ArrayList<Integer> dateCheck = new ArrayList<>();
     Hashtable<Integer,Integer> dateNotice = new Hashtable<>();
 
     public NoticeRecyclerViewAdapter(ArrayList<Contestitem> arrayList,NoticeClickListener clickListener) {
@@ -55,6 +50,7 @@ class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecyclerViewA
 
     @Override
     public void onBindViewHolder(@NonNull NoticeViewHolder holder, final int position) {
+        Log.i("Adapter","onBindViewHolder");
 
         String fullDate = arrayListContests.get(position).getDate();
         String[] devidedDate = fullDate.split("-");
@@ -66,34 +62,8 @@ class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecyclerViewA
         try {
             whatDate = getDateDay(fullDate);
         } catch (Exception e) {
-
             e.printStackTrace();
         }
-
-//        boolean already = false;    //리사이클러뷰에 일표시를 해줬는지 확인하는 변수
-//        //리사이클러뷰에 이미 일표시를 해줬는지 확인하는 과정.
-//        for(int i=0;i<dateCheck.size();i++){
-//            if(dateCheck.get(i)==date){
-//                already = true;
-//            }
-//        }
-//        if(dateNotice.get(date)==null){
-//            dateNotice.put(date,position);
-//            holder.date.setText(date+"("+whatDate+")");
-//            holder.date.setVisibility(View.VISIBLE);
-//
-//        }else if(dateNotice.get(date)==position){
-//            holder.date.setText(date+"("+whatDate+")");
-//            holder.date.setVisibility(View.VISIBLE);
-//        }else{
-//            holder.date.setVisibility(View.GONE);
-//        }
-//        //안해줬다면, 현재 요일을 입력해주고 visible로 변경.
-//        if(already==false){
-//            holder.date.setText(date+"("+whatDate+")");
-//            holder.date.setVisibility(View.VISIBLE);
-//            dateCheck.add(date);
-//        }
 
         holder.teamname.setText(arrayListContests.get(position).getTeamName());
         holder.place.setText(date+"일 "+arrayListContests.get(position).getPlace());
