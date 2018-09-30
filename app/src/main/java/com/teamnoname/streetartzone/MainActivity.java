@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         arrayList_banner.add(R.drawable.home_banner3);
     }
 
+
     public void setBannerViewPager(){
         autoScrollViewPager = (AutoScrollViewPager) findViewById(R.id.main_bannerViewPager);
         mainBannerAdapter = new MainBannerAdapter(arrayList_banner,MainActivity.this);
