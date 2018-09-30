@@ -72,6 +72,9 @@ public class StageMapDialog extends android.support.v4.app.DialogFragment implem
         tv_placeName.setText(stageInfo.getPlaceName());
         tv_address.setText(stageInfo.getAddress());
 
+        tv_placeName.setSelected(true);
+        tv_placeName.requestFocus();
+
         Dialog dialog = this.getDialog();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCanceledOnTouchOutside(true);

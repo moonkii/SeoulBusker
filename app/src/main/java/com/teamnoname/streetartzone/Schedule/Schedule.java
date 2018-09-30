@@ -190,7 +190,7 @@ public class Schedule extends AppCompatActivity implements ClickListener {
         }
         contests.clear();
         realm.beginTransaction();
-        RealmResults<Contest> realmResults = realm.where(Contest.class).equalTo("month", selMonth + "").findAllSorted("dateForSort");
+        RealmResults<Contest> realmResults = realm.where(Contest.class).equalTo("month", selMonth + "").notEqualTo("time","~").findAllSorted("dateForSort");
         for (int i = 0; i < realmResults.size(); i++) {
             GroupData ro = realm.where(GroupData.class).equalTo("group_name", realmResults.get(i).getTeamname()).findFirst();
             String place = "[" + realmResults.get(i).getDistrict() + "]" + realmResults.get(i).getArea();
@@ -264,7 +264,7 @@ public class Schedule extends AppCompatActivity implements ClickListener {
     public void setDataSet() {
 
         realm.beginTransaction();
-        RealmResults<Contest> realmResults = realm.where(Contest.class).equalTo("month", selMonth + "").findAllSorted("date");
+        RealmResults<Contest> realmResults = realm.where(Contest.class).equalTo("month", selMonth + "").notEqualTo("time","~").findAllSorted("date");
         for (int i = 0; i < realmResults.size(); i++) {
             GroupData ro = realm.where(GroupData.class).equalTo("group_name", realmResults.get(i).getTeamname()).findFirst();
             String place = "[" + realmResults.get(i).getDistrict() + "]" + realmResults.get(i).getArea();
