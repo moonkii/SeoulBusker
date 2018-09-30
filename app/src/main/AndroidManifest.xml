@@ -32,7 +32,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar"
-        android:name=".SoeulApp">
+        android:name=".SoeulApp"
+        >
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -45,7 +46,8 @@
         </provider>
 
         <!--스플래쉬 화면-->
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,37 +55,48 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
 
         <!-- 스케쥴 -->
-        <activity android:name=".Schedule.Schedule" />
+        <activity android:name=".Schedule.Schedule"
+            android:screenOrientation="portrait"/>
 
         <!-- 공연팀 -->
-        <activity android:name=".StreetGroup.StreetGroupAcitivty" />
+        <activity android:name=".StreetGroup.StreetGroupAcitivty"
+            android:screenOrientation="portrait"/>
 
         <!-- 공연팀 상세 페이지 -->
-        <activity android:name=".StreetGroup.StreetGroupDetailActivity" />
+        <activity android:name=".StreetGroup.StreetGroupDetailActivity"
+            android:screenOrientation="portrait"/>
 
         <!-- 공연팀 상세 이미지 클릭 -->
-        <activity android:name=".StreetGroup.StreetGroupDetailImgActivity"/>
+        <activity android:name=".StreetGroup.StreetGroupDetailImgActivity"
+            android:screenOrientation="portrait"/>
 
         <!-- 티켓 이미지 화면-->
-        <activity android:name=".StreetGroup.TicketImage"/>
+        <activity android:name=".StreetGroup.TicketImage"
+            android:screenOrientation="portrait"/>
 
         <!-- 공연팀 리뷰 작성 -->
-        <activity android:name=".StreetGroup.WriteReview"/>
+        <activity android:name=".StreetGroup.WriteReview"
+            android:screenOrientation="portrait"/>
 
         <!--공연장소-->
-        <activity android:name=".StreetStage.StreetStageAcitivity" />
+        <activity android:name=".StreetStage.StreetStageAcitivity"
+            android:screenOrientation="portrait"/>
 
         <!--알림-->
-        <activity android:name=".StreetGroup.UserBookmarkGroupsActivity"/>
+        <activity android:name=".StreetGroup.UserBookmarkGroupsActivity"
+            android:screenOrientation="portrait"/>
 
         <!--내주변 공연장-->
-        <activity android:name=".StreetStage.NearStageActivity"/>
+        <activity android:name=".StreetStage.NearStageActivity"
+            android:screenOrientation="portrait"/>
 
         <!-- 내티켓 -->
-        <activity android:name=".Ticket.TicketListActivity"/>
+        <activity android:name=".Ticket.TicketListActivity"
+            android:screenOrientation="portrait"/>
 
 
         <!--
