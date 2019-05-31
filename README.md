@@ -19,24 +19,14 @@ __<거리 공연단 리스트>__
 
  __거리 공연단 상세 정보(설명, 사진, 유튜브 영상 제공)__       | __거리 공연단 공연 정보__                            | __거리 공연단 리뷰__
 :--------------------------------------------------:|:------------------------------------------------:-------------------------------------------------------:
-<img width="30%" src="./images/busker_detail.png">  | <img width="30%" src="./images/busker_date.png">| <img width="30%" src="./images/busker_date.png"> 
+<img width="30%" src="./images/busker_detail.png">  | <img width="30%" src="./images/busker_date.png">| <img width="30%" src="./images/busker_review.png"> 
 
 
 
 
 
-
-__<거리 공연단 일정 보기>__
-
-<img width="30%" src="./images/busker_.png"> 
-
-__<거리 공연단 리뷰>__
-
-<img width="30%" src="./images/busker_.png"> 
-
-__<공연장 안내>__
-
-
-<img width="30%" src="./images/busker_.png"> 
-
-__<>__
+<p float="left">
+ <img width="30%" src="./images/busker_detail.png">
+ <img width="30%" src="./images/busker_date.png">
+ <img width="30%" src="./images/busker_review.png"> 
+</p>
