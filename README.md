@@ -9,7 +9,8 @@
 <img width="30%" src="./images/busker_splash.png"> &nbsp; &nbsp; &nbsp; &nbsp;      
 <img width="30%" src="./images/busker_main.png"> 
 </p> 
-&nbsp;&nbsp;&nbsp;&nbsp;__<스플래쉬 화면>__ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __<4가지 메뉴의 메인화면>__
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp 스플래쉬 화면&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4가지 메뉴의 메인화면
 
 
 <img width="30%" src="./images/busker_main.png"> 
