@@ -4,5 +4,7 @@
 
 
 #앱 소개
-<img width="50%" src="./images/busker_splash.png"> 
+
+<img width="20%" src="./images/busker_splash.png"> 
+
 __메인 화면__
