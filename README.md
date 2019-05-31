@@ -15,15 +15,17 @@ __<스플래쉬 화면>__ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br>
 <br>
 <br>
-<img width="30%" src="./images/busker_list.png"> 
+<img width="30%" src="./images/busker_list.png">  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 __<거리 공연단 리스트>__
 
-
+<br>
+<br>
+<br>
 
 
 <p float="left">
- <img height="30%" width="30%" src="./images/busker_detail.png">
+ <img width="30%" src="./images/busker_detail.png">
  <img width="30%" src="./images/busker_date.png">
  <img width="30%" src="./images/busker_review.png"> 
 </p>
