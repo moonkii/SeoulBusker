@@ -16,19 +16,18 @@ __<스플래쉬 화면>__ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br>
 <br>
 <img width="30%" src="./images/busker_list.png">  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 __<거리 공연단 리스트>__
 
 <br>
 <br>
 <br>
 
-
 <p float="left">
- <img width="30%" src="./images/busker_detail.png">
- <img width="30%" src="./images/busker_date.png">
- <img width="30%" src="./images/busker_review.png"> 
+ <img width="30%" src="./images/busker_detail.png">&nbsp; &nbsp; &nbsp; &nbsp; 
+ <img width="30%" src="./images/busker_date.png">&nbsp; &nbsp; &nbsp; &nbsp; 
+ <img width="30%" src="./images/busker_review.png"> &nbsp; &nbsp; &nbsp; &nbsp; 
 </p>
 
 
- __거리 공연단 상세 정보(설명, 사진, 유튜브 영상 제공)__       __거리 공연단 공연 정보__           __거리 공연단 리뷰__
+ __<거리 공연단 상세 정보(설명, 사진, 유튜브 영상 제공)>__ __<거리 공연단 공연 정보>__ &nbsp; &nbsp; &nbsp; &nbsp; __<거리 공연단 리뷰>__
