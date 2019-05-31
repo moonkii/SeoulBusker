@@ -17,16 +17,13 @@ __<4가지 메뉴의 메인화면>__
 
 __<거리 공연단 리스트>__
 
- __거리 공연단 상세 정보(설명, 사진, 유튜브 영상 제공)__       | __거리 공연단 공연 정보__                            | __거리 공연단 리뷰__
-:--------------------------------------------------:|:------------------------------------------------:----------------------:
-<img width="30%" src="./images/busker_detail.png">  | <img width="30%" src="./images/busker_date.png">| <img width="30%" src="./images/busker_review.png"> 
-
-
-
 
 
 <p float="left">
- <img height="80%" width="30%" src="./images/busker_detail.png">
+ <img height="80%" src="./images/busker_detail.png">
  <img width="30%" src="./images/busker_date.png">
  <img width="30%" src="./images/busker_review.png"> 
 </p>
+
+
+ __거리 공연단 상세 정보(설명, 사진, 유튜브 영상 제공)__       __거리 공연단 공연 정보__           __거리 공연단 리뷰__
