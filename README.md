@@ -29,13 +29,13 @@ __<거리 공연단 리스트>__
  <img width="30%" src="./images/busker_review.png"> &nbsp; &nbsp; &nbsp; &nbsp; 
 </p>
 
- __<상세 정보(설명, 사진, 유튜브 영상 제공)>__ &nbsp; &nbsp; &nbsp; &nbsp; __<거리 공연단 공연 정보>__ &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; __<거리 공연단 리뷰>__
+ __<상세 정보(설명, 사진, 유튜브 영상 제공)>__ &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; __<거리 공연단 공연 정보>__ &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; __<거리 공연단 리뷰>__
 
  
  
  
  <p float="left" >
-<img width="30%" src="./images/busker_mpas.png"> &nbsp; &nbsp; &nbsp; &nbsp;      
+<img width="30%" src="./images/busker_maps.png"> &nbsp; &nbsp; &nbsp; &nbsp;      
 <img width="30%" src="./images/busker_map.png"> 
 </p> 
 
@@ -46,13 +46,12 @@ __<공연장 리스트 보기>__ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 <br>
  <img width="30%" src="./images/busker_monthly.png">  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-__<공연 일정>__
+__<공연 일정>__  
 <br>
 <br>
 <br>
  <p float="left" >
-<img width="30%" src="./images/busker_ticket.png"> &nbsp; &nbsp; &nbsp; &nbsp;      
-<img width="30%" src="./images/busker_map.png"> 
+<img width="30%" src="./images/busker_ticket.png">     
 </p> 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
