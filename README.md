@@ -19,8 +19,9 @@ __<거리 공연단 리스트>__
 
 
 
+
 <p float="left">
- <img height="80%" src="./images/busker_detail.png">
+ <img height="30%" width="30%" src="./images/busker_detail.png">
  <img width="30%" src="./images/busker_date.png">
  <img width="30%" src="./images/busker_review.png"> 
 </p>
