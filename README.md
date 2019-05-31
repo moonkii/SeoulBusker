@@ -17,9 +17,9 @@ __<4가지 메뉴의 메인화면>__
 
 __<거리 공연단 리스트>__
 
-
-<img width="30%" src="./images/busker_.png"> 
-<img width="30%" src="./images/busker_date.png"> 
+test                                                | test1
+:--------------------------------------------------:|:------------------------------------------------:
+<img width="30%" src="./images/busker_detail.png">  | <img width="30%" src="./images/busker_date.png"> 
 <img width="30%" src="./images/busker_.png"> 
 
 __<거리 공연단 상세 정보(설명, 사진, 유튜브 영상 제공) / 공연 일정보기 / 공연 리뷰>__
