@@ -1,6 +1,7 @@
 # SeoulBusker
 [2018년 서울시 앱 공모전 수상작 - 예선당선작] \
 서울 버스커. 서울 거리예술존 활성화와 홍보를 위한 티켓(초대장) 생성과 거리공연 정보제공을 위한 어플리케이션. https://mplatform.seoul.go.kr/w/contest/award/2018/nominee/selectPageListNominee.do
+* 현재 서버상황으로 인해 앱이 정상 구동되지 않습니다.
 
 # 기능 간략 소개
 1. 거리 공연단 : 거리 공연단 리스트 및 상세보기에서 정보, 공연일정, 리뷰 제공
